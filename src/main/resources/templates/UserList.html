@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+ユーザー一覧
+<table border="1" style="border-collapse:collapse;">
+  <thead>
+  <tr><th class="hidden">ID</th><th>メールアドレス</th><th>ユーザーネーム</th><th>パスワード</th><th>会員</th></tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="user : ${adminList}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.mailaddress}"></td>
+    <td th:text="${user.username}"></td>
+    <td th:text="${user.password}"></td>
+    <td th:text="${user.rolename}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

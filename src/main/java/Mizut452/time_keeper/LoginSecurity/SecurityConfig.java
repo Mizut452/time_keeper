@@ -17,7 +17,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login")
                 .loginPage("/login")
                 .defaultSuccessUrl("/")
-                .failureUrl("login?error")
+                .failureUrl("/login?error")
                 .permitAll()
         ).logout(logout -> logout
                 .logoutSuccessUrl("/")
@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .permitAll()
                 .mvcMatchers("/login")
                 .permitAll()
-                .mvcMatchers("createaccount")
+                .mvcMatchers("/createaccount")
                 .permitAll()
                 .mvcMatchers("/add")
                 .permitAll()
