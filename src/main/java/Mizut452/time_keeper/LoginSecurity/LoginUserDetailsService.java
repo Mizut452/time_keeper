@@ -1,0 +1,27 @@
+package Mizut452.time_keeper.LoginSecurity;
+
+import Mizut452.time_keeper.Model.Record.LoginUser;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class LoginUserDetailsService implements UserDetailsService {
+    private final LoginUserRepository repo;
+
+    public LoginUserDetailsService(LoginUserRepository repo) {
+        this.repo = repo;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<LoginUser> loginUser = repo.findByUsername(username);
+        return loginUser.map(loginUser -> new LoginUserDetails(loginUser))
+                .orElseThrow(() -> new UsernameNotFoundException("not found"));
+        return new LoginUserDetails(loginUser, AuthorityUtils.createAuthorityList(loginUser.getRole()));
+    }
+}

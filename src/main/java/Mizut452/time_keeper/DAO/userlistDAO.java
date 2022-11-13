@@ -1,8 +1,8 @@
 package Mizut452.time_keeper.DAO;
 
-import Mizut452.time_keeper.Controller.HomeController.AdminList;
-import Mizut452.time_keeper.Controller.HomeController.UserList;
-import org.apache.catalina.User;
+import Mizut452.time_keeper.Model.Record;
+import Mizut452.time_keeper.Model.Record.AdminList;
+import Mizut452.time_keeper.Model.Record.UserList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 

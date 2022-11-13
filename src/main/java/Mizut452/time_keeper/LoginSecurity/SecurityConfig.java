@@ -33,9 +33,8 @@ public class SecurityConfig {
                 .mvcMatchers("/add")
                 .permitAll()
                 .mvcMatchers("/userlist")
-                .permitAll()
-                .anyRequest()
-                .permitAll()
+                .hasRole("ADMIN")
+                .anyRequest().authenticated()
         );
         http.csrf().disable();
         return http.build();

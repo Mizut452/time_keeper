@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
 </head>
 <body>
 ユーザー一覧
+<p><span sec:authentication="principal.loginUser.username">ハロハロ</span></p>
 <table border="1" style="border-collapse:collapse;">
   <thead>
   <tr><th class="hidden">ID</th><th>メールアドレス</th><th>ユーザーネーム</th><th>パスワード</th><th>会員</th></tr>
