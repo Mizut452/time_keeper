@@ -19,9 +19,8 @@ public class LoginUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<LoginUser> loginUser = repo.findByUsername(username);
-        return loginUser.map(loginUser -> new LoginUserDetails(loginUser))
+        Optional<LoginUser> userOp = repo.findByUsername(username);
+        return userOp.map(loginUser -> new LoginUserDetails(loginUser))
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
-        return new LoginUserDetails(loginUser, AuthorityUtils.createAuthorityList(loginUser.getRole()));
     }
 }

@@ -6,8 +6,8 @@
   <title>Title</title>
 </head>
 <body>
+<p>ようこそ<span sec:authentication="principal.loginUser.username">管理者</span>さん</p>
 ユーザー一覧
-<p><span sec:authentication="principal.loginUser.username">ハロハロ</span></p>
 <table border="1" style="border-collapse:collapse;">
   <thead>
   <tr><th class="hidden">ID</th><th>メールアドレス</th><th>ユーザーネーム</th><th>パスワード</th><th>会員</th></tr>
@@ -19,7 +19,7 @@
     <td th:text="${user.mailaddress}"></td>
     <td th:text="${user.username}"></td>
     <td th:text="${user.password}"></td>
-    <td th:text="${user.rolename}"></td>
+    <td th:text="${user.roleName}"></td>
   </tr>
   </tbody>
 </table>

@@ -27,21 +27,21 @@ public class LoginUserRepository {
         String mailaddress = null;
         String username = null;
         String password = null;
-        String roleName = null;
+        List<String> roleList = new ArrayList<>();
 
         while (rs.next()) {
             if (username == null) {
                 mailaddress = rs.getString("mailaddress");
                 username = rs.getString("username");
                 password = rs.getString("password");
-                roleName = rs.getString("roleName");
             }
+            roleList.add(rs.getString("rolename"));
 
             if (username == null) {
                 return null;
             }
         }
-        return new LoginUser(mailaddress, username, password, roleName);
+        return new LoginUser(mailaddress, username, password, roleList);
     };
 
         private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;

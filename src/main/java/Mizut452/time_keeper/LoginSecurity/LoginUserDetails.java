@@ -8,13 +8,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class LoginUserDetails implements UserDetails {
-    private LoginUser loginUser;
-    private final Collection<GrantedAuthority> authorities;
+    private final LoginUser loginUser;
+    private final Collection<? extends GrantedAuthority> authorities;
 
-    public LoginUserDetails(LoginUser loginUser,
-                            Collection<GrantedAuthority> authorities) {
+    public LoginUserDetails(LoginUser loginUser) {
         this.loginUser = loginUser;
-        this.authorities = authorities;
+        this.authorities = loginUser.roleList()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role))
+                .toList();
     }
 
     public LoginUser getLoginUser() {

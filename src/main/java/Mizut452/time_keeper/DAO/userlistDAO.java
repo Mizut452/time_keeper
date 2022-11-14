@@ -40,7 +40,7 @@ public class userlistDAO {
                         row.get("mailaddress").toString(),
                         row.get("username").toString(),
                         row.get("password").toString(),
-                        row.get("rolename").toString()))
+                        row.get("roleName").toString()))
                 .toList();
 
         return userlists;
@@ -55,7 +55,7 @@ public class userlistDAO {
                         row.get("mailaddress").toString(),
                         row.get("username").toString(),
                         row.get("password").toString(),
-                        row.get("rolename").toString()))
+                        row.get("roleName").toString()))
                 .toList();
 
         return adminLists;
