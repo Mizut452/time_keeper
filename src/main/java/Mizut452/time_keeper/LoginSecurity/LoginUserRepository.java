@@ -4,6 +4,7 @@ import Mizut452.time_keeper.Model.Record.LoginUser;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public class LoginUserRepository {
             FROM userlist
             WHERE username = :username
             """;
-
 
     private static final ResultSetExtractor<LoginUser> LOGIN_USER_RESULT_SET_EXTRACTOR = (rs) -> {
         String mailaddress = null;
@@ -49,7 +49,7 @@ public class LoginUserRepository {
     public LoginUserRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
             this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         }
-        public Optional<LoginUser> findByUsername(String username){
+        public Optional<LoginUser> findByUsername(String username) {
             MapSqlParameterSource params = new MapSqlParameterSource("username", username);
 
             LoginUser loginUser = namedParameterJdbcTemplate.query(SQL_FIND_BY_USERNAME, params, LOGIN_USER_RESULT_SET_EXTRACTOR);
