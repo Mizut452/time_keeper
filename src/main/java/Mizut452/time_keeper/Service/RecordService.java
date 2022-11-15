@@ -1,6 +1,7 @@
 package Mizut452.time_keeper.Service;
 
 import Mizut452.time_keeper.Mapper.RecordMapper;
+import Mizut452.time_keeper.Model.Entity.PostRecord;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +14,7 @@ public class RecordService {
     }
 
     @Transactional(readOnly = true)
-    public Record findUsername(String username) {
+    public PostRecord findUsername(String username) {
         return recordMapper.findUsername(username);
     }
 

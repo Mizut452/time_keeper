@@ -1,7 +1,6 @@
 package Mizut452.time_keeper.LoginSecurity;
 
 import Mizut452.time_keeper.Model.Record.LoginUser;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

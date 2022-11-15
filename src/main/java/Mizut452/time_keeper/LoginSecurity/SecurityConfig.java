@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securiyFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.formLogin( login -> login
                 .loginProcessingUrl("/login")
                 .loginPage("/login")
@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .permitAll()
                 .mvcMatchers("/userlist")
                 .hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
         );
         http.csrf().disable();
         return http.build();
