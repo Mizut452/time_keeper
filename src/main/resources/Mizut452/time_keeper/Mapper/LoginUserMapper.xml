@@ -20,4 +20,9 @@
     <select id="selectUsername" resultMap="UserNameMap">
         SELECT username FROM userlist WHERE username = #{username}
     </select>
+
+    <insert id="create" parameterType="Mizut452.time_keeper.Model.Entity.LoginUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO userlist (mailaddress, username, password, rolename)
+            VALUES(#{mailaddress}, #{username}, #{password}, 'ROLE_GENERAL')
+    </insert>
 </mapper>

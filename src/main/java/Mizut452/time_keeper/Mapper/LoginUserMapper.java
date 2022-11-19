@@ -9,4 +9,6 @@ import java.util.List;
 public interface LoginUserMapper {
     List<LoginUser> selectAll();
     LoginUser selectUsername(String username);
+
+    public void create(LoginUser loginUser);
 }
