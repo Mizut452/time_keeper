@@ -99,7 +99,7 @@ public class HomeController {
         timekeep.setTotalTime(timekeep.getTotalTime());
 
         addTimekeepservice.addTimekeep(timekeep);
-        return "redirect://home";
+        return "redirect:/";
     }
 
     /*@RequestMapping("/add")

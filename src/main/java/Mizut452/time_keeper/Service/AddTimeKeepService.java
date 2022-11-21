@@ -23,8 +23,8 @@ public class AddTimeKeepService {
     public void addTimekeep(Timekeep timekeep) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        UserDetails principal = (UserDetails) auth.getPrincipal();
-        timekeep.setUsername(principal.getUsername());
+        //UserDetails principal = (UserDetails) auth.getPrincipal();
+        //timekeep.setUsername(principal.getUsername());
         timekeep.setWdate(now.format(f));
         timekeepMapper.add(timekeep);
     }
