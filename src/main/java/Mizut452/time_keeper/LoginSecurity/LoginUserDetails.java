@@ -1,6 +1,6 @@
 package Mizut452.time_keeper.LoginSecurity;
 
-import Mizut452.time_keeper.Model.Record.LoginUser;
+import Mizut452.time_keeper.Model.Entity.Record.UserRecord;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,30 +8,30 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class LoginUserDetails implements UserDetails {
-    private final LoginUser loginUser;
+    private final UserRecord userRecord;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public LoginUserDetails(LoginUser loginUser) {
-        this.loginUser = loginUser;
-        this.authorities = loginUser.roleList()
+    public LoginUserDetails(UserRecord userRecord) {
+        this.userRecord = userRecord;
+        this.authorities = userRecord.roleList()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role))
                 .toList();
     }
 
-    public LoginUser getLoginUser() {
-        return loginUser;
+    public UserRecord getUserRecord() {
+        return userRecord;
     }
 
 
     @Override
     public String getPassword() {
-        return loginUser.password();
+        return userRecord.password();
     }
 
     @Override
     public String getUsername() {
-        return loginUser.username();
+        return userRecord.username();
     }
 
     @Override

@@ -2,8 +2,6 @@ package Mizut452.time_keeper.Model.Entity;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class Timekeep {
     private int id;
@@ -11,5 +9,5 @@ public class Timekeep {
     private String subject;
     private String context;
     private String totalTime;
-    private LocalDateTime Wdate;
+    private String Wdate;
 }

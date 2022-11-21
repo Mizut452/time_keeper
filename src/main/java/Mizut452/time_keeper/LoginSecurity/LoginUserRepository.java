@@ -1,6 +1,6 @@
 package Mizut452.time_keeper.LoginSecurity;
 
-import Mizut452.time_keeper.Model.Record.LoginUser;
+import Mizut452.time_keeper.Model.Entity.Record.UserRecord;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,7 +22,7 @@ public class LoginUserRepository {
             WHERE username = :username
             """;
 
-    private static final ResultSetExtractor<LoginUser> LOGIN_USER_RESULT_SET_EXTRACTOR = (rs) -> {
+    private static final ResultSetExtractor<UserRecord> LOGIN_USER_RESULT_SET_EXTRACTOR = (rs) -> {
         String mailaddress = null;
         String username = null;
         String password = null;
@@ -40,7 +40,7 @@ public class LoginUserRepository {
                 return null;
             }
         }
-        return new LoginUser(mailaddress, username, password, roleList);
+        return new UserRecord(mailaddress, username, password, roleList);
     };
 
         private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -48,11 +48,11 @@ public class LoginUserRepository {
     public LoginUserRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
             this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         }
-        public Optional<LoginUser> findByUsername(String username) {
+        public Optional<UserRecord> findByUsername(String username) {
             MapSqlParameterSource params = new MapSqlParameterSource("username", username);
 
-            LoginUser loginUser = namedParameterJdbcTemplate.query(SQL_FIND_BY_USERNAME, params, LOGIN_USER_RESULT_SET_EXTRACTOR);
-            return Optional.ofNullable(loginUser);
+            UserRecord userRecord = namedParameterJdbcTemplate.query(SQL_FIND_BY_USERNAME, params, LOGIN_USER_RESULT_SET_EXTRACTOR);
+            return Optional.ofNullable(userRecord);
         }
 
     }

@@ -1,6 +1,6 @@
 package Mizut452.time_keeper.LoginSecurity;
 
-import Mizut452.time_keeper.Model.Record.LoginUser;
+import Mizut452.time_keeper.Model.Entity.Record.UserRecord;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,8 +18,8 @@ public class LoginUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<LoginUser> userOp = repo.findByUsername(username);
-        return userOp.map(loginUser -> new LoginUserDetails(loginUser))
+        Optional<UserRecord> userOp = repo.findByUsername(username);
+        return userOp.map(userRecord -> new LoginUserDetails(userRecord))
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
     }
 }
