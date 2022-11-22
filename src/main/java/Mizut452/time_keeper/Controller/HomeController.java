@@ -93,7 +93,8 @@ public class HomeController {
     }
 
     @RequestMapping("/add")
-    public String addItem(@ModelAttribute Timekeep timekeep) {
+    public String addItem(Authentication auth,
+            @ModelAttribute Timekeep timekeep) {
         timekeep.setSubject(timekeep.getSubject());
         timekeep.setContext(timekeep.getContext());
         timekeep.setTotalTime(timekeep.getTotalTime());

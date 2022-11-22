@@ -17,6 +17,6 @@
 
     <insert id="add" parameterType="Mizut452.time_keeper.Model.Entity.Timekeep" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO timekeeplist (username, subject, context, totalTime, Wdate)
-            VALUES('ORE', #{subject}, #{context}, #{totalTime}, CURRENT_TIMESTAMP)
+            VALUES(#{username}, #{subject}, #{context}, #{totalTime}, CURRENT_TIMESTAMP)
     </insert>
 </mapper>
