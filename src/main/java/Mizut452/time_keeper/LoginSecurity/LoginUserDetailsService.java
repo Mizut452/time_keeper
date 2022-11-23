@@ -20,7 +20,7 @@ public class LoginUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LoginUser loginUser = loginUserMapper.selectUsername(username);
+        LoginUser loginUser = loginUserMapper.findByUsername(username);
         return loginUser;
     }
 }
