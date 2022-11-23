@@ -1,5 +1,7 @@
 package Mizut452.time_keeper.Controller;
 
+import Mizut452.time_keeper.LoginSecurity.LoginUserDetails;
+import Mizut452.time_keeper.LoginSecurity.LoginUserDetailsService;
 import Mizut452.time_keeper.LoginSecurity.LoginUserRepository;
 import Mizut452.time_keeper.Mapper.LoginUserMapper;
 import Mizut452.time_keeper.Mapper.TimekeepMapper;
@@ -9,12 +11,15 @@ import Mizut452.time_keeper.Service.AddTimeKeepService;
 import Mizut452.time_keeper.Service.CreateAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.websocket.server.PathParam;
 
 @Controller
 public class HomeController {
@@ -52,15 +57,22 @@ public class HomeController {
 
     @RequestMapping("/mypage/{username}")
     public Object userPage(ModelAndView mav,
-                           @PathVariable("username")String username, Model model) {
+                           LoginUser loginuser,
+                           @PathVariable("username") String username,
+                           Authentication auth2) {
         LoginUser record = loginUserMapper.selectUsername(username);
-        auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth.getPrincipal();
+        auth2 = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) auth2.getPrincipal();
+        //String principalUsernameは、ログインしている人のIDを表す
         String principalUsername = principal.getUsername();
+        LoginUser loginUser1 = new LoginUser();
+        loginUser1.setUsername(username);
+        String myname = loginUser1.getUsername();
+
         if (record == null) {
             return "NullAccount";
-        } else if (username == principalUsername ) {
-            return "home";
+        } else if (myname.equals(principalUsername)) {
+            return "PrincipalUserPage";
         } else {
             mav = new ModelAndView("userpage");
             mav.addObject("TimeList", timekeepMapper.selectAll());
@@ -93,14 +105,14 @@ public class HomeController {
     }
 
     @RequestMapping("/add")
-    public String addItem(Authentication auth,
+    public String addItem(Authentication auth1,
                           @ModelAttribute Timekeep timekeep,
                           @ModelAttribute String username){
         timekeep.setSubject(timekeep.getSubject());
         timekeep.setContext(timekeep.getContext());
         timekeep.setTotalTime(timekeep.getTotalTime());
-        auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth.getPrincipal();
+        auth1 = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) auth1.getPrincipal();
         username = principal.getUsername();
 
         addTimekeepservice.addTimekeep(timekeep);

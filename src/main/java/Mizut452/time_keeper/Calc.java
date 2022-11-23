@@ -10,13 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Calc {
     public static void main(String[] args) {
-
-        LoginUserMapper loginUserMapper;
-
-        String username ="";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth.getPrincipal();
-        String principalUsername = principal.getUsername();
+        LoginUser loginUser1 = new LoginUser();
+        loginUser1.setUsername("tanaka");
+        String a = loginUser1.getUsername();
+        System.out.println(a);
 
     }
 }
