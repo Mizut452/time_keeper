@@ -54,8 +54,13 @@ public class HomeController {
     public Object userPage(ModelAndView mav,
                            @PathVariable("username")String username, Model model) {
         LoginUser record = loginUserMapper.selectUsername(username);
-        if(record == null) {
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) auth.getPrincipal();
+        String principalUsername = principal.getUsername();
+        if (record == null) {
             return "NullAccount";
+        } else if (username == principalUsername ) {
+            return "home";
         } else {
             mav = new ModelAndView("userpage");
             mav.addObject("TimeList", timekeepMapper.selectAll());
