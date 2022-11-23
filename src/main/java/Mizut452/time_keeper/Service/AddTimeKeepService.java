@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter;
 @Service
 @Transactional
 public class AddTimeKeepService {
-    Timekeep timekeep;
     @Autowired
     TimekeepMapper timekeepMapper;
 

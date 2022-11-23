@@ -1,6 +1,5 @@
 package Mizut452.time_keeper.Controller;
 
-import Mizut452.time_keeper.LoginSecurity.LoginUserDetails;
 import Mizut452.time_keeper.LoginSecurity.LoginUserRepository;
 import Mizut452.time_keeper.Mapper.LoginUserMapper;
 import Mizut452.time_keeper.Mapper.TimekeepMapper;
@@ -10,19 +9,12 @@ import Mizut452.time_keeper.Service.AddTimeKeepService;
 import Mizut452.time_keeper.Service.CreateAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class HomeController {
@@ -59,12 +51,15 @@ public class HomeController {
     }
 
     @RequestMapping("/mypage/{username}")
-    public String userPage(@PathVariable("username")String username,Model model) {
+    public Object userPage(ModelAndView mav,
+                           @PathVariable("username")String username, Model model) {
         LoginUser record = loginUserMapper.selectUsername(username);
         if(record == null) {
             return "NullAccount";
         } else {
-            return "userpage";
+            mav = new ModelAndView("userpage");
+            mav.addObject("TimeList", timekeepMapper.selectAll());
+            return mav;
         }
     }
 
@@ -94,13 +89,17 @@ public class HomeController {
 
     @RequestMapping("/add")
     public String addItem(Authentication auth,
-            @ModelAttribute Timekeep timekeep) {
+                          @ModelAttribute Timekeep timekeep,
+                          @ModelAttribute String username){
         timekeep.setSubject(timekeep.getSubject());
         timekeep.setContext(timekeep.getContext());
         timekeep.setTotalTime(timekeep.getTotalTime());
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) auth.getPrincipal();
+        username = principal.getUsername();
 
         addTimekeepservice.addTimekeep(timekeep);
-        return "redirect:/";
+        return "redirect:/mypage/" + username;
     }
 
     /*@RequestMapping("/add")
