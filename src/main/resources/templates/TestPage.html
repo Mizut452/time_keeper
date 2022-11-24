@@ -15,6 +15,14 @@
 
     <h2>手数料:<span th:text="${UserName}">テスティング</span></span></h2>
 
+    <tr th:each="timelist : ${PrincipalTimeList}">
+        <td th:text="${timelist.id}"></td>
+        <td th:text="${timelist.username}"></td>
+        <td th:text="${timelist.subject}"></td>
+        <td th:text="${timelist.totalTime}"></td>
+        <td th:text="${timelist.Wdate}"></td>
+    </tr>
+
   </tbody>
 </table>
 </body>

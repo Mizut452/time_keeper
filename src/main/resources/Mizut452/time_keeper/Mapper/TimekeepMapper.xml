@@ -15,6 +15,10 @@
 	SELECT * FROM timekeeplist
     </select>
 
+    <select id="principalSelectAll" resultType="Mizut452.time_keeper.Model.Entity.Timekeep">
+	SELECT * FROM timekeeplist WHERE username = #{username}
+    </select>
+
     <insert id="add" parameterType="Mizut452.time_keeper.Model.Entity.Timekeep" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO timekeeplist (username, subject, context, totalTime, Wdate)
             VALUES(#{username}, #{subject}, #{context}, #{totalTime}, CURRENT_TIMESTAMP)

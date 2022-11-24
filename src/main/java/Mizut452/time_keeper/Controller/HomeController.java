@@ -72,13 +72,22 @@ public class HomeController {
         if (record == null) {
             return "NullAccount";
         } else if (myname.equals(principalUsername)) {
-            return "PrincipalUserPage";
+            mav = new ModelAndView("PrincipalUserPage");
+            mav.addObject("PrincipalTimeList", timekeepMapper.principalSelectAll(username));
+            return mav;
         } else {
             mav = new ModelAndView("userpage");
-            mav.addObject("TimeList", timekeepMapper.selectAll());
+            mav.addObject("TimeList", timekeepMapper.principalSelectAll(username));
             return mav;
         }
     }
+
+    /*@RequestMapping("test")
+    public Object testPage(ModelAndView mav) {
+        mav = new ModelAndView("TestPage");
+        mav.addObject("PrincipalTimeList", timekeepMapper.principalSelectAll());
+        return mav;
+    }*/
 
     @GetMapping("/createaccount")
     public String createAccount() {
