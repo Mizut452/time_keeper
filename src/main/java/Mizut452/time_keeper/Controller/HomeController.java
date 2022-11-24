@@ -39,10 +39,6 @@ public class HomeController {
     @Autowired
     private TimekeepMapper timekeepMapper;
 
-    //public record UserList(String mailaddress, String username, String password, List<String> roleList) {}
-    //private List<UserList> userlists = new ArrayList<>();
-
-
     @GetMapping("/")
     public ModelAndView home(ModelAndView mav) {
         mav = new ModelAndView("home");

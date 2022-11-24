@@ -16,10 +16,15 @@
         <td th:text="${timelist.id}"></td>
         <td th:text="${timelist.username}"></td>
         <td th:text="${timelist.subject}"></td>
+        <td th:text="${timelist.context}"></td>
         <td th:text="${timelist.totalTime}"></td>
         <td th:text="${timelist.Wdate}"></td>
     </tr>
     </tbody>
+
+    <form method="post" action="/" th:action="@{/logout}">
+        <button type="submit">ログアウト</button>
+    </form>
 </table>
 </body>
 </html>
