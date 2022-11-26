@@ -36,6 +36,10 @@ public class SecurityConfig {
                 .permitAll()
                 .mvcMatchers("/userlist")
                 .hasRole("ADMIN")
+                .mvcMatchers("/jobHuntingTool")
+                .permitAll()
+                .mvcMatchers("company_add")
+                .permitAll()
                 .anyRequest().permitAll()
         );
         http.csrf().disable();

@@ -1,6 +1,5 @@
 package Mizut452.time_keeper.Model.Entity;
 
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

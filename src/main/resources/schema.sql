@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS userlist;
 DROP TABLE IF EXISTS timekeeplist;
+DROP TABLE IF EXISTS companyList;
 
 CREATE TABLE IF NOT EXISTS userlist (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -16,4 +17,14 @@ CREATE TABLE IF NOT EXISTS timekeeplist (
 	context VARCHAR(255) NOT NULL,
 	totalTime VARCHAR(255) NOT NULL,
 	Wdate VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS companyList (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    companyName VARCHAR(255),
+    industry VARCHAR(255),
+    headlocate VARCHAR(255),
+    areOsaka BOOLEAN,
+    CompanyURL VARCHAR(255),
+    CompanyLother VARCHAR(255)
 );

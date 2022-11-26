@@ -3,6 +3,7 @@ package Mizut452.time_keeper.Controller;
 import Mizut452.time_keeper.LoginSecurity.LoginUserDetails;
 import Mizut452.time_keeper.LoginSecurity.LoginUserDetailsService;
 import Mizut452.time_keeper.LoginSecurity.LoginUserRepository;
+import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Mapper.LoginUserMapper;
 import Mizut452.time_keeper.Mapper.TimekeepMapper;
 import Mizut452.time_keeper.Model.Entity.LoginUser;
@@ -38,6 +39,9 @@ public class HomeController {
 
     @Autowired
     private TimekeepMapper timekeepMapper;
+
+    @Autowired
+    private CompanyListMapper companyListMapper;
 
     @GetMapping("/")
     public ModelAndView home(ModelAndView mav) {
@@ -78,12 +82,12 @@ public class HomeController {
         }
     }
 
-    /*@RequestMapping("test")
+    @RequestMapping("/test")
     public Object testPage(ModelAndView mav) {
         mav = new ModelAndView("TestPage");
-        mav.addObject("PrincipalTimeList", timekeepMapper.principalSelectAll());
+        mav.addObject("PrincipalTimeList", timekeepMapper.selectAll());
         return mav;
-    }*/
+    }
 
     @GetMapping("/createaccount")
     public String createAccount() {
@@ -123,6 +127,30 @@ public class HomeController {
         addTimekeepservice.addTimekeep(timekeep);
         return "redirect:/mypage/" + username;
     }
+
+    @RequestMapping("/update")
+    public String updateItem() {
+        return null;
+    }
+
+    @RequestMapping("/delete")
+    public String deleteItem() {
+        return null;
+    }
+
+    @RequestMapping("/company_add")
+    public String addCompanyItem() {
+        return "redirect:/jobHuntingTool";
+    }
+
+    @GetMapping("/jobHuntingTool")
+    public ModelAndView JobHuntPage(ModelAndView mav) {
+        mav = new ModelAndView("JobHuntingTool");
+        mav.addObject("CompanyList", companyListMapper.selectAll());
+        return mav;
+    }
+
+
 
     /*@RequestMapping("/add")
     public String addItem(@AuthenticationPrincipal LoginUserDetails details,

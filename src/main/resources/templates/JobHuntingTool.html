@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div class="company_form">
+    <form action="/company_add" method="post">
+      <label>会社名</label>
+      <input type="text" name="comapnyName" /><br>
+      <label>業界</label>
+      <input type="text" name="industry" /><br>
+      <label>本社所在地</label>
+      <input type="text" name="headlocate" /><br>
+      <label>大阪事業所の有無</label>
+      <input type="checkbox" name="areOsaka" /><br>
+      <label>URL</label>
+      <input type="text" name="CompanyURL" />
+      <label>備考</label>
+      <input type="text" name="comapnyLother" /><br>
+      <button type="submit">登録</button>
+    </form>
+  </div>
+
+<table border="1" style="border-collapse:collapse;">
+  <thead>
+  <tr>
+    <th class="hidden">ID</th>
+    <th>会社名</th>
+    <th>業界</th>
+    <th>本社所在地</th>
+    <th>大阪事業所の有無</th>
+    <th>URL</th>
+    <th>備考</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="company : ${CompanyList}">
+    <td th:text="${company.id}"></td>
+    <td th:text="${company.companyName}"></td>
+    <td th:text="${company.industry}"></td>
+    <td th:text="${company.headlocate}"></td>
+    <td th:text="${company.areOsaka} ? '有': '無'"></td>
+    <td th:text="${company.CompanyURL}"></td>
+    <td th:text="${comapny.companyLother}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
