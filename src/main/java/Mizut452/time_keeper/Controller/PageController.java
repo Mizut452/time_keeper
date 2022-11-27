@@ -24,8 +24,10 @@ import java.util.List;
 public class PageController {
     @GetMapping("/")
     public Object home(@AuthenticationPrincipal LoginUser loginUser) {
-        if (loginUser.getUsername() == null) {
-            return "home";
+        if (loginUser == null) {
+            ModelAndView mav = new ModelAndView("home");
+            mav.addObject("TimeList", timekeepMapper.selectAll());
+            return mav;
         } else {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetails principal = (UserDetails) authentication.getPrincipal();

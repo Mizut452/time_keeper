@@ -13,14 +13,10 @@
         <li>
             <a th:href="@{/}">ホーム</a>
         </li>
-        <!--<li>
-            <span th:if = "${LoginList.username == null}">
-                <a th:href="@{/}">マイページ</a></span>
+        <li>
+            <a th:href="@{/mypage/{username}/(username =${LoginList})}">マイページ</a></span>
 
-            <span th:if="${LoginList != null}">
-                <a th:href="@{/mypage/top}">マイページ</a></span>
-
-        </li>-->
+        </li>
         <li>
             <a th:href="@{/}">ログイン</a>
         </li>
