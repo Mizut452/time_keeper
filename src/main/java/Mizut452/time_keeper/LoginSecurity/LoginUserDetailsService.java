@@ -1,26 +1,19 @@
 package Mizut452.time_keeper.LoginSecurity;
 
-import Mizut452.time_keeper.Mapper.LoginUserMapper;
 import Mizut452.time_keeper.Model.Entity.LoginUser;
-import Mizut452.time_keeper.Model.Entity.Record.UserRecord;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
-public class LoginUserDetailsService implements UserDetailsService {
-    private final LoginUserMapper loginUserMapper;
+@RequiredArgsConstructor
+public class LoginUserDetailsService {
+    private final LoginUserRepository loginUserRepository;
 
-    public LoginUserDetailsService(LoginUserMapper loginUserMapper) {
-        this.loginUserMapper = loginUserMapper;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LoginUser loginUser = loginUserMapper.findByUsername(username);
-        return loginUser;
+    @Transactional(readOnly = true)
+    public List<LoginUser> selectAll() {
+        return loginUserRepository.selectAll();
     }
 }

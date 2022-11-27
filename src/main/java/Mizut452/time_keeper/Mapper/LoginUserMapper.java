@@ -13,10 +13,10 @@ public interface LoginUserMapper {
     LoginUser selectUsername(String username);
 
     @Select("SELECT * FROM userlist WHERE username = #{username}")
-    LoginUser get(@Param("username") String username);
+    LoginUser findByUsername(@Param("username") String username);
 
-    @Select("SELECT * FROM userlist where username = #{username}")
-    public LoginUser findByUsername(String username);
+    //@Select("SELECT * FROM userlist where username = #{username}")
+    //public LoginUser findByUsername(String username);
 
     public void create(LoginUser loginUser);
 }

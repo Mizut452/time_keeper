@@ -1,27 +1,26 @@
 package Mizut452.time_keeper.Controller;
 
+import Mizut452.time_keeper.LoginSecurity.LoginUserDetailsService;
 import Mizut452.time_keeper.Mapper.LoginUserMapper;
 import Mizut452.time_keeper.Mapper.TimekeepMapper;
 import Mizut452.time_keeper.Model.Entity.LoginUser;
-import Mizut452.time_keeper.Model.Entity.Timekeep;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
-import java.util.List;
-
 @Controller
 public class PageController {
+    public PageController(LoginUserDetailsService loginUserDetailsService) {
+        this.loginUserDetailsService = loginUserDetailsService;
+    }
+
     @GetMapping("/")
     public Object home(@AuthenticationPrincipal LoginUser loginUser) {
         if (loginUser == null) {
@@ -69,7 +68,7 @@ public class PageController {
     @GetMapping("/userlist")
     public ModelAndView userlistPage() {
         ModelAndView mav = new ModelAndView("UserList");
-        mav.addObject("UserList", loginUserMapper.selectAll());
+        mav.addObject("UserList", loginUserDetailsService.selectAll());
         return mav;
     }
 
@@ -78,5 +77,7 @@ public class PageController {
 
     @Autowired
     private TimekeepMapper timekeepMapper;
+
+    private final LoginUserDetailsService loginUserDetailsService;
 
 }
