@@ -47,9 +47,8 @@ public class PageController {
         UserDetails principal = (UserDetails) auth2.getPrincipal();
         //String principalUsernameは、ログインしている人のIDを表す
         String principalUsername = principal.getUsername();
-        LoginUser loginUser1 = new LoginUser();
-        loginUser1.setUsername(username);
-        String myname = loginUser1.getUsername();
+
+        String myname = loginuser.getUsername();
 
         if (record == null) {
             return "NullAccount";

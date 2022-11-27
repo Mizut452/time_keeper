@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface LoginUserMapper {
+    @Select("SELECT * FROM userlist")
     List<LoginUser> selectAll();
     LoginUser selectUsername(String username);
 

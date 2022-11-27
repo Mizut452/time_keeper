@@ -1,5 +1,7 @@
+DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS userlist;
 DROP TABLE IF EXISTS timekeeplist;
+DROP TABLE IF EXISTS roles;
 --DROP TABLE IF EXISTS companyList;
 
 CREATE TABLE IF NOT EXISTS userlist (
@@ -38,4 +40,17 @@ CREATE TABLE IF NOT EXISTS companyDetail (
     company_welfare VARCHAR(255),
     company_flow VARCHAR(255)
     --CONSTRAINT companyDetail_id FOREIGN KEY (companyD_id) REFERENCES companyList(id)
-)
+);
+
+CREATE TABLE IF NOT EXISTS roles (
+        id INTEGER PRIMARY KEY,
+        name VARCHAR(32) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_role (
+        user_id INTEGER,
+        role_id INTEGER,
+        CONSTRAINT primary_user_role PRIMARY KEY (user_id, role_id),
+        CONSTRAINT foreign_role_user_id FOREIGN KEY (user_id) REFERENCES userlist(id),
+        CONSTRAINT foreign_role_role_id FOREIGN KEY (role_id) REFERENCES roles(id)
+);
