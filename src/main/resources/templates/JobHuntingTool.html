@@ -8,7 +8,7 @@
   <div class="company_form">
     <form action="/company_add" method="post">
       <label>会社名</label>
-      <input type="text" name="comapnyName" /><br>
+      <input type="text" name="companyName" /><br>
       <label>業界</label>
       <input type="text" name="industry" /><br>
       <label>本社所在地</label>
@@ -18,7 +18,7 @@
       <label>URL</label>
       <input type="text" name="CompanyURL" />
       <label>備考</label>
-      <input type="text" name="comapnyLother" /><br>
+      <input type="text" name="companyLother" /><br>
       <button type="submit">登録</button>
     </form>
   </div>
@@ -39,12 +39,12 @@
   <tbody>
   <tr th:each="company : ${CompanyList}">
     <td th:text="${company.id}"></td>
-    <td th:text="${company.companyName}"></td>
+    <td><a th:href="@{/jobHuntingTool/{companyName}/(companyName=${company.companyName})}" th:text="${company.companyName}"></a></td>
     <td th:text="${company.industry}"></td>
     <td th:text="${company.headlocate}"></td>
     <td th:text="${company.areOsaka} ? '有': '無'"></td>
     <td th:text="${company.CompanyURL}"></td>
-    <td th:text="${comapny.companyLother}"></td>
+    <td th:text="${company.companyLother}"></td>
   </tr>
   </tbody>
 </table>

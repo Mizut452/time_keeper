@@ -2,8 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/common.css}" rel="stylesheet">
     <title>Title</title>
 </head>
+<footer>
+    <h2>Time Keeper</h2>
+</footer>
+<header>
+    <ul id="nav">
+        <li>
+            <a th:href="@{/}">ホーム</a>
+        </li>
+        <!--<li>
+            <span th:if = "${LoginList.username == null}">
+                <a th:href="@{/}">マイページ</a></span>
+
+            <span th:if="${LoginList != null}">
+                <a th:href="@{/mypage/top}">マイページ</a></span>
+
+        </li>-->
+        <li>
+            <a th:href="@{/}">ログイン</a>
+        </li>
+        <li>
+            <a th:href="@{/createaccount}">会員登録</a>
+        </li>
+        <li>
+            <a th:href="@{/jobHuntingTool}">便利機能</a>
+        </li>
+        <li>
+            <a th:href="@{/logout}">ログアウト</a>
+        </li>
+    </ul>
+</header>
 <body>
 <table border="1" style="border-collapse:collapse;">
     <thead>
@@ -13,16 +44,14 @@
     <tbody>
     <tr th:each="timelist : ${TimeList}">
         <td th:text="${timelist.id}"></td>
-        <td th:text="${timelist.username}"></td>
+        <td><a th:href="@{/mypage/{username}/(username=${timelist.username})}" th:text="${timelist.username}"></a></td>
         <td th:text="${timelist.subject}"></td>
         <td th:text="${timelist.context}"></td>
         <td th:text="${timelist.totalTime}"></td>
         <td th:text="${timelist.Wdate}"></td>
     </tr>
     </tbody>
-    <form method="post" action="/" th:action="@{/logout}">
-        <button type="submit">ログアウトする</button>
-    </form>
+    <p><a href="TestPage" th:href="@{/userlist}">ウーザーリスト</a></p>
 
 </table>
 </body>

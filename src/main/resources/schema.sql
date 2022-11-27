@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS userlist;
 DROP TABLE IF EXISTS timekeeplist;
-DROP TABLE IF EXISTS companyList;
+--DROP TABLE IF EXISTS companyList;
 
 CREATE TABLE IF NOT EXISTS userlist (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -28,3 +28,14 @@ CREATE TABLE IF NOT EXISTS companyList (
     CompanyURL VARCHAR(255),
     CompanyLother VARCHAR(255)
 );
+
+CREATE TABLE IF NOT EXISTS companyDetail (
+    companyD_id INTEGER PRIMARY KEY,
+    company_whatJob VARCHAR(255),
+    company_strongPoint VARCHAR(255),
+    company_weakPoint VARCHAR(255),
+    company_treatment VARCHAR(255),
+    company_welfare VARCHAR(255),
+    company_flow VARCHAR(255)
+    --CONSTRAINT companyDetail_id FOREIGN KEY (companyD_id) REFERENCES companyList(id)
+)

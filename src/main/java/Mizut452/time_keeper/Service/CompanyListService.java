@@ -1,4 +1,4 @@
-/*package Mizut452.time_keeper.Service;
+package Mizut452.time_keeper.Service;
 
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.CompanyList;
@@ -18,4 +18,4 @@ public class CompanyListService {
     public void addCompanyList(CompanyList companyList) {
         companyListMapper.add(companyList);
     }
-}*/
+}
