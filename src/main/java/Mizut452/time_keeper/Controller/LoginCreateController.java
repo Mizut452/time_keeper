@@ -31,7 +31,7 @@ public class LoginCreateController {
         loginUser.setMailaddress(loginUser.getMailaddress());
         loginUser.setUsername(loginUser.getUsername());
         loginUser.setPassword(loginUser.getPassword());
-        loginUser.setRoleList(loginUser.getRoleList());
+        loginUser.setRoleName(loginUser.getRoleName());
 
         createAccountservice.createAccount(loginUser);
 

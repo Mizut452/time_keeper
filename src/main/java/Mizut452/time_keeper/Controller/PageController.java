@@ -67,7 +67,7 @@ public class PageController {
     @GetMapping("/userlist")
     public ModelAndView userlistPage() {
         ModelAndView mav = new ModelAndView("UserList");
-        mav.addObject("UserList", loginUserDetailsService.selectAll());
+        mav.addObject("UserList", loginUserMapper.selectAll());
         return mav;
     }
 
