@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,9 +41,9 @@ public class PageController {
 
     @RequestMapping("/mypage/{username}")
     public Object userPage(ModelAndView mav,
-                           LoginUser loginuser,
+                           @AuthenticationPrincipal LoginUser loginuser,
                            @PathVariable("username") String username) {
-        LoginUser record = loginUserMapper.selectUsername(username);
+        LoginUser record = loginUserMapper.findByUsername(username);
         Authentication auth2 = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principal = (UserDetails) auth2.getPrincipal();
         //String principalUsernameは、ログインしている人のIDを表す
@@ -52,7 +53,7 @@ public class PageController {
 
         if (record == null) {
             return "NullAccount";
-        } else if (myname.equals(principalUsername)) {
+        } else if (username.equals(principalUsername)) {
             mav = new ModelAndView("PrincipalUserPage");
             mav.addObject("PrincipalTimeList", timekeepMapper.principalSelectAll(username));
             return mav;

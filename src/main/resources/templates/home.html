@@ -14,20 +14,26 @@
             <a th:href="@{/}">ホーム</a>
         </li>
         <li>
-            <a th:href="@{/mypage/{username}/(username =${LoginList})}">マイページ</a></span>
-
+            <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+                <a th:href="@{/mypage/{username}/(username =${LoginList})}">マイページ</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">マイページ</a>
+            </div>
         </li>
         <li>
-            <a th:href="@{/login}">ログイン</a>
+            <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+                <a th:href="@{/logout}">ログアウト</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">ログイン</a>
+            </div>
         </li>
-        <li>
+        <li sec:authorize="isAnonymous()">
             <a th:href="@{/createaccount}">会員登録</a>
         </li>
         <li>
             <a th:href="@{/jobHuntingTool}">便利機能</a>
-        </li>
-        <li>
-            <a th:href="@{/logout}">ログアウト</a>
         </li>
     </ul>
 </header>

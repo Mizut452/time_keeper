@@ -6,6 +6,7 @@ import Mizut452.time_keeper.Service.AddTimeKeepService;
 import Mizut452.time_keeper.Service.CreateAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.Time;
+
 @Controller
 public class LoginCreateController {
 
     @GetMapping("/login")
     public String login() {
+
         return "Login";
     }
 
@@ -53,8 +57,13 @@ public class LoginCreateController {
     }
 
     @RequestMapping("/update")
-    public String updateItem() {
-        return null;
+    public String updateItem(@ModelAttribute String username,
+                             @ModelAttribute Timekeep timekeep) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) auth.getPrincipal();
+        username = principal.getUsername();
+
+        return "redirect:/mypage/" + username;
     }
 
     @RequestMapping("/delete")

@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Builder
 @Data
 public class LoginUser implements UserDetails{
     private int id;
@@ -34,6 +33,7 @@ public class LoginUser implements UserDetails{
     public String getPassword() {
         return password;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
