@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <title>Title</title>
+</head>
+<header>
+    <ul id="nav">
+        <li>
+            <a th:href="@{/}">ホーム</a>
+        </li>
+        <li>
+            <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+                <a th:href="@{/mypage/{username}/(username =${LoginList})}">マイページ</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">マイページ</a>
+            </div>
+
+
+
+        </li>
+        <li>
+            <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+                <a th:href="@{/logout}">ログアウト</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">ログイン</a>
+            </div>
+        </li>
+        <li>
+            <a th:href="@{/createaccount}">会員登録</a>
+        </li>
+        <li>
+            <a th:href="@{/jobHuntingTool}">便利機能</a>
+        </li>
+    </ul>
+</header>
+<body>
+<h2>更新</h2>
+<form th:action="@{/delete}" th:method="post" th:object="${timeList}">
+    <input type="hidden" th:field="*{timekeepid}">
+    <label>科目：</label>
+    <p th:field="*{subject}"></p><br>
+    <label>内容：</label>
+    <p th:field="*{context}"></p><br>
+    <label>時間：</label>
+    <p th:field="*{totalTime}"></p><br>
+    <label>日付：</label>
+    <p th:field="*{Wdate}"></p><br>
+    <input type="submit" value="削除" />
+</form>
+
+</body>
+</html>

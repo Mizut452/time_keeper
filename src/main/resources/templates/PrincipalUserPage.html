@@ -32,7 +32,7 @@
     <td th:text="${timelist.totalTime}"></td>
     <td th:text="${timelist.Wdate}"></td>
     <td><a th:href="@{/mypage/{username}/updatePage/{id}/(username=${LoginList}, id = ${timelist.timekeepid})}">更新</a></td>
-    <td><a th:href="@{/deletePage}">削除</a></td>
+    <td><a th:href="@{/mypage/{username}/delete/{id}/(username=${LoginList}, id= ${timelist.timekeepid})}">削除</a></td>
   </tr>
   </tbody>
 </table>

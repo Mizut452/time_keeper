@@ -65,6 +65,16 @@ public class LoginCreateController {
         return mav;
     }
 
+    @RequestMapping("/mypage/{username}/delete/{id}")
+    public Object deleteTimeList(ModelAndView mav,
+                                 @PathVariable("username") String username,
+                                 @PathVariable("timekeepid") int timekeepid) {
+        mav = new ModelAndView("deleteTimeListItem");
+        Timekeep timekeep = addTimekeepservice.findByid(timekeepid);
+        addTimekeepservice.delete(timekeepid);
+        return "redirect:/mypage/" + username;
+    }
+
     @RequestMapping("/add")
     public String addItem(@ModelAttribute Timekeep timekeep,
                           @ModelAttribute String username) {

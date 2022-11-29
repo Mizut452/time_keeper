@@ -55,4 +55,8 @@
         WHERE
          timekeepid = #{timekeepid}
     </update>
+
+    <delete id="delete">
+        DELETE FROM timekeeplist WHERE timekeepid = #{timekeepid}
+    </delete>
 </mapper>

@@ -29,4 +29,6 @@ public interface TimekeepMapper {
     List<Timekeep> selectTimeKeepId(int timekeepid);
 
     void update(TimekeepUpdateReq timekeepUpdateReq);
+
+    void delete(int timekeepid);
 }

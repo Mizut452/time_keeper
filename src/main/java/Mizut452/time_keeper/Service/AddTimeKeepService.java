@@ -45,4 +45,8 @@ public class AddTimeKeepService {
     public void update(TimekeepUpdateReq timekeepUpdateReq) {
         timekeepMapper.update(timekeepUpdateReq);
     }
+
+    public void delete(int timekeepid) {
+        timekeepMapper.delete(timekeepid);
+    }
 }
