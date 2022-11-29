@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/common.css}" rel="stylesheet">
@@ -39,16 +40,16 @@
 </header>
 <body>
 <h2>更新</h2>
-    <form method="post" action="@{/update}">
+    <form th:action="@{/update}" th:method="post" th:object="${timeList}">
         <label>科目：</label>
-        <input type="text" name="subject" /><br>
+        <input name="subject" type="text" th:field="*{subject}" /><br>
         <label>内容：</label>
-        <input type="text" name="context" /><br>
+        <input name="context" type="text" th:field="*{context}" /><br>
         <label>時間：</label>
-        <input type="text" name="totalTime" /><br>
+        <input name="totalTime" type="text" th:field="*{totalTime}" /><br>
         <label>日付：</label>
-        <input type="text" name="Wdate" /><br>
-          <button type="submit">更新</button>
+        <input name="Wdate" type="text" th:field="*{Wdate}" /><br>
+          <input type="submit" value="更新" />
     </form>
 
 </body>

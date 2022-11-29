@@ -7,7 +7,7 @@
 <body>
 登録していこう！
 <div class="timelist_form">
-  <form action="/add" method="post">
+  <form th:action="@{/add}" method="post">
     <label>科目</label>
     <input name="subject" type="text"/>
     <label>内容</label>

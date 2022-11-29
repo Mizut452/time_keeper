@@ -2,6 +2,7 @@ package Mizut452.time_keeper.Service;
 
 import Mizut452.time_keeper.Mapper.TimekeepMapper;
 import Mizut452.time_keeper.Model.Entity.Timekeep;
+import Mizut452.time_keeper.Model.Entity.TimekeepUpdateReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,5 +32,17 @@ public class AddTimeKeepService {
 
     public void updateTimekeep(Timekeep timekeep) {
         timekeepMapper.updateItem(timekeep);
+    }
+
+    public void save(Timekeep timekeep) {
+        timekeepMapper.save(timekeep);
+    }
+
+    public Timekeep findByid(int timekeepid) {
+        return timekeepMapper.findByid(timekeepid);
+    }
+
+    public void update(TimekeepUpdateReq timekeepUpdateReq) {
+        timekeepMapper.update(timekeepUpdateReq);
     }
 }

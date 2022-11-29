@@ -36,7 +36,15 @@
             VALUES(#{username}, #{subject}, #{context}, #{totalTime}, CURRENT_TIMESTAMP)
     </insert>
 
-    <update id="updateItem" parameterType="Mizut452.time_keeper.Model.Entity.Timekeep">
+    <select id="findByid" resultType="Mizut452.time_keeper.Model.Entity.Timekeep">
+        SELECT * FROM timekeeplist WHERE timekeepid = #{timekeepid}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="timekeepid">
+        INSERT INTO timekeeplist(subject, context, totalTime, Wdate) VALUES (#{subejct}, #{context}, #{totalTime}, #{Wdate})
+    </insert>
+
+    <update id="updateItem">
         UPDATE
          timekeeplist
         SET
