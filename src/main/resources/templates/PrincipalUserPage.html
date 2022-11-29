@@ -20,17 +20,19 @@
 
 <table border="1" style="border-collapse:collapse;">
   <thead>
-  <tr><th class="hidden">ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th></tr>
+  <tr><th>ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th><th>編集</th></tr>
   </thead>
 
   <tbody>
   <tr th:each="timelist : ${PrincipalTimeList}">
-    <td th:text="${timelist.id}"></td>
+    <td th:text="${timelist.timekeepid}"></td>
     <td th:text="${timelist.username}"></td>
     <td th:text="${timelist.subject}"></td>
     <td th:text="${timelist.context}"></td>
     <td th:text="${timelist.totalTime}"></td>
     <td th:text="${timelist.Wdate}"></td>
+    <td><a th:href="@{/mypage/{username}/updatePage/{id}/(username=${LoginList}, id = ${timelist.timekeepid})}">更新</a></td>
+    <td><a th:href="@{/deletePage}">削除</a></td>
   </tr>
   </tbody>
 </table>

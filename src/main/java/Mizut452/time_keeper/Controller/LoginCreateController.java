@@ -1,18 +1,21 @@
 package Mizut452.time_keeper.Controller;
 
+import Mizut452.time_keeper.Mapper.TimekeepMapper;
 import Mizut452.time_keeper.Model.Entity.LoginUser;
 import Mizut452.time_keeper.Model.Entity.Timekeep;
 import Mizut452.time_keeper.Service.AddTimeKeepService;
 import Mizut452.time_keeper.Service.CreateAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Time;
 
@@ -42,9 +45,21 @@ public class LoginCreateController {
         return "Confirm";
     }
 
+    @RequestMapping("/mypage/{username}/updatePage/{timekeepid}")
+    public Object updateTimeList(ModelAndView mav,
+                                 @PathVariable("username") String username,
+                                 @PathVariable("timekeepid") int timekeepid,
+                                 Model model) {
+        mav = new ModelAndView("UpdateTimeListItem");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) auth.getPrincipal();
+        mav.addObject("timeList", timekeepMapper.selectUpdateItem(timekeepid));
+        return mav;
+    }
+
     @RequestMapping("/add")
     public String addItem(@ModelAttribute Timekeep timekeep,
-                          @ModelAttribute String username){
+                          @ModelAttribute String username) {
         timekeep.setSubject(timekeep.getSubject());
         timekeep.setContext(timekeep.getContext());
         timekeep.setTotalTime(timekeep.getTotalTime());
@@ -57,11 +72,17 @@ public class LoginCreateController {
     }
 
     @RequestMapping("/update")
-    public String updateItem(@ModelAttribute String username,
+    public String updateItems(@ModelAttribute String username,
                              @ModelAttribute Timekeep timekeep) {
+        timekeep.setSubject(timekeep.getSubject());
+        timekeep.setContext(timekeep.getContext());
+        timekeep.setTotalTime(timekeep.getTotalTime());
+        timekeep.setWdate(timekeep.getWdate());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principal = (UserDetails) auth.getPrincipal();
         username = principal.getUsername();
+
+        addTimekeepservice.updateTimekeep(timekeep);
 
         return "redirect:/mypage/" + username;
     }
@@ -76,4 +97,7 @@ public class LoginCreateController {
 
     @Autowired
     private AddTimeKeepService addTimekeepservice;
+
+    @Autowired
+    TimekeepMapper timekeepMapper;
 }

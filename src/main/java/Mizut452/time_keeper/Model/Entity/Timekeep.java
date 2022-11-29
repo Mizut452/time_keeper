@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class Timekeep {
-    private int id;
+    private int timekeepid;
     private String username;
     private String subject;
     private String context;
     private String totalTime;
     private String Wdate;
 }
+

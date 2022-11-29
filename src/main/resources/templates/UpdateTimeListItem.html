@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/common.css}" rel="stylesheet">
     <title>Title</title>
 </head>
-<footer>
-    <h2>Time Keeper</h2>
-</footer>
 <header>
     <ul id="nav">
         <li>
@@ -20,6 +17,9 @@
             <div sec:authorize="isAnonymous()">
                 <a th:href="@{/login}">マイページ</a>
             </div>
+
+
+
         </li>
         <li>
             <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
@@ -29,7 +29,7 @@
                 <a th:href="@{/login}">ログイン</a>
             </div>
         </li>
-        <li sec:authorize="isAnonymous()">
+        <li>
             <a th:href="@{/createaccount}">会員登録</a>
         </li>
         <li>
@@ -38,25 +38,18 @@
     </ul>
 </header>
 <body>
-<table border="1" style="border-collapse:collapse;">
-    <thead>
-    <tr><th>ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th></tr>
-    </thead>
+<h2>更新</h2>
+    <form method="post" action="@{/update}">
+        <label>科目：</label>
+        <input type="text" name="subject" /><br>
+        <label>内容：</label>
+        <input type="text" name="context" /><br>
+        <label>時間：</label>
+        <input type="text" name="totalTime" /><br>
+        <label>日付：</label>
+        <input type="text" name="Wdate" /><br>
+          <button type="submit">更新</button>
+    </form>
 
-    <tbody>
-    <tr th:each="timelist : ${TimeList}">
-        <td th:text="${timelist.timekeepid}"></td>
-        <td><a th:href="@{/mypage/{username}/(username=${timelist.username})}" th:text="${timelist.username}"></a></td>
-        <td th:text="${timelist.subject}"></td>
-        <td th:text="${timelist.context}"></td>
-        <td th:text="${timelist.totalTime}"></td>
-        <td th:text="${timelist.Wdate}"></td>
-    </tr>
-    </tbody>
-
-    <div sec:authorize="hasRole('ADMIN')">
-    <p><a th:href="@{/userlist}">ユーザーリスト</a></p>
-    </div>
-</table>
 </body>
 </html>

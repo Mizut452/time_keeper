@@ -55,6 +55,7 @@ public class PageController {
             return "NullAccount";
         } else if (username.equals(principalUsername)) {
             mav = new ModelAndView("PrincipalUserPage");
+            mav.addObject("LoginList", principalUsername);
             mav.addObject("PrincipalTimeList", timekeepMapper.principalSelectAll(username));
             return mav;
         } else {

@@ -3,8 +3,16 @@
 <mapper namespace="Mizut452.time_keeper.Mapper.TimekeepMapper">
     <resultMap id="TimekeepMap"
                type="Mizut452.time_keeper.Model.Entity.Timekeep">
-        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="timekeepid" jdbcType="INTEGER" property="timekeepid" />
         <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="subject" jdbcType="VARCHAR" property="subject" />
+        <result column="context" jdbcType="VARCHAR" property="context" />
+        <result column="totalTime" jdbcType="VARCHAR" property="totalTime" />
+        <result column="Wdate" jdbcType="VARCHAR" property="Wdate" />
+    </resultMap>
+
+    <resultMap id="TimekeepUpdateMap"
+               type="Mizut452.time_keeper.Model.Entity.Timekeep">
         <result column="subject" jdbcType="VARCHAR" property="subject" />
         <result column="context" jdbcType="VARCHAR" property="context" />
         <result column="totalTime" jdbcType="VARCHAR" property="totalTime" />
@@ -19,8 +27,24 @@
 	SELECT * FROM timekeeplist WHERE username = #{username}
     </select>
 
-    <insert id="add" parameterType="Mizut452.time_keeper.Model.Entity.Timekeep" useGeneratedKeys="true" keyProperty="id">
+    <select id="selectUpdateItem" resultType="Mizut452.time_keeper.Model.Entity.Timekeep" resultMap="TimekeepUpdateMap">
+    SELECT subject, context, totalTime, Wdate FROM timekeeplist WHERE timekeepid = #{timekeepid}
+    </select>
+
+    <insert id="add" parameterType="Mizut452.time_keeper.Model.Entity.Timekeep" useGeneratedKeys="true" keyProperty="timekeepid">
         INSERT INTO timekeeplist (username, subject, context, totalTime, Wdate)
             VALUES(#{username}, #{subject}, #{context}, #{totalTime}, CURRENT_TIMESTAMP)
     </insert>
+
+    <update id="updateItem" parameterType="Mizut452.time_keeper.Model.Entity.Timekeep">
+        UPDATE
+         timekeeplist
+        SET
+         subject = #{subject, jdbcType=VARCHAR},
+         context = #{context, jdbcType=VARCHAR},
+         totalTime = #{totalTime, jdbcType=VARCHAR},
+         Wdate = #{Wdate, jdbcType=VARCHAR}
+        WHERE
+         timekeepid = #{timekeepid}
+    </update>
 </mapper>
