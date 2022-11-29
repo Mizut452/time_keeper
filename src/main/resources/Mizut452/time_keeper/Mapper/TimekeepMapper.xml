@@ -44,14 +44,14 @@
         INSERT INTO timekeeplist(subject, context, totalTime, Wdate) VALUES (#{subejct}, #{context}, #{totalTime}, #{Wdate})
     </insert>
 
-    <update id="updateItem">
+    <update id="update">
         UPDATE
          timekeeplist
         SET
-         subject = #{subject, jdbcType=VARCHAR},
-         context = #{context, jdbcType=VARCHAR},
-         totalTime = #{totalTime, jdbcType=VARCHAR},
-         Wdate = #{Wdate, jdbcType=VARCHAR}
+         subject = #{subject},
+         context = #{context},
+         totalTime = #{totalTime},
+         Wdate = #{Wdate}
         WHERE
          timekeepid = #{timekeepid}
     </update>

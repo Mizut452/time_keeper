@@ -53,6 +53,7 @@ public class LoginCreateController {
         mav = new ModelAndView("UpdateTimeListItem");
         Timekeep timekeep = addTimekeepservice.findByid(timekeepid);
         TimekeepUpdateReq timekeepUpdateReq = new TimekeepUpdateReq();
+        timekeepUpdateReq.setTimekeepid(timekeep.getTimekeepid());
         timekeepUpdateReq.setSubject(timekeep.getSubject());
         timekeepUpdateReq.setContext(timekeep.getContext());
         timekeepUpdateReq.setTotalTime(timekeep.getTotalTime());
@@ -79,7 +80,7 @@ public class LoginCreateController {
     }
 
 
-    @RequestMapping("/update")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateItems(@ModelAttribute String username,
                              @ModelAttribute TimekeepUpdateReq timekeepUpdateReq) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
