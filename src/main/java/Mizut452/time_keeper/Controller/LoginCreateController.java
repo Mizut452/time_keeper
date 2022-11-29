@@ -65,14 +65,23 @@ public class LoginCreateController {
         return mav;
     }
 
-    @RequestMapping("/mypage/{username}/delete/{id}")
+    @RequestMapping("/mypage/{username}/delete/{timekeepid}")
     public Object deleteTimeList(ModelAndView mav,
                                  @PathVariable("username") String username,
-                                 @PathVariable("timekeepid") int timekeepid) {
+                                 @PathVariable("timekeepid") int timekeepid,
+                                 Model model) {
         mav = new ModelAndView("deleteTimeListItem");
         Timekeep timekeep = addTimekeepservice.findByid(timekeepid);
-        addTimekeepservice.delete(timekeepid);
-        return "redirect:/mypage/" + username;
+        TimekeepUpdateReq timekeepUpdateReq = new TimekeepUpdateReq();
+        timekeepUpdateReq.setTimekeepid(timekeep.getTimekeepid());
+        timekeepUpdateReq.setSubject(timekeep.getSubject());
+        timekeepUpdateReq.setContext(timekeep.getContext());
+        timekeepUpdateReq.setTotalTime(timekeep.getTotalTime());
+        timekeepUpdateReq.setWdate(timekeep.getWdate());
+        //addTimekeepservice.delete(timekeepid);
+        model.addAttribute("timeList", timekeepUpdateReq);
+        //return "redirect:/mypage/" + username;
+        return mav;
     }
 
     @RequestMapping("/add")
@@ -103,8 +112,15 @@ public class LoginCreateController {
     }
 
     @RequestMapping("/delete")
-    public String deleteItem() {
-        return null;
+    public String deleteItem(@ModelAttribute TimekeepUpdateReq timekeepUpdateReq) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) auth.getPrincipal();
+        String username = principal.getUsername();
+
+        int timekeepid = timekeepUpdateReq.getTimekeepid();
+
+        addTimekeepservice.delete(timekeepid);
+        return "redirect:/mypage/" + username;
     }
 
     @Autowired

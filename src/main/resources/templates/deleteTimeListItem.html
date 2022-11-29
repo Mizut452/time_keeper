@@ -39,17 +39,17 @@
     </ul>
 </header>
 <body>
-<h2>更新</h2>
+<br><h2>削除</h2>
 <form th:action="@{/delete}" th:method="post" th:object="${timeList}">
     <input type="hidden" th:field="*{timekeepid}">
-    <label>科目：</label>
-    <p th:field="*{subject}"></p><br>
-    <label>内容：</label>
-    <p th:field="*{context}"></p><br>
-    <label>時間：</label>
-    <p th:field="*{totalTime}"></p><br>
-    <label>日付：</label>
-    <p th:field="*{Wdate}"></p><br>
+    <label>科目：</label><a th:text="${timeList.subject}"></a>
+    <input class="form-control" type="hidden" th:field="*{subject}" /><br>
+    <label>内容：</label><a th:text="${timeList.context}"></a>
+    <input class="form-control" type="hidden" th:field="*{context}" /><br>
+    <label>時間：</label><a th:text="${timeList.totalTime}"></a>
+    <input class="form-control" type="hidden" th:field="*{totalTime}" /><br>
+    <label>日付：</label><a th:text="${timeList.Wdate}"></a>
+    <input class="form-control" type="hidden" th:field="*{Wdate}" /><br>
     <input type="submit" value="削除" />
 </form>
 
