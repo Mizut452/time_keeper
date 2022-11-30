@@ -18,9 +18,6 @@
             <div sec:authorize="isAnonymous()">
                 <a th:href="@{/login}">マイページ</a>
             </div>
-
-
-
         </li>
         <li>
             <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
@@ -39,7 +36,7 @@
     </ul>
 </header>
 <body>
-<h2>更新</h2>
+<p>更新</p>
     <form th:action="@{/update}" th:method="post" th:object="${timeList}">
         <input type="hidden" th:field="*{timekeepid}">
         <label>科目：</label>

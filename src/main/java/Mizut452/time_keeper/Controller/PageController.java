@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -70,6 +69,10 @@ public class PageController {
     public ModelAndView userlistPage() {
         ModelAndView mav = new ModelAndView("UserList");
         mav.addObject("UserList", loginUserMapper.selectAll());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        String PrincipalUserName = principal.getUsername();
+        mav.addObject("TimeList", PrincipalUserName);
         return mav;
     }
 

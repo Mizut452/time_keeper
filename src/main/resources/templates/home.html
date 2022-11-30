@@ -38,6 +38,10 @@
     </ul>
 </header>
 <body>
+<div sec:authorize="hasRole('ADMIN')">
+    <p><a th:href="@{/userlist}">ユーザーリスト</a></p>
+</div>
+<br>
 <table border="1" style="border-collapse:collapse;">
     <thead>
     <tr><th>ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th></tr>
@@ -53,10 +57,6 @@
         <td th:text="${timelist.Wdate}"></td>
     </tr>
     </tbody>
-
-    <div sec:authorize="hasRole('ADMIN')">
-    <p><a th:href="@{/userlist}">ユーザーリスト</a></p>
-    </div>
 </table>
 </body>
 </html>
