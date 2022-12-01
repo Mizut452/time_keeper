@@ -4,12 +4,14 @@ import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.CompanyList;
 import Mizut452.time_keeper.Service.CompanyListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,6 +38,22 @@ public class JobHuntingToolController {
         String PrincipalUserName = principal.getUsername();
         mav.addObject("TimeList", PrincipalUserName);
         return mav;
+    }
+
+    @GetMapping("/jobHuntingTool/{companyName}")
+    public Object JobCompanyPage(@ModelAttribute CompanyList companyList,
+                                       @PathVariable String companyName,
+                                 ModelAndView mav) {
+        CompanyList record = companyListMapper.findByCompanyName(companyName);
+
+        if(record == null) {
+            return "NullCompany";
+        } else {
+            mav = new ModelAndView("JobHuntingCompany");
+
+            mav.addObject("CompanyName", companyListMapper.selectCompanyName(companyName));
+            return mav;
+        }
     }
 
     @Autowired

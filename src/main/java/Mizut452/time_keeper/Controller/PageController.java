@@ -42,6 +42,8 @@ public class PageController {
     public Object userPage(ModelAndView mav,
                            @AuthenticationPrincipal LoginUser loginuser,
                            @PathVariable("username") String username) {
+
+
         LoginUser record = loginUserMapper.findByUsername(username);
         Authentication auth2 = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principal = (UserDetails) auth2.getPrincipal();

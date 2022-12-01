@@ -38,8 +38,9 @@
   </ul>
 </header>
 <body>
+<br>
   <div class="company_form">
-    <form action="/company_add" method="post">
+    <form th:action="@{/company_add}" method="post">
       <label>会社名</label>
       <input type="text" name="companyName" /><br>
       <label>業界</label>
