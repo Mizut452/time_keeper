@@ -5,6 +5,7 @@ import Mizut452.time_keeper.Mapper.LoginUserMapper;
 import Mizut452.time_keeper.Mapper.TimekeepMapper;
 import Mizut452.time_keeper.Model.Entity.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,19 +39,16 @@ public class PageController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('GENERAL')")
     @RequestMapping("/mypage/{username}")
     public Object userPage(ModelAndView mav,
-                           @AuthenticationPrincipal LoginUser loginuser,
                            @PathVariable("username") String username) {
 
-
         LoginUser record = loginUserMapper.findByUsername(username);
-        Authentication auth2 = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth2.getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) auth.getPrincipal();
         //String principalUsernameは、ログインしている人のIDを表す
         String principalUsername = principal.getUsername();
-
-        String myname = loginuser.getUsername();
 
         if (record == null) {
             return "NullAccount";
@@ -65,6 +63,15 @@ public class PageController {
             mav.addObject("TimeList", timekeepMapper.principalSelectAll(username));
             return mav;
         }
+    }
+
+    @PreAuthorize("isAnonymous()")
+    @RequestMapping("/mypage/{username}")
+    public Object AnonymousUserPage(ModelAndView mav,
+                                    @PathVariable String username) {
+        mav = new ModelAndView("userpage");
+        mav.addObject("TimeList", timekeepMapper.principalSelectAll(username));
+        return mav;
     }
 
     @GetMapping("/userlist")

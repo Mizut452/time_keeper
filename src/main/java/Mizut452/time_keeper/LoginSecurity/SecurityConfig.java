@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .hasRole("ADMIN")
                 .mvcMatchers("/jobHuntingTool")
                 .permitAll()
-                .mvcMatchers("company_add")
+                .mvcMatchers("/company_add")
                 .permitAll()
                 .anyRequest().permitAll()
         );
