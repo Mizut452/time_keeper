@@ -9,8 +9,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ public class PageController {
 
     @GetMapping("/")
     public Object home(@AuthenticationPrincipal LoginUser loginUser) {
+
         if (loginUser == null) {
             ModelAndView mav = new ModelAndView("home");
             mav.addObject("TimeList", timekeepMapper.selectAll());
@@ -39,39 +42,37 @@ public class PageController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('GENERAL')")
     @RequestMapping("/mypage/{username}")
     public Object userPage(ModelAndView mav,
-                           @PathVariable("username") String username) {
+                           @PathVariable("username") String username,
+                           @AuthenticationPrincipal LoginUser loginUser) {
 
-        LoginUser record = loginUserMapper.findByUsername(username);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth.getPrincipal();
-        //String principalUsernameは、ログインしている人のIDを表す
-        String principalUsername = principal.getUsername();
-
-        if (record == null) {
-            return "NullAccount";
-        } else if (username.equals(principalUsername)) {
-            mav = new ModelAndView("PrincipalUserPage");
-            mav.addObject("LoginList", principalUsername);
-            mav.addObject("PrincipalTimeList", timekeepMapper.principalSelectAll(username));
-            return mav;
-        } else {
+        if(loginUser == null) {
             mav = new ModelAndView("userpage");
-
             mav.addObject("TimeList", timekeepMapper.principalSelectAll(username));
             return mav;
-        }
-    }
+        } else {
+            LoginUser record = loginUserMapper.findByUsername(username);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails principal = (UserDetails) auth.getPrincipal();
+            //String principalUsernameは、ログインしている人のIDを表す
+            String principalUsername = principal.getUsername();
 
-    @PreAuthorize("isAnonymous()")
-    @RequestMapping("/mypage/{username}")
-    public Object AnonymousUserPage(ModelAndView mav,
-                                    @PathVariable String username) {
-        mav = new ModelAndView("userpage");
-        mav.addObject("TimeList", timekeepMapper.principalSelectAll(username));
-        return mav;
+            if (record == null) {
+                return "NullAccount";
+            } else if (username.equals(principalUsername)) {
+                mav = new ModelAndView("PrincipalUserPage");
+                mav.addObject("LoginList", principalUsername);
+                mav.addObject("PrincipalTimeList", timekeepMapper.principalSelectAll(username));
+                return mav;
+            } else {
+                mav = new ModelAndView("userpage");
+
+                mav.addObject("TimeList", timekeepMapper.principalSelectAll(username));
+                return mav;
+            }
+        }
+
     }
 
     @GetMapping("/userlist")
