@@ -1,7 +1,10 @@
 package Mizut452.time_keeper.Controller;
 
+import Mizut452.time_keeper.Mapper.CompanyDetailMapper;
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
+import Mizut452.time_keeper.Model.Entity.CompanyDetail;
 import Mizut452.time_keeper.Model.Entity.CompanyList;
+import Mizut452.time_keeper.Service.CompanyDetailService;
 import Mizut452.time_keeper.Service.CompanyListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -19,14 +22,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class JobHuntingToolController {
 
     @RequestMapping("/company_add")
-    public String addCompanyItem(@ModelAttribute CompanyList companyList) {
+    public String addCompanyItem(@ModelAttribute CompanyList companyList,
+                                 String companyName) {
         companyList.setCompanyName(companyList.getCompanyName());
         companyList.setIndustry(companyList.getIndustry());
         companyList.setHeadlocate(companyList.getHeadlocate());
         companyList.setCompanyURL(companyList.getCompanyURL());
         companyList.setCompanyLother(companyList.getCompanyLother());
         companyListService.addCompanyList(companyList);
-        return "redirect:/jobHuntingTool";
+        companyName = companyList.getCompanyName();
+        return "redirect:/jobHuntingTool/" + companyName;
     }
 
     @GetMapping("/jobHuntingTool")
@@ -37,6 +42,7 @@ public class JobHuntingToolController {
         UserDetails principal = (UserDetails) authentication.getPrincipal();
         String PrincipalUserName = principal.getUsername();
         mav.addObject("TimeList", PrincipalUserName);
+        mav.addObject("CompanyDetail", companyDetailMapper.selectAll());
         return mav;
     }
 
@@ -47,19 +53,47 @@ public class JobHuntingToolController {
         CompanyList record = companyListMapper.findByCompanyName(companyName);
 
         if(record == null) {
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails principal = (UserDetails) authentication.getPrincipal();
+            String PrincipalUserName = principal.getUsername();
+            mav.addObject("TimeList", PrincipalUserName);
             return "NullCompany";
         } else {
             mav = new ModelAndView("JobHuntingCompany");
 
-            mav.addObject("CompanyName", companyListMapper.selectCompanyName(companyName));
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails principal = (UserDetails) authentication.getPrincipal();
+            String PrincipalUserName = principal.getUsername();
+            mav.addObject("CompanyName", companyName);
+            mav.addObject("TimeList", PrincipalUserName);
             return mav;
         }
+    }
+
+    @RequestMapping("/addComDetail")
+    public String companyDetails(@ModelAttribute CompanyDetail companyDetail) {
+        companyDetail.setCompany_whatJob(companyDetail.getCompany_whatJob());
+        companyDetail.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
+        companyDetail.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
+        companyDetail.setCompany_treatment(companyDetail.getCompany_treatment());
+        companyDetail.setCompany_welfare(companyDetail.getCompany_welfare());
+        companyDetail.setCompany_flow(companyDetail.getCompany_flow());
+        companyDetail.setCompany_another(companyDetail.getCompany_another());
+        companyDetailService.addCompanyDetail(companyDetail);
+        return "redirect:/JobHuntingCompany";
     }
 
     @Autowired
     private CompanyListMapper companyListMapper;
 
     @Autowired
+    private CompanyDetailMapper companyDetailMapper;
+
+    @Autowired
     private CompanyListService companyListService;
+
+    @Autowired
+    private CompanyDetailService companyDetailService;
 
 }

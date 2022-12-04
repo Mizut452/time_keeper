@@ -1,8 +1,9 @@
+DROP TABLE IF EXISTS companyDetail;
+DROP TABLE IF EXISTS companyList;
 DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS userlist;
 DROP TABLE IF EXISTS timekeeplist;
 DROP TABLE IF EXISTS roles;
---DROP TABLE IF EXISTS companyList;
 
 CREATE TABLE IF NOT EXISTS userlist (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -32,12 +33,14 @@ CREATE TABLE IF NOT EXISTS companyList (
 );
 
 CREATE TABLE IF NOT EXISTS companyDetail (
-    companyD_id INTEGER PRIMARY KEY,
+    companyD_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    companyD_Cname VARCHAR(255),
     company_whatJob VARCHAR(255),
     company_strongPoint VARCHAR(255),
     company_weakPoint VARCHAR(255),
     company_treatment VARCHAR(255),
     company_welfare VARCHAR(255),
-    company_flow VARCHAR(255)
-    --CONSTRAINT companyDetail_id FOREIGN KEY (companyD_id) REFERENCES companyList(id)
+    company_flow VARCHAR(255),
+    company_another VARCHAR(255),
+    CONSTRAINT companyDetail_id FOREIGN KEY (companyD_id) REFERENCES companyList(id)
 );

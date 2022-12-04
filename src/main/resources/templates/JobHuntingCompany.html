@@ -38,6 +38,53 @@
     </ul>
 </header>
 <body>
+<table border="1" sytle="border-collapse:collapse;";>
+       <thead>
+       <br>
+       <tr>
+            <th>ID</th>
+            <th>会社名</th>
+            <th>企業の長所</th>
+            <th>企業の短所</th>
+            <th>給与等の待遇など</th>
+            <th>福利厚生等</th>
+            <th>採用フロー</th>
+            <th>その他</th>
+        </tr>
+    <tbody>
+        <tr th:each=" companyDetail : ${CompanyDetail}">
+            <td th:text="companyDetail.companyD_id"></td>
+            <td th:text="${companyName})"></td>
+            <td th:text="companyDetail.company_whatJob"></td>
+            <td th:text="companyDetail.company_strongPoint"></td>
+            <td th:text="companyDetail.company_weakPoint"></td>
+            <td th:text="companyDetail.company_treatment"></td>
+            <td th:text="companyDetail.company_welfare"></td>
+            <td th:text="companyDetail.company_flow"></td>
+            <td th:text="companyDetail.company_another"></td>
+        </tr>
+    </tbody>
+</table>
+       </thead>
 
+    <p>企業詳細登録</p>
+        <form th:action="@{/company_add}" method="post">
+            <label>　　　職　　　種：</label>
+            <input name="whatJob" tyoe="text" /><br>
+            <label>　　　企業の長所：</label>
+            <textarea name="company_strongPoint" type="text"></textarea><br>
+            <label>　　　企業の短所：</label>
+            <textarea name="company_weakPoint" type="text"></textarea><br>
+            <label>給与等の待遇など：</label>
+            <input name="company_treatment" type="text" /><br>
+            <label>　　　福利厚生等：</label>
+            <textarea name="company_welfare"></textarea><br>
+            <label>　　　採用フロー：</label>
+            <textarea name="company_flow"></textarea><br>
+            <label>　　　　　その他：</label>
+            <textarea name="company_another"></textarea><br>
+            <input type="submit" value="登録" />
+
+    </form>
 </body>
 </html>
