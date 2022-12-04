@@ -37,7 +37,9 @@
 <body>
 <br>
 <h2>エラーが発生しました。</h2>
-<br><p>ログインがされいないか、無効な要求がなされました。</p>
-    <p>ログインは<a th:href="@{/login}">こちら</a></p>
+<br><p>ログインがされていないか、無効な要求がなされました。</p>
+  <div sec:authorize="isAnonymous()"></div>
+  <p>ログインは<a th:href="@{/login}">こちら</a></p>
+  <p>新規会員登録は<a th:href="@{/createaccount}">こちら</a></p>
 </body>
 </html>

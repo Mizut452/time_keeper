@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,8 @@ public class JobHuntingToolController {
 
     @RequestMapping("/company_add")
     public String addCompanyItem(@ModelAttribute CompanyList companyList,
-                                 String companyName) {
+                                 String companyName,
+                                 Model model) {
         companyList.setCompanyName(companyList.getCompanyName());
         companyList.setIndustry(companyList.getIndustry());
         companyList.setHeadlocate(companyList.getHeadlocate());
@@ -31,7 +33,15 @@ public class JobHuntingToolController {
         companyList.setCompanyLother(companyList.getCompanyLother());
         companyListService.addCompanyList(companyList);
         companyName = companyList.getCompanyName();
-        return "redirect:/jobHuntingTool/" + companyName;
+        model.addAttribute("CompanyList", companyListMapper.selectAll());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        String PrincipalUserName = principal.getUsername();
+        model.addAttribute("TimeList", PrincipalUserName);
+        model.addAttribute("CompanyDetail", companyDetailMapper.selectAll());
+
+
+        return "JobHuntingTool";
     }
 
     @GetMapping("/jobHuntingTool")
@@ -81,7 +91,7 @@ public class JobHuntingToolController {
         companyDetail.setCompany_flow(companyDetail.getCompany_flow());
         companyDetail.setCompany_another(companyDetail.getCompany_another());
         companyDetailService.addCompanyDetail(companyDetail);
-        return "redirect:/JobHuntingCompany";
+        return "redirect:/jobHuntingTool/";
     }
 
     @Autowired
