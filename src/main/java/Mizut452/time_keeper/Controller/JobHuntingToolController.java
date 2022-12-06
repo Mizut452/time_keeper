@@ -78,7 +78,6 @@ public class JobHuntingToolController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetails principal = (UserDetails) authentication.getPrincipal();
             String PrincipalUserName = principal.getUsername();
-            mav.addObject("CompanyName", companyName);
             mav.addObject("TimeList", PrincipalUserName);
             companyDetail.setCompany_treatment(companyDetail.getCompany_treatment());
             companyDetail.setCompany_welfare(companyDetail.getCompany_welfare());
@@ -91,6 +90,7 @@ public class JobHuntingToolController {
             //companyDetail.setCompanyD_id(companyDetailMapper.selectIdByCompanyName(companyName));
             companyDetailService.addCompanyDetail(companyDetail);
             companyDetailService.addIdandNameService(companyName);
+            mav.addObject("CompanyDetail", companyDetailMapper.selectAll());
             return mav;
         }
     }
