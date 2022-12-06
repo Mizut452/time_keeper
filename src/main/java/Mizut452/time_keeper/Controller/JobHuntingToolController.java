@@ -32,10 +32,7 @@ public class JobHuntingToolController {
         companyList.setHeadlocate(companyList.getHeadlocate());
         companyList.setCompanyURL(companyList.getCompanyURL());
         companyList.setCompanyLother(companyList.getCompanyLother());
-        companyDetail.setCompanyD_id(companyList.getId());
-        companyDetail.setCompanyD_Cname(companyList.getCompanyName());
 
-        companyDetailService.addCompanyName(companyDetail);
         companyListService.addCompanyList(companyList);
         companyName = companyList.getCompanyName();
         model.addAttribute("CompanyList", companyListMapper.selectAll());
@@ -83,8 +80,17 @@ public class JobHuntingToolController {
             String PrincipalUserName = principal.getUsername();
             mav.addObject("CompanyName", companyName);
             mav.addObject("TimeList", PrincipalUserName);
-            companyDetail.setCompanyD_Cname(companyName);
-            companyDetail.setCompanyD_id(companyDetailMapper.selectIdByCompanyName(companyName));
+            companyDetail.setCompany_treatment(companyDetail.getCompany_treatment());
+            companyDetail.setCompany_welfare(companyDetail.getCompany_welfare());
+            companyDetail.setCompany_another(companyDetail.getCompany_another());
+            companyDetail.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
+            companyDetail.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
+            companyDetail.setCompany_whatJob(companyDetail.getCompany_whatJob());
+            companyDetail.setCompany_flow(companyDetail.getCompany_flow());
+            //companyDetail.setCompanyD_Cname(companyName);
+            //companyDetail.setCompanyD_id(companyDetailMapper.selectIdByCompanyName(companyName));
+            companyDetailService.addCompanyDetail(companyDetail);
+            companyDetailService.addIdandNameService(companyName);
             return mav;
         }
     }

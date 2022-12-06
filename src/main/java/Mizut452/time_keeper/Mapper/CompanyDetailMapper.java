@@ -19,9 +19,12 @@ public interface CompanyDetailMapper {
     void add(CompanyDetail companyDetail);
 
     @Insert("INSERT INTO companyDetail(companyDetail_id, companyDetail_Cname) SELECT id, companyName FROM companyList WHERE companyName = #{companyName}")
-    void addCname(@Param("companyName") CompanyDetail companyDetail);
+    void addCname(CompanyDetail companyDetail);
 
     @Select("SELECT id FROM companyList where companyName = #{companyName}")
     int selectIdByCompanyName(String companyName);
+
+    @Insert("INSERT INTO companyDetail(companyDetail_id, companyDetail_Cname) SELECT id, companyName FROM companyList WHERE companyName = #{companyName}")
+    void addIdAndName(@Param("companyName") String companyName);
 
 }
