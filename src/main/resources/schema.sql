@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS userlist (
 
 CREATE TABLE IF NOT EXISTS timekeeplist (
 	timekeepid INTEGER PRIMARY KEY AUTO_INCREMENT,
-	username VARCHAR(255) NOT NULL,
+	username VARCHAR(255) NOT NULL UNIQUE,
 	subject VARCHAR(255) NOT NULL,
 	context VARCHAR(255) NOT NULL,
 	totalTime VARCHAR(255) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS timekeeplist (
 
 CREATE TABLE IF NOT EXISTS companyList (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    companyName VARCHAR(255),
+    companyName VARCHAR(255) UNIQUE NOT NULL,
     industry VARCHAR(255),
     headlocate VARCHAR(255),
     areOsaka BOOLEAN,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS companyList (
 );
 
 CREATE TABLE IF NOT EXISTS companyDetail (
-    companyD_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    companyD_id INTEGER,
     companyD_Cname VARCHAR(255),
     company_whatJob VARCHAR(255),
     company_strongPoint VARCHAR(255),
@@ -42,5 +42,6 @@ CREATE TABLE IF NOT EXISTS companyDetail (
     company_welfare VARCHAR(255),
     company_flow VARCHAR(255),
     company_another VARCHAR(255),
-    CONSTRAINT companyDetail_id FOREIGN KEY (companyD_id) REFERENCES companyList(id)
+    FOREIGN KEY (companyD_id) REFERENCES companyList(id),
+    FOREIGN KEY (companyD_Cname) REFERENCES companyList(companyName)
 );
