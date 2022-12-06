@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CompanyDetail {
     private int companyD_id;
-    private String company_companyName;
+    private String companyD_Cname;
     private String company_whatJob;
     private String company_strongPoint;
     private String company_weakPoint;

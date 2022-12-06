@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS companyList (
 );
 
 CREATE TABLE IF NOT EXISTS companyDetail (
-    companyD_id INTEGER,
-    companyD_Cname VARCHAR(255),
+    companyDetail_id INTEGER,
+    companyDetail_Cname VARCHAR(255),
     company_whatJob VARCHAR(255),
     company_strongPoint VARCHAR(255),
     company_weakPoint VARCHAR(255),
@@ -42,6 +42,6 @@ CREATE TABLE IF NOT EXISTS companyDetail (
     company_welfare VARCHAR(255),
     company_flow VARCHAR(255),
     company_another VARCHAR(255),
-    FOREIGN KEY (companyD_id) REFERENCES companyList(id),
-    FOREIGN KEY (companyD_Cname) REFERENCES companyList(companyName)
+    CONSTRAINT companyD_id FOREIGN KEY (companyDetail_id) REFERENCES companyList(id),
+    CONSTRAINT companyD_Cname FOREIGN KEY (companyDetail_Cname) REFERENCES companyList(companyName)
 );

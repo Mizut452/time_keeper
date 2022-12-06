@@ -4,4 +4,4 @@ INSERT INTO userlist(id, mailaddress, username, password, rolename) VALUES(1, 't
 --パスワードは"second"
 INSERT INTO userlist(id, mailaddress, username, password, rolename) VALUES (2, 'second@second.com', 'second', '$2a$10$WtleMW4PbahhhxRTpQ0Gyu87FUxQJO0Cw6M.AV518/Cb3cTFeEy7e', 'ROLE_GENERAL');
 
-INSERT INTO companyList(id, companyName, industry, headlocate, areOsaka, CompanyURL, CompanyLother) VALUES(1, 'SHARP', '家電メーカー', '大阪', 1, 'https://sharp.com', '特になし');
+INSERT INTO companyList(id, companyName, industry, headlocate, areOsaka, CompanyURL, CompanyLother) VALUES(1, 'SHARP', '家電メーカー', '大阪', 1, 'https://jp.sharp/', '特になし');

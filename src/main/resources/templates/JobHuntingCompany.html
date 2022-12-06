@@ -52,9 +52,9 @@
             <th>その他</th>
         </tr>
     <tbody>
-        <tr th:each=" companyDetail : ${CompanyDetail}">
+        <tr th:each="companyDetail : ${CompanyDetail}">
             <td th:text="companyDetail.companyD_id"></td>
-            <td th:text="${companyName})"></td>
+            <td th:text="companyDetail.companyD_Cname"></td>
             <td th:text="companyDetail.company_whatJob"></td>
             <td th:text="companyDetail.company_strongPoint"></td>
             <td th:text="companyDetail.company_weakPoint"></td>
@@ -68,9 +68,10 @@
        </thead>
 
     <p>企業詳細登録</p>
+        <div class="companyDetail_form">
         <form th:action="@{/addComDetail}" method="post">
             <label>　　　職　　　種：</label>
-            <input name="whatJob" tyoe="text" /><br>
+            <input name="company_whatJob" tyoe="text" /><br>
             <label>　　　企業の長所：</label>
             <textarea name="company_strongPoint" type="text"></textarea><br>
             <label>　　　企業の短所：</label>
@@ -85,6 +86,7 @@
             <textarea name="company_another"></textarea><br>
             <input type="submit" value="登録" />
 
-    </form>
+        </form>
+    </div>
 </body>
 </html>

@@ -24,6 +24,7 @@ public class JobHuntingToolController {
 
     @RequestMapping("/company_add")
     public String addCompanyItem(@ModelAttribute CompanyList companyList,
+                                 CompanyDetail companyDetail,
                                  String companyName,
                                  Model model) {
         companyList.setCompanyName(companyList.getCompanyName());
@@ -31,6 +32,10 @@ public class JobHuntingToolController {
         companyList.setHeadlocate(companyList.getHeadlocate());
         companyList.setCompanyURL(companyList.getCompanyURL());
         companyList.setCompanyLother(companyList.getCompanyLother());
+        companyDetail.setCompanyD_id(companyList.getId());
+        companyDetail.setCompanyD_Cname(companyList.getCompanyName());
+
+        companyDetailService.addCompanyName(companyDetail);
         companyListService.addCompanyList(companyList);
         companyName = companyList.getCompanyName();
         model.addAttribute("CompanyList", companyListMapper.selectAll());
@@ -58,7 +63,8 @@ public class JobHuntingToolController {
 
     @GetMapping("/jobHuntingTool/{companyName}")
     public Object JobCompanyPage(@ModelAttribute CompanyList companyList,
-                                       @PathVariable String companyName,
+                                 @PathVariable String companyName,
+                                 CompanyDetail companyDetail,
                                  ModelAndView mav) {
         CompanyList record = companyListMapper.findByCompanyName(companyName);
 
@@ -77,12 +83,17 @@ public class JobHuntingToolController {
             String PrincipalUserName = principal.getUsername();
             mav.addObject("CompanyName", companyName);
             mav.addObject("TimeList", PrincipalUserName);
+            companyDetail.setCompanyD_Cname(companyName);
+            companyDetail.setCompanyD_id(companyDetailMapper.selectIdByCompanyName(companyName));
             return mav;
         }
     }
 
     @RequestMapping("/addComDetail")
-    public String companyDetails(@ModelAttribute CompanyDetail companyDetail) {
+    public Object companyDetails(@ModelAttribute CompanyDetail companyDetail,
+                                 String companyName,
+                                 ModelAndView mav) {
+        mav = new ModelAndView("JobHuntingCompany");
         companyDetail.setCompany_whatJob(companyDetail.getCompany_whatJob());
         companyDetail.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
         companyDetail.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
@@ -91,7 +102,9 @@ public class JobHuntingToolController {
         companyDetail.setCompany_flow(companyDetail.getCompany_flow());
         companyDetail.setCompany_another(companyDetail.getCompany_another());
         companyDetailService.addCompanyDetail(companyDetail);
-        return "redirect:/jobHuntingTool/";
+        companyName = companyDetail.getCompany_whatJob();
+        mav.addObject("CompanyDetail", companyDetailMapper.selectAll());
+        return "redirect:/jobHuntingTool/" + companyName;
     }
 
     @Autowired

@@ -20,4 +20,8 @@ public class CompanyDetailService {
     public void addCompanyDetail(CompanyDetail companyDetail) {
         companyDetailMapper.add(companyDetail);
     }
+
+    public void addCompanyName(CompanyDetail companyDetail) {
+        companyDetailMapper.addCname(companyDetail);
+    }
 }

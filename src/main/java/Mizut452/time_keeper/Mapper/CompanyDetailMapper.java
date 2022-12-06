@@ -16,6 +16,12 @@ public interface CompanyDetailMapper {
 
     @Insert("INSERT INTO companyDetail(company_whatJob, company_strongPoint, company_weakPoint, company_treatment, company_welfare, company_flow, company_another) VALUE(" +
             "#{company_whatJob}, #{company_strongPoint}, #{company_weakPoint}, #{company_treatment}, #{company_welfare}, #{company_flow}, #{company_another})")
-    @Options(useGeneratedKeys = true, keyProperty = "companyD_id")
     void add(CompanyDetail companyDetail);
+
+    @Insert("INSERT INTO companyDetail(companyDetail_id, companyDetail_Cname) SELECT id, companyName FROM companyList WHERE companyName = #{companyName}")
+    void addCname(@Param("companyName") CompanyDetail companyDetail);
+
+    @Select("SELECT id FROM companyList where companyName = #{companyName}")
+    int selectIdByCompanyName(String companyName);
+
 }
