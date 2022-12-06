@@ -86,11 +86,9 @@ public class JobHuntingToolController {
             companyDetail.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
             companyDetail.setCompany_whatJob(companyDetail.getCompany_whatJob());
             companyDetail.setCompany_flow(companyDetail.getCompany_flow());
-            //companyDetail.setCompanyD_Cname(companyName);
-            //companyDetail.setCompanyD_id(companyDetailMapper.selectIdByCompanyName(companyName));
             companyDetailService.addCompanyDetail(companyDetail);
             companyDetailService.addIdandNameService(companyName);
-            mav.addObject("CompanyDetail", companyDetailMapper.selectAll());
+            mav.addObject("CompanyDetail", companyDetailMapper.selectACompany(companyName));
             return mav;
         }
     }

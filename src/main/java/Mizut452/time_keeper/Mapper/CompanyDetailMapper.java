@@ -14,6 +14,9 @@ public interface CompanyDetailMapper {
     @Select("SELECT * FROM companyDetail")
     List<CompanyDetail> selectAll();
 
+    @Select("SELECT * FROM companyDetail where companyDetail_Cname = #{companyName}")
+    List<CompanyDetail> selectACompany(@Param("companyName") String companyName);
+
     @Insert("INSERT INTO companyDetail(company_whatJob, company_strongPoint, company_weakPoint, company_treatment, company_welfare, company_flow, company_another) VALUE(" +
             "#{company_whatJob}, #{company_strongPoint}, #{company_weakPoint}, #{company_treatment}, #{company_welfare}, #{company_flow}, #{company_another})")
     void add(CompanyDetail companyDetail);
