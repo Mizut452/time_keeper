@@ -30,7 +30,7 @@ public interface CompanyDetailMapper {
     @Insert("INSERT INTO companyDetail(companyDetail_id, companyDetail_Cname) SELECT id, companyName FROM companyList WHERE companyName = #{companyName}")
     void addIdAndName(@Param("companyName") String companyName);
 
-    @Select("SELECT * FROM companyDetail WHERE companyName = #{companyName}")
+    @Select("SELECT * FROM companyDetail WHERE companyDetail_Cname = #{companyName}")
     CompanyDetail findById(@Param("companyName") String companyName);
 
 }

@@ -40,7 +40,7 @@
 <body>
 <br>
 <p>企業編集</p>
-  <form th:action="@{/jobHuntingTool/update}" method="post" th:object="${comapnyList}">
+  <form th:action="@{/jobHuntingTool/update}" method="post" th:object="${companyList}">
     <input type="text" th:field="*{id}" />
     <label>　　　　会社名：</label>
     <input type="text" th:field="*{companyName}" />
