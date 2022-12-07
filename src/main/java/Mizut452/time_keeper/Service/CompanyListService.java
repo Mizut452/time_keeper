@@ -2,6 +2,7 @@ package Mizut452.time_keeper.Service;
 
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.CompanyList;
+import Mizut452.time_keeper.Model.Entity.CompanyListUpdateReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,5 +15,9 @@ public class CompanyListService {
 
     public void addCompanyList(CompanyList companyList) {
         companyListMapper.add(companyList);
+    }
+
+    public void update(CompanyListUpdateReq companyListUpdateReq) {
+        companyListMapper.update(companyListUpdateReq);
     }
 }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <title>Title</title>
+</head>
+<footer>
+  <h2>Time Keeper</h2>
+</footer>
+<header>
+  <ul id="nav">
+    <li>
+      <a th:href="@{/}">ホーム</a>
+    </li>
+    <li>
+      <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+        <a th:href="@{/mypage/{username}/(username =${TimeList})}">マイページ</a>
+      </div>
+      <div sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">マイページ</a>
+      </div>
+    </li>
+    <li>
+      <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+        <a th:href="@{/logout}">ログアウト</a>
+      </div>
+      <div sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">ログイン</a>
+      </div>
+    </li>
+    <li sec:authorize="isAnonymous()">
+      <a th:href="@{/createaccount}">会員登録</a>
+    </li>
+    <li>
+      <a th:href="@{/jobHuntingTool}">便利機能</a>
+    </li>
+  </ul>
+</header>
+<body>
+<br>
+<p>企業編集</p>
+  <form th:action="@{/jobHuntingTool/update}" method="post" th:object="${comapnyList}">
+    <input type="text" th:field="*{id}" />
+    <label>　　　　会社名：</label>
+    <input type="text" th:field="*{companyName}" />
+    <label>　　　　　業界：</label>
+    <input type="text" th:field="*{industry}" />
+    <label>　　　本社所在地：</label>
+    <input type="text" th:field="*{headlocate}" />
+    <label>大阪事業所の有無：</label>
+    <input type="checkbox" th:field="*{areOsaka}" />
+    <label>　　　企業のURL：</label>
+    <input type="text" th:field="*{companyURL}" />
+    <label>　　　　　　備考：</label>
+    <input type="text" th:field="*{companyLother}" />
+    <input type="submit" value="更新" />
+  </form>
+
+<p>企業詳細登録・編集</p>
+<div class="companyDetail_form">
+   <form th:action="@{/addComDetail}" method="post" th:object="${companyDetail}">
+     <label>　　　職　　　種：</label>
+     <input name="company_whatJob" tyoe="text" th:field="*{company_whatJob}" /><br>
+     <label>　　　企業の長所：</label>
+     <textarea name="company_strongPoint" type="text" th:field="*{company_strongPoint}"></textarea><br>
+     <label>　　　企業の短所：</label>
+     <textarea name="company_weakPoint" type="text" th:field="*{company_weakPoint}"></textarea><br>
+     <label>給与等の待遇など：</label>
+     <input name="company_treatment" type="text" th:field="*{company_treatment}" /><br>
+     <label>　　　福利厚生等：</label>
+     <textarea name="company_welfare" th:field="*{company_welfare}"></textarea><br>
+     <label>　　　採用フロー：</label>
+     <textarea name="company_flow" th:field="*{company_flow}"></textarea><br>
+     <label>　　　　　その他：</label>
+     <textarea name="company_another" th:field="*{company_another}"></textarea><br>
+     <input type="submit" value="登録" />
+
+  </form>
+</div>
+
+</body>
+</html>

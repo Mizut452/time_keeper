@@ -4,8 +4,10 @@ import Mizut452.time_keeper.Mapper.CompanyDetailMapper;
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.CompanyDetail;
 import Mizut452.time_keeper.Model.Entity.CompanyList;
+import Mizut452.time_keeper.Model.Entity.CompanyListUpdateReq;
 import Mizut452.time_keeper.Service.CompanyDetailService;
 import Mizut452.time_keeper.Service.CompanyListService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
@@ -88,6 +90,7 @@ public class JobHuntingToolController {
             companyDetail.setCompany_flow(companyDetail.getCompany_flow());
             companyDetailService.addCompanyDetail(companyDetail);
             companyDetailService.addIdandNameService(companyName);
+            mav.addObject("companyName", companyName);
             mav.addObject("CompanyDetail", companyDetailMapper.selectACompany(companyName));
             return mav;
         }
@@ -109,6 +112,21 @@ public class JobHuntingToolController {
         companyName = companyDetail.getCompany_whatJob();
         mav.addObject("CompanyDetail", companyDetailMapper.selectAll());
         return "redirect:/jobHuntingTool/" + companyName;
+    }
+
+    @GetMapping("/jobHuntingTool/{companyName}/edit")
+    public Object companyEditPage(@PathVariable("companyName") String companyName,
+                                  ModelAndView mav) {
+        mav = new ModelAndView("companyEditPage");
+        return mav;
+    }
+
+    @RequestMapping("/jobHuntingTool/update")
+    public String updateCompany(@ModelAttribute CompanyListUpdateReq companyListUpdateReq) {
+
+        companyListService.update(companyListUpdateReq);
+
+        return "redirect:/jobHuntingTool";
     }
 
     @Autowired

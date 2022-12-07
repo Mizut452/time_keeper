@@ -1,10 +1,8 @@
 package Mizut452.time_keeper.Mapper;
 
 import Mizut452.time_keeper.Model.Entity.CompanyList;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import Mizut452.time_keeper.Model.Entity.CompanyListUpdateReq;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,4 +19,7 @@ public interface CompanyListMapper {
 
     @Select("SELECT * FROM companyList WHERE companyName = #{companyName}")
     CompanyList findByCompanyName(@Param("companyName") String companyName);
+
+    @Update("Update companyList SET companyName = #{companyName}, industry = #{industry}, headlocate = #{headlocate}, areOsaka = #{areOsaka}, companyURL = #{companyURL}, companyLother = #{companyLother} where id = #{id}")
+    void update(CompanyListUpdateReq companyListUpdateReq);
 }

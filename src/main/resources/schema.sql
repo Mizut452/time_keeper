@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS companyList (
     industry VARCHAR(255),
     headlocate VARCHAR(255),
     areOsaka BOOLEAN,
-    CompanyURL VARCHAR(255),
-    CompanyLother VARCHAR(255)
+    companyURL VARCHAR(255),
+    companyLother VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS companyDetail (
