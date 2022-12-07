@@ -35,8 +35,12 @@ public class JobHuntingToolController {
         companyList.setHeadlocate(companyList.getHeadlocate());
         companyList.setCompanyURL(companyList.getCompanyURL());
         companyList.setCompanyLother(companyList.getCompanyLother());
+        companyDetail.setCompanyDetail_Cname(companyList.getCompanyName());
+        companyDetail.setCompanyDetail_id(companyList.getId());
 
         companyListService.addCompanyList(companyList);
+        companyDetailService.addCompanyDetail(companyDetail);
+
         companyName = companyList.getCompanyName();
         model.addAttribute("CompanyList", companyListMapper.selectAll());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -82,14 +86,6 @@ public class JobHuntingToolController {
             UserDetails principal = (UserDetails) authentication.getPrincipal();
             String PrincipalUserName = principal.getUsername();
             mav.addObject("TimeList", PrincipalUserName);
-            companyDetail.setCompany_treatment(companyDetail.getCompany_treatment());
-            companyDetail.setCompany_welfare(companyDetail.getCompany_welfare());
-            companyDetail.setCompany_another(companyDetail.getCompany_another());
-            companyDetail.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
-            companyDetail.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
-            companyDetail.setCompany_whatJob(companyDetail.getCompany_whatJob());
-            companyDetail.setCompany_flow(companyDetail.getCompany_flow());
-            companyDetailService.addCompanyDetail(companyDetail);
             companyDetailService.addIdandNameService(companyName);
             mav.addObject("companyName", companyName);
             mav.addObject("CompanyDetail", companyDetailMapper.selectACompany(companyName));
@@ -98,20 +94,10 @@ public class JobHuntingToolController {
     }
 
     @RequestMapping("/addComDetail")
-    public Object companyDetails(@ModelAttribute CompanyDetail companyDetail,
+    public Object companyDetails(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq,
                                  String companyName,
                                  ModelAndView mav) {
-        mav = new ModelAndView("JobHuntingCompany");
-        companyDetail.setCompany_whatJob(companyDetail.getCompany_whatJob());
-        companyDetail.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
-        companyDetail.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
-        companyDetail.setCompany_treatment(companyDetail.getCompany_treatment());
-        companyDetail.setCompany_welfare(companyDetail.getCompany_welfare());
-        companyDetail.setCompany_flow(companyDetail.getCompany_flow());
-        companyDetail.setCompany_another(companyDetail.getCompany_another());
-        companyDetailService.addCompanyDetail(companyDetail);
-        companyName = companyDetail.getCompany_whatJob();
-        mav.addObject("CompanyDetail", companyDetailMapper.selectAll());
+        companyDetailService.update(companyDetailUpdateReq);
         return "redirect:/jobHuntingTool/" + companyName;
     }
 

@@ -26,6 +26,10 @@ public class CompanyDetailService {
         return companyDetailMapper.findById(companyName);
     }
 
+    public void update(CompanyDetailUpdateReq companyDetailUpdateReq) {
+        companyDetailMapper.update(companyDetailUpdateReq);
+    }
+
     public void addCompanyName(CompanyDetail companyDetail) {
         companyDetailMapper.addCname(companyDetail);
     }
