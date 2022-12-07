@@ -86,7 +86,6 @@ public class JobHuntingToolController {
             UserDetails principal = (UserDetails) authentication.getPrincipal();
             String PrincipalUserName = principal.getUsername();
             mav.addObject("TimeList", PrincipalUserName);
-            companyDetailService.addIdandNameService(companyName);
             mav.addObject("companyName", companyName);
             mav.addObject("CompanyDetail", companyDetailMapper.selectACompany(companyName));
             return mav;
@@ -98,6 +97,7 @@ public class JobHuntingToolController {
                                  String companyName,
                                  ModelAndView mav) {
         companyDetailService.update(companyDetailUpdateReq);
+        companyName = companyDetailUpdateReq.getCompanyDetail_Cname();
         return "redirect:/jobHuntingTool/" + companyName;
     }
 

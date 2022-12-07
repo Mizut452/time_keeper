@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS companyDetail (
     company_treatment VARCHAR(255),
     company_welfare VARCHAR(255),
     company_flow VARCHAR(255),
-    company_another VARCHAR(255),
-    CONSTRAINT companyD_id FOREIGN KEY (companyDetail_id) REFERENCES companyList(id),
-    CONSTRAINT companyD_Cname FOREIGN KEY (companyDetail_Cname) REFERENCES companyList(companyName)
+    company_another VARCHAR(255)
+
+    --CONSTRAINT companyD_id FOREIGN KEY (companyDetail_id) REFERENCES companyList(id),
+    --CONSTRAINT companyD_Cname FOREIGN KEY (companyDetail_Cname) REFERENCES companyList(companyName)
 );

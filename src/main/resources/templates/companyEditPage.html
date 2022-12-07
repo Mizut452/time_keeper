@@ -61,19 +61,19 @@
 <div class="companyDetail_form">
    <form th:action="@{/addComDetail}" method="post" th:object="${companyDetail}">
      <label>　　　職　　　種：</label>
-     <input name="company_whatJob" tyoe="text" th:field="*{company_whatJob}" /><br>
+     <input tyoe="text" th:field="*{company_whatJob}" /><br>
      <label>　　　企業の長所：</label>
-     <textarea name="company_strongPoint" type="text" th:field="*{company_strongPoint}"></textarea><br>
+     <textarea type="text" th:field="*{company_strongPoint}"></textarea><br>
      <label>　　　企業の短所：</label>
-     <textarea name="company_weakPoint" type="text" th:field="*{company_weakPoint}"></textarea><br>
+     <textarea type="text" th:field="*{company_weakPoint}"></textarea><br>
      <label>給与等の待遇など：</label>
-     <input name="company_treatment" type="text" th:field="*{company_treatment}" /><br>
+     <input type="text" th:field="*{company_treatment}" /><br>
      <label>　　　福利厚生等：</label>
-     <textarea name="company_welfare" th:field="*{company_welfare}"></textarea><br>
+     <textarea th:field="*{company_welfare}"></textarea><br>
      <label>　　　採用フロー：</label>
-     <textarea name="company_flow" th:field="*{company_flow}"></textarea><br>
+     <textarea th:field="*{company_flow}"></textarea><br>
      <label>　　　　　その他：</label>
-     <textarea name="company_another" th:field="*{company_another}"></textarea><br>
+     <textarea th:field="*{company_another}"></textarea><br>
      <input type="submit" value="登録" />
 
   </form>

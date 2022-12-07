@@ -44,6 +44,7 @@
        <tr>
             <th>ID</th>
             <th>会社名</th>
+            <th>職種</th>
             <th>企業の長所</th>
             <th>企業の短所</th>
             <th>給与等の待遇など</th>
@@ -53,15 +54,15 @@
         </tr>
     <tbody>
         <tr th:each="companyDetail : ${CompanyDetail}">
-            <td th:text="companyDetail.companyD_id"></td>
-            <td th:text="companyDetail.companyD_Cname"></td>
-            <td th:text="companyDetail.company_whatJob"></td>
-            <td th:text="companyDetail.company_strongPoint"></td>
-            <td th:text="companyDetail.company_weakPoint"></td>
-            <td th:text="companyDetail.company_treatment"></td>
-            <td th:text="companyDetail.company_welfare"></td>
-            <td th:text="companyDetail.company_flow"></td>
-            <td th:text="companyDetail.company_another"></td>
+            <td th:text="${companyDetail.companyDetail_id}"></td>
+            <td th:text="${companyDetail.companyDetail_Cname}"></td>
+            <td th:text="${companyDetail.company_whatJob}"></td>
+            <td th:text="${companyDetail.company_strongPoint}"></td>
+            <td th:text="${companyDetail.company_weakPoint}"></td>
+            <td th:text="${companyDetail.company_treatment}"></td>
+            <td th:text="${companyDetail.company_welfare}"></td>
+            <td th:text="${companyDetail.company_flow}"></td>
+            <td th:text="${companyDetail.company_another}"></td>
         </tr>
     </tbody>
 </table>
