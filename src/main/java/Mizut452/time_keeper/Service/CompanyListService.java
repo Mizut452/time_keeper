@@ -20,4 +20,8 @@ public class CompanyListService {
     public void update(CompanyListUpdateReq companyListUpdateReq) {
         companyListMapper.update(companyListUpdateReq);
     }
+
+    public CompanyList findByCompanyName(String companyName) {
+        return companyListMapper.findByCompanyName(companyName);
+    }
 }

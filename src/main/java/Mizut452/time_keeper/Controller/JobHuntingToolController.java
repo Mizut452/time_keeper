@@ -116,8 +116,19 @@ public class JobHuntingToolController {
 
     @GetMapping("/jobHuntingTool/{companyName}/edit")
     public Object companyEditPage(@PathVariable("companyName") String companyName,
-                                  ModelAndView mav) {
+                                  ModelAndView mav,
+                                  Model model) {
         mav = new ModelAndView("companyEditPage");
+        CompanyList companyList = companyListService.findByCompanyName(companyName);
+        CompanyListUpdateReq companyListUpdateReq = new CompanyListUpdateReq();
+        companyListUpdateReq.setId(companyList.getId());
+        companyListUpdateReq.setCompanyName(companyList.getCompanyName());
+        companyListUpdateReq.setHeadlocate(companyList.getHeadlocate());
+        companyListUpdateReq.setIndustry(companyList.getIndustry());
+        companyListUpdateReq.setCompanyURL(companyList.getCompanyURL());
+        companyListUpdateReq.setCompanyLother(companyList.getCompanyLother());
+        companyListUpdateReq.setAreOsaka(companyList.isAreOsaka());
+        model.addAttribute("companyList", companyListUpdateReq);
         return mav;
     }
 
