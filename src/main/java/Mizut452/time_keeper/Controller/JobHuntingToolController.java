@@ -3,6 +3,7 @@ package Mizut452.time_keeper.Controller;
 import Mizut452.time_keeper.Mapper.CompanyDetailMapper;
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.CompanyDetail;
+import Mizut452.time_keeper.Model.Entity.CompanyDetailUpdateReq;
 import Mizut452.time_keeper.Model.Entity.CompanyList;
 import Mizut452.time_keeper.Model.Entity.CompanyListUpdateReq;
 import Mizut452.time_keeper.Service.CompanyDetailService;
@@ -129,6 +130,20 @@ public class JobHuntingToolController {
         companyListUpdateReq.setCompanyLother(companyList.getCompanyLother());
         companyListUpdateReq.setAreOsaka(companyList.isAreOsaka());
         model.addAttribute("companyList", companyListUpdateReq);
+
+        CompanyDetail companyDetail = companyDetailService.findByCompanyName(companyName);
+        CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
+        companyDetailUpdateReq.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
+        companyDetailUpdateReq.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
+        companyDetailUpdateReq.setCompany_another(companyDetail.getCompany_another());
+        companyDetailUpdateReq.setCompany_flow(companyDetail.getCompany_flow());
+        companyDetailUpdateReq.setCompany_treatment(companyDetail.getCompany_treatment());
+        companyDetailUpdateReq.setCompany_welfare(companyDetail.getCompany_welfare());
+        companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompany_whatJob());
+        companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompanyDetail_Cname());
+        companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
+        model.addAttribute("companyDetail", companyDetailUpdateReq);
+
         return mav;
     }
 
