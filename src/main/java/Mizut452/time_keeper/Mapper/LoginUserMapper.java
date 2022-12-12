@@ -18,5 +18,6 @@ public interface LoginUserMapper {
     @Select("SELECT * FROM userlist WHERE username = #{username}")
     LoginUser findByUsername(@Param("username") String username);
 
+
     void create(LoginUser loginUser);
 }
