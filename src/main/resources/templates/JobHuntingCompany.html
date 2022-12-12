@@ -69,27 +69,5 @@
        </thead>
 
     <a th:href="@{/jobHuntingTool/{companyName}/edit/(companyName =${companyName})}">編集・追加</a>
-
-    <p>企業詳細登録</p>
-        <div class="companyDetail_form">
-        <form th:action="@{/addComDetail}" method="post">
-            <label>　　　職　　　種：</label>
-            <input name="company_whatJob" tyoe="text" /><br>
-            <label>　　　企業の長所：</label>
-            <textarea name="company_strongPoint" type="text"></textarea><br>
-            <label>　　　企業の短所：</label>
-            <textarea name="company_weakPoint" type="text"></textarea><br>
-            <label>給与等の待遇など：</label>
-            <input name="company_treatment" type="text" /><br>
-            <label>　　　福利厚生等：</label>
-            <textarea name="company_welfare"></textarea><br>
-            <label>　　　採用フロー：</label>
-            <textarea name="company_flow"></textarea><br>
-            <label>　　　　　その他：</label>
-            <textarea name="company_another"></textarea><br>
-            <input type="submit" value="登録" />
-
-        </form>
-    </div>
 </body>
 </html>
