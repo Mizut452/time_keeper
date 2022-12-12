@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <title>Title</title>
+</head>
+<header>
+    <ul id="nav">
+        <li>
+            <a th:href="@{/}">ホーム</a>
+        </li>
+        <li>
+            <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+                <a th:href="@{/mypage/{username}/(username =${LoginList})}">マイページ</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">マイページ</a>
+            </div>
+
+
+
+        </li>
+        <li>
+            <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+                <a th:href="@{/logout}">ログアウト</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">ログイン</a>
+            </div>
+        </li>
+        <li>
+            <a th:href="@{/createaccount}">会員登録</a>
+        </li>
+        <li>
+            <a th:href="@{/jobHuntingTool}">便利機能</a>
+        </li>
+    </ul>
+</header>
+<body>
+<h2>ログイン</h2>
+<form method="post" action="@{/}" th:action="@{/login}">
+  ユーザー名:<input type="text" name="username"><br>
+  パスワード:<input type="password" name="password"><br>
+  <button type="submit">ログイン</button>
+</form>
+</body>
+</html>

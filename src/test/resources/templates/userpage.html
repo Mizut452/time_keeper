@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <title>Title</title>
+</head>
+<footer>
+    <h2>Time Keeper</h2>
+</footer>
+<header>
+    <ul id="nav">
+        <li>
+            <a th:href="@{/}">ホーム</a>
+        </li>
+        <li>
+            <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+                <a th:href="@{/mypage/{username}/(username =${LoginList})}">マイページ</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">マイページ</a>
+            </div>
+        </li>
+        <li>
+            <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+                <a th:href="@{/logout}">ログアウト</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">ログイン</a>
+            </div>
+        </li>
+        <li sec:authorize="isAnonymous()">
+            <a th:href="@{/createaccount}">会員登録</a>
+        </li>
+        <li>
+            <a th:href="@{/jobHuntingTool}">便利機能</a>
+        </li>
+    </ul>
+</header>
+<body>
+<table border="1" style="border-collapse:collapse;">
+    ユーザーページです。
+    <thead>
+    <tr><th class="hidden">ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th></tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="timelist : ${TimeList}">
+        <td th:text="${timelist.id}"></td>
+        <td th:text="${timelist.username}"></td>
+        <td th:text="${timelist.subject}"></td>
+        <td th:text="${timelist.context}"></td>
+        <td th:text="${timelist.totalTime}"></td>
+        <td th:text="${timelist.Wdate}"></td>
+    </tr>
+    </tbody>
+
+    <form method="post" action="/" th:action="@{/logout}">
+        <button type="submit">ログアウト</button>
+    </form>
+</table>
+</body>
+</html>

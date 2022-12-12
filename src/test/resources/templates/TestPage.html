@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1" style="border-collapse:collapse;">
+  <thead>
+  テストページ！
+  <tr><th class="hidden">ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th></tr>
+  </thead>
+
+  <tbody>
+
+    <h2>手数料:<span th:text="${UserName}">テスティング</span></span></h2>
+
+    <tr th:each="timelist : ${PrincipalTimeList}">
+        <td th:text="${timelist.id}"></td>
+        <td th:text="${timelist.username}"></td>
+        <td th:text="${timelist.subject}"></td>
+        <td th:text="${timelist.totalTime}"></td>
+        <td th:text="${timelist.Wdate}"></td>
+    </tr>
+
+  </tbody>
+</table>
+</body>
+</html>

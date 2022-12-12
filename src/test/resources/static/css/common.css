@@ -1,0 +1,17 @@
+#nav {
+	list-style: none;
+	over-flow: hidden;
+ }
+
+#nav li {
+  width: 100px;
+  text-align: center;
+  color: #000000;
+  background-color: #ffffff;
+  float: left;
+}
+ 
+#nav li a {
+  text-decoration: none;
+  color: #000000;
+}

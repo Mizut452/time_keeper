@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mizut452.time_keeper.Mapper.RecordMapper">
+    <resultMap id="RecordUserMap" type="Mizut452.time_keeper.Model.Entity.PostRecord">
+        <result column="username" jdbcType="VARCHAR" property="username" />
+    </resultMap>
+    <select id="selectUsername" resultMap="RecordUserMap" resultType="UserName">
+        SELECT username FROM userlist
+    </select>
+</mapper>
