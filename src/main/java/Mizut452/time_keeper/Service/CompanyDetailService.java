@@ -30,6 +30,10 @@ public class CompanyDetailService {
         companyDetailMapper.update(companyDetailUpdateReq);
     }
 
+    public void deleteCompanyDetail(int id) {
+        companyDetailMapper.deleteCompanyDetail(id);
+    }
+
     public void addCompanyName(CompanyDetail companyDetail) {
         companyDetailMapper.addCname(companyDetail);
     }

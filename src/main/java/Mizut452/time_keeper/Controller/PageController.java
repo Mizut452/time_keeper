@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.Context;
+
 @Controller
 public class PageController {
     public PageController(LoginUserDetailsService loginUserDetailsService) {
@@ -32,9 +34,7 @@ public class PageController {
             mav.addObject("TimeList", timekeepMapper.selectAll());
             return mav;
         } else {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            UserDetails principal = (UserDetails) authentication.getPrincipal();
-            String PU = principal.getUsername();
+            String PU = loginUser.getUsername();
             ModelAndView mav = new ModelAndView("home");
             mav.addObject("TimeList", timekeepMapper.selectAll());
             mav.addObject("LoginList", PU);
@@ -53,16 +53,14 @@ public class PageController {
             return mav;
         } else {
             LoginUser record = loginUserMapper.findByUsername(username);
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            UserDetails principal = (UserDetails) auth.getPrincipal();
-            //String principalUsernameは、ログインしている人のIDを表す
-            String principalUsername = principal.getUsername();
+            String Username = loginUser.getUsername();
+
 
             if (record == null) {
                 return "NullAccount";
-            } else if (username.equals(principalUsername)) {
+            } else if (username.equals(Username)) {
                 mav = new ModelAndView("PrincipalUserPage");
-                mav.addObject("LoginList", principalUsername);
+                mav.addObject("LoginList", Username);
                 mav.addObject("PrincipalTimeList", timekeepMapper.principalSelectAll(username));
                 return mav;
             } else {

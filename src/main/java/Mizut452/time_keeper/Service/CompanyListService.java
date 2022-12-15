@@ -3,6 +3,7 @@ package Mizut452.time_keeper.Service;
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.CompanyList;
 import Mizut452.time_keeper.Model.Entity.CompanyListUpdateReq;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +24,9 @@ public class CompanyListService {
 
     public CompanyList findByCompanyName(String companyName) {
         return companyListMapper.findByCompanyName(companyName);
+    }
+
+    public void deleteCompanyList(int id) {
+        companyListMapper.deleteCompanyList(id);
     }
 }

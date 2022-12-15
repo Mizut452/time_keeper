@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class JobHuntingToolController {
 
@@ -138,6 +140,15 @@ public class JobHuntingToolController {
 
         companyListService.update(companyListUpdateReq);
 
+        return "redirect:/jobHuntingTool";
+    }
+
+    @RequestMapping("/JobHuntingTool/deleteCompanyList")
+    public String deleteCompany(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq) {
+        int id = companyDetailUpdateReq.getCompanyDetail_id();
+        System.out.println(id+1);
+        companyListService.deleteCompanyList(id+1);
+        companyDetailService.deleteCompanyDetail(id+1);
         return "redirect:/jobHuntingTool";
     }
 

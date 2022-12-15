@@ -51,6 +51,7 @@
             <th>福利厚生等</th>
             <th>採用フロー</th>
             <th>その他</th>
+            <th>削除</th>
         </tr>
     <tbody>
         <tr th:each="companyDetail : ${CompanyDetail}">
@@ -63,6 +64,7 @@
             <td th:text="${companyDetail.company_welfare}"></td>
             <td th:text="${companyDetail.company_flow}"></td>
             <td th:text="${companyDetail.company_another}"></td>
+            <td><a th:href="@{/JobHuntingTool/deleteCompanyList}">削除</a></td>
         </tr>
     </tbody>
 </table>
