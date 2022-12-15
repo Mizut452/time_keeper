@@ -17,10 +17,10 @@ public interface CompanyDetailMapper {
     @Select("SELECT * FROM companyDetail where companyDetail_Cname = #{companyName}")
     List<CompanyDetail> selectACompany(@Param("companyName") String companyName);
 
-    @Insert("INSERT INTO companyDetail(companyDetail_id, companyDetail_Cname, company_whatJob, company_strongPoint, company_weakPoint, company_treatment, company_welfare, company_flow, company_another) VALUES(#{companyDetail_id}, #{companyDetail_Cname}, '', '', '', '', '', '', '')")
+    @Insert("INSERT INTO companyDetail(companyDetail_Cname, company_whatJob, company_strongPoint, company_weakPoint, company_treatment, company_welfare, company_flow, company_another) VALUES(#{companyDetail_Cname}, '', '', '', '', '', '', '')")
     void add(CompanyDetail companyDetail);
 
-    @Insert("INSERT INTO companyDetail(companyDetail_id, companyDetail_Cname) SELECT id, companyName FROM companyList WHERE companyName = #{companyName}")
+    @Insert("INSERT INTO companyDetail(companyDetail_Cname) SELECT companyName FROM companyList WHERE companyName = #{companyName}")
     void addCname(CompanyDetail companyDetail);
 
     @Insert("INSERT INTO companyDetail(companyDetail_id, companyDetail_Cname) SELECT id, companyName FROM companyList WHERE companyName = #{companyName}")

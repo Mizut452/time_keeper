@@ -146,9 +146,8 @@ public class JobHuntingToolController {
     @RequestMapping("/JobHuntingTool/deleteCompanyList")
     public String deleteCompany(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq) {
         int id = companyDetailUpdateReq.getCompanyDetail_id();
-        System.out.println(id+1);
-        companyListService.deleteCompanyList(id+1);
-        companyDetailService.deleteCompanyDetail(id+1);
+        companyListService.deleteCompanyList(id);
+        companyDetailService.deleteCompanyDetail(id);
         return "redirect:/jobHuntingTool";
     }
 

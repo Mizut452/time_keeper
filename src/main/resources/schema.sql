@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS companyList (
 );
 
 CREATE TABLE IF NOT EXISTS companyDetail (
-    companyDetail_id INTEGER,
+    companyDetail_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     companyDetail_Cname VARCHAR(255),
     company_whatJob VARCHAR(255),
     company_strongPoint VARCHAR(255),
@@ -42,7 +42,4 @@ CREATE TABLE IF NOT EXISTS companyDetail (
     company_welfare VARCHAR(255),
     company_flow VARCHAR(255),
     company_another VARCHAR(255)
-
-    --CONSTRAINT companyD_id FOREIGN KEY (companyDetail_id) REFERENCES companyList(id),
-    --CONSTRAINT companyD_Cname FOREIGN KEY (companyDetail_Cname) REFERENCES companyList(companyName)
 );
