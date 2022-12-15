@@ -64,7 +64,7 @@
             <td th:text="${companyDetail.company_welfare}"></td>
             <td th:text="${companyDetail.company_flow}"></td>
             <td th:text="${companyDetail.company_another}"></td>
-            <td><a th:href="@{/JobHuntingTool/deleteCompanyList}">削除</a></td>
+            <td><a th:href="@{/JobHuntingTool/deleteCompanyList/{id}/confirm/(id =${id})}">削除</a></td>
         </tr>
     </tbody>
 </table>

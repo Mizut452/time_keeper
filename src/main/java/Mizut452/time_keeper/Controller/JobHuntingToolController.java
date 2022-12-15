@@ -83,10 +83,15 @@ public class JobHuntingToolController {
             return "NullCompany";
         } else {
             mav = new ModelAndView("JobHuntingCompany");
-
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetails principal = (UserDetails) authentication.getPrincipal();
             String PrincipalUserName = principal.getUsername();
+            companyDetail = companyDetailMapper.findById(companyName);
+            CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
+            companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
+            int id = companyDetailUpdateReq.getCompanyDetail_id();
+            System.out.println(id);
+            mav.addObject("id", id);
             mav.addObject("TimeList", PrincipalUserName);
             mav.addObject("companyName", companyName);
             mav.addObject("CompanyDetail", companyDetailMapper.selectACompany(companyName));
@@ -144,11 +149,35 @@ public class JobHuntingToolController {
     }
 
     @RequestMapping("/JobHuntingTool/deleteCompanyList")
-    public String deleteCompany(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq) {
-        int id = companyDetailUpdateReq.getCompanyDetail_id();
-        companyListService.deleteCompanyList(id);
-        companyDetailService.deleteCompanyDetail(id);
+    public Object deleteCompany(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq,
+                                Model model,
+                                ModelAndView mav) {
+        String cn = companyDetailUpdateReq.getCompanyDetail_Cname();
+        companyListService.deleteCompanyList(cn);
+        companyDetailService.deleteCompanyDetail(cn);
         return "redirect:/jobHuntingTool";
+    }
+
+    @RequestMapping("JobHuntingTool/deleteCompanyList/{id}/confirm")
+    public Object deleteCompanyConfirm(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq,
+                                       @PathVariable("id") int id,
+                                       Model model,
+                                       ModelAndView mav) {
+        mav = new ModelAndView("Confirm");
+        CompanyDetail companyDetail = companyDetailService.findById(id);
+        companyDetailUpdateReq = new CompanyDetailUpdateReq();
+        companyDetailUpdateReq.setCompany_another(companyDetail.getCompany_another());
+        companyDetailUpdateReq.setCompany_treatment(companyDetail.getCompany_treatment());
+        companyDetailUpdateReq.setCompany_welfare(companyDetail.getCompany_welfare());
+        companyDetailUpdateReq.setCompany_flow(companyDetail.getCompany_flow());
+        companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompanyDetail_Cname());
+        companyDetailUpdateReq.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
+        companyDetailUpdateReq.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
+        companyDetailUpdateReq.setCompany_whatJob(companyDetail.getCompany_whatJob());
+        companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
+        model.addAttribute("companyDetail", companyDetailUpdateReq);
+        model.addAttribute("companyName", companyDetailUpdateReq.getCompanyDetail_Cname());
+        return mav;
     }
 
     @Autowired

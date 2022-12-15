@@ -39,7 +39,19 @@
 </header>
 <body>
 <br>
-<p>登録が完了しました。</p>
+    <div sec:authorize="isAnonymous()">
+        <p>登録が完了しました。</p>
+    </div>
+
+    <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
+        <form th:action="@{/JobHuntingTool/deleteCompanyList}" th:method="post" th:object="${companyDetail}">
+            <label>企業名：</label>
+            <input type="hidden" th:field="*{companyDetail_Cname}" /><br>
+            <a th:text="${companyName}"></a>
+            <input type="submit" value="削除" />
+        </form>
+    </div>
+
 
 
 </body>

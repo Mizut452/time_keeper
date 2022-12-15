@@ -23,6 +23,6 @@ public interface CompanyListMapper {
     @Update("Update companyList SET companyName = #{companyName}, industry = #{industry}, headlocate = #{headlocate}, areOsaka = #{areOsaka}, companyURL = #{companyURL}, companyLother = #{companyLother} where id = #{id}")
     void update(CompanyListUpdateReq companyListUpdateReq);
 
-    @Delete("DELETE FROM companyList WHERE id = #{id}")
-    void deleteCompanyList(int listId);
+    @Delete("DELETE FROM companyList WHERE companyName = #{companyName}")
+    void deleteCompanyList(String cn);
 }

@@ -4,6 +4,8 @@ INSERT INTO userlist(id, mailaddress, username, password, rolename) VALUES(1, 't
 --パスワードは"second"
 INSERT INTO userlist(id, mailaddress, username, password, rolename) VALUES (2, 'second@second.com', 'second', '$2a$10$WtleMW4PbahhhxRTpQ0Gyu87FUxQJO0Cw6M.AV518/Cb3cTFeEy7e', 'ROLE_GENERAL');
 
+INSERT INTO userlist(id, mailaddress, username, password, rolename) VALUES(3, 'ssvror444@gmail.com', 'Mizut452', '$2a$10$4dqctMrn.ivlJrYtnpR8B.62omHi4Ptw47N6HTUmdbHKOV4f87vbm', 'ROLE_ADMIN');
+
 INSERT INTO companyList(id, companyName, industry, headlocate, areOsaka, CompanyURL, CompanyLother) VALUES(1, 'SHARP', '家電メーカー', '大阪', 1, 'https://jp.sharp/', '特になし');
 
 INSERT INTO companyDetail(companyDetail_id, companyDetail_Cname, company_whatJob, company_strongPoint, company_weakPoint, company_treatment, company_welfare, company_flow, company_another) VALUES(1, 'SHARP', '営業', '日本屈指の大企業', '出世のしづらさ', '初任給:２０万円', '育休制度あり', 'ES提出⇒面接⇒webテ⇒最終面接', '特になし');

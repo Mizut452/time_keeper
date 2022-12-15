@@ -26,7 +26,7 @@ public class CompanyListService {
         return companyListMapper.findByCompanyName(companyName);
     }
 
-    public void deleteCompanyList(int id) {
-        companyListMapper.deleteCompanyList(id);
+    public void deleteCompanyList(String cn) {
+        companyListMapper.deleteCompanyList(cn);
     }
 }

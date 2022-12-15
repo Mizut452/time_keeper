@@ -32,7 +32,10 @@ public interface CompanyDetailMapper {
     @Update("UPDATE companyDetail SET company_whatJob = #{company_whatJob}, company_strongPoint = #{company_strongPoint}, company_weakPoint = #{company_weakPoint}, company_treatment = #{company_treatment}, company_welfare = #{company_welfare}, company_flow = #{company_flow}, company_another = #{company_another} WHERE companyDetail_id = #{companyDetail_id}")
     void update(CompanyDetailUpdateReq companyDetailUpdateReq);
 
-    @Delete("DELETE FROM companyDetail WHERE companyDetail_id = #{companyDetail_id}")
-    void deleteCompanyDetail(int id);
+    @Delete("DELETE FROM companyDetail WHERE companyDetail_Cname = #{companyDetail_Cname}")
+    void deleteCompanyDetail(String cn);
+
+    @Select("SELECT * FROM companyDetail where companyDetail_id = #{companyDetail_id}")
+    CompanyDetail findByDId(@Param("companyDetail_id") int id);
 
 }
