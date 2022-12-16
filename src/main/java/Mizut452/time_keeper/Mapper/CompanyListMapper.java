@@ -20,7 +20,7 @@ public interface CompanyListMapper {
     @Select("SELECT * FROM companyList WHERE companyName = #{companyName}")
     CompanyList findByCompanyName(@Param("companyName") String companyName);
 
-    @Update("Update companyList SET companyName = #{companyName}, industry = #{industry}, headlocate = #{headlocate}, areOsaka = #{areOsaka}, companyURL = #{companyURL}, companyLother = #{companyLother} where id = #{id}")
+    @Update("UPDATE companyList SET companyName = #{companyName}, industry = #{industry}, headlocate = #{headlocate}, areOsaka = #{areOsaka}, companyURL = #{companyURL}, companyLother = #{companyLother} where id = #{id}")
     void update(CompanyListUpdateReq companyListUpdateReq);
 
     @Delete("DELETE FROM companyList WHERE companyName = #{companyName}")

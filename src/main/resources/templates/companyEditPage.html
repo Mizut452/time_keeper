@@ -41,7 +41,7 @@
 <br>
 <p>企業編集</p>
   <form th:action="@{/jobHuntingTool/update}" method="post" th:object="${companyList}">
-    <input type="text" th:field="*{id}" />
+    <input type="hidden" th:field="*{id}" />
     <label>　　　　会社名：</label>
     <input type="text" th:field="*{companyName}" />
     <label>　　　　　業界：</label>
@@ -58,8 +58,9 @@
   </form>
 
 <p>企業詳細登録・編集</p>
-<div class="companyDetail_form">
    <form th:action="@{/addComDetail}" method="post" th:object="${companyDetail}">
+     <input type="hidden" th:field="*{companyDetail_Cname}">
+     <input type="hidden" th:field="*{companyDetail_id}">
      <label>　　　職　　　種：</label>
      <input tyoe="text" th:field="*{company_whatJob}" /><br>
      <label>　　　企業の長所：</label>
@@ -75,9 +76,7 @@
      <label>　　　　　その他：</label>
      <textarea th:field="*{company_another}"></textarea><br>
      <input type="submit" value="登録" />
-
   </form>
-</div>
 
 </body>
 </html>

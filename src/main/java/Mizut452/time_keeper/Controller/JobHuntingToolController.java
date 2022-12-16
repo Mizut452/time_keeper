@@ -28,7 +28,7 @@ import java.util.List;
 public class JobHuntingToolController {
 
     @RequestMapping("/company_add")
-    public String addCompanyItem(@ModelAttribute CompanyList companyList,
+    public String addCompanyItem(CompanyList companyList,
                                  CompanyDetail companyDetail,
                                  String companyName,
                                  Model model) {
@@ -90,22 +90,12 @@ public class JobHuntingToolController {
             CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
             companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
             int id = companyDetailUpdateReq.getCompanyDetail_id();
-            System.out.println(id);
             mav.addObject("id", id);
             mav.addObject("TimeList", PrincipalUserName);
             mav.addObject("companyName", companyName);
             mav.addObject("CompanyDetail", companyDetailMapper.selectACompany(companyName));
             return mav;
         }
-    }
-
-    @RequestMapping("/addComDetail")
-    public Object companyDetails(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq,
-                                 String companyName,
-                                 ModelAndView mav) {
-        companyDetailService.update(companyDetailUpdateReq);
-        companyName = companyDetailUpdateReq.getCompanyDetail_Cname();
-        return "redirect:/jobHuntingTool/" + companyName;
     }
 
     @GetMapping("/jobHuntingTool/{companyName}/edit")
@@ -132,7 +122,7 @@ public class JobHuntingToolController {
         companyDetailUpdateReq.setCompany_flow(companyDetail.getCompany_flow());
         companyDetailUpdateReq.setCompany_treatment(companyDetail.getCompany_treatment());
         companyDetailUpdateReq.setCompany_welfare(companyDetail.getCompany_welfare());
-        companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompany_whatJob());
+        companyDetailUpdateReq.setCompany_whatJob(companyDetail.getCompany_whatJob());
         companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompanyDetail_Cname());
         companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
         model.addAttribute("companyDetail", companyDetailUpdateReq);
@@ -141,11 +131,15 @@ public class JobHuntingToolController {
     }
 
     @RequestMapping("/jobHuntingTool/update")
-    public String updateCompany(@ModelAttribute CompanyListUpdateReq companyListUpdateReq) {
-
+    public String updateCompany(CompanyListUpdateReq companyListUpdateReq) {
         companyListService.update(companyListUpdateReq);
-
         return "redirect:/jobHuntingTool";
+    }
+
+    @RequestMapping("/addComDetail")
+    public String companyDetails(CompanyDetailUpdateReq companyDetailUpdateReq) {
+        companyDetailService.update(companyDetailUpdateReq);
+        return "redirect:/jobHuntingTool/";
     }
 
     @RequestMapping("/JobHuntingTool/deleteCompanyList")
