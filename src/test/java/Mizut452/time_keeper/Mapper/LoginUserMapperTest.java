@@ -23,7 +23,7 @@ public class LoginUserMapperTest {
     @Test
     void findAllTest() {
         List<LoginUser> loginUsers = loginUserMapper.selectAll();
-        assertEquals(2, loginUsers.size());
+        assertEquals(3, loginUsers.size());
     }
 
     @Test
@@ -34,6 +34,17 @@ public class LoginUserMapperTest {
         loginUser.setPassword("testMan");
         loginUserMapper.create(loginUser);
         List<LoginUser> loginUsers = loginUserMapper.selectAll();
-        assertEquals(3, loginUsers.size());
+        assertEquals(4, loginUsers.size());
+        assertEquals("ROLE_GENERAL",loginUser.getRoleName());
+    }
+
+    @Test
+    void findByUsername() {
+        LoginUser loginUser = loginUserMapper.findByUsername("top");
+        String testRole = loginUser.getRoleName();
+        //このテストは失敗します
+        assertEquals("ROLE_GENERAL", testRole);
+        //このテストは成功します。
+        assertEquals("ROLE_ADMIN", testRole);
     }
 }
