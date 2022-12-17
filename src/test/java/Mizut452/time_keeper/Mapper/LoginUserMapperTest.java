@@ -35,14 +35,14 @@ public class LoginUserMapperTest {
         loginUserMapper.create(loginUser);
         List<LoginUser> loginUsers = loginUserMapper.selectAll();
         assertEquals(4, loginUsers.size());
-        assertEquals("ROLE_GENERAL",loginUser.getRoleName());
+        assertEquals("ROLE_GENERAL", loginUsers.get(3).getRoleName());
     }
 
     @Test
     void findByUsername() {
         LoginUser loginUser = loginUserMapper.findByUsername("top");
         String testRole = loginUser.getRoleName();
-        //このテストは失敗します
+        //アカウントtopはADMINの役割を持っているのでこのテストは失敗します。
         assertEquals("ROLE_GENERAL", testRole);
         //このテストは成功します。
         assertEquals("ROLE_ADMIN", testRole);
