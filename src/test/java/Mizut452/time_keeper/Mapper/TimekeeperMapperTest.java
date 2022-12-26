@@ -78,12 +78,12 @@ public class TimekeeperMapperTest {
         timekeep.setTotalTime("testTime");
         timekeep.setWdate("testWdate");
         timekeepMapper.add(timekeep);
-
-        assertEquals(timekeep.getUsername(), timekeepMapper.principalSelectAll("testMan").get(0).getUsername());
+        //timeManでの検索が成功するか確認
+        assertEquals(false, timekeepMapper.principalSelectAll("testMan").isEmpty());
 
         timekeepMapper.delete(timekeep.getTimekeepid());
 
-        //成功するとエラーが出る。
-        assertEquals(null, timekeepMapper.principalSelectAll("testMan").get(0).getUsername());
+        //timeManでの検索がnull判定になっているか確認
+        assertEquals(true, timekeepMapper.principalSelectAll("testMan").isEmpty());
     }
 }

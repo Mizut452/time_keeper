@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS companyDetail;
+DROP TABLE IF EXISTS companyList;
 DROP TABLE IF EXISTS userlist;
 DROP TABLE IF EXISTS timekeeplist;
 
@@ -5,8 +7,20 @@ CREATE TABLE IF NOT EXISTS userlist (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	mailaddress VARCHAR(255) NOT NULL,
 	username VARCHAR(255) NOT NULL,
-	password VARCHAR(255) NOT NULL,
-	rolename VARCHAR(255)
+	password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS roles (
+    role_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    role_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users_role (
+    user_id INTEGER,
+    role_id INTEGER,
+    CONSTRAINT PK_usersRole_ID PRIMARY KEY (user_id, role_id),
+    CONSTRAINT FK_users_ID FOREIGN KEY (user_id) REFERENCES userlist(id),
+    CONSTRAINT FK_roles_ID FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
 CREATE TABLE IF NOT EXISTS timekeeplist (
