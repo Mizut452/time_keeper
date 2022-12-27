@@ -26,27 +26,19 @@ public class AddTimeKeepService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principal = (UserDetails) auth.getPrincipal();
         timekeep.setUsername(principal.getUsername());
-        timekeep.setWdate(now.format(f));
+        timekeep.setWhatDate(now.format(f));
         timekeepMapper.add(timekeep);
     }
 
-    public void updateTimekeep(Timekeep timekeep) {
-        timekeepMapper.updateItem(timekeep);
-    }
-
-    public void save(Timekeep timekeep) {
-        timekeepMapper.save(timekeep);
-    }
-
-    public Timekeep findByid(int timekeepid) {
-        return timekeepMapper.findByid(timekeepid);
+    public Timekeep findById(int timeKeepId) {
+        return timekeepMapper.findById(timeKeepId);
     }
 
     public void update(TimekeepUpdateReq timekeepUpdateReq) {
         timekeepMapper.update(timekeepUpdateReq);
     }
 
-    public void delete(int timekeepid) {
-        timekeepMapper.delete(timekeepid);
+    public void delete(int timeKeepId) {
+        timekeepMapper.delete(timeKeepId);
     }
 }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link th:href="@{/css/common.css}" rel="stylesheet">
   <link th:href="@{/css/tab.css}" rel="stylesheet">
-  <script th:src="@{/js/tab.js}"></script>
+  <script type="text/javascript" th:src="@{/js/tab.js}"></script>
   <title>Title</title>
 </head>
 <header>
@@ -38,31 +38,50 @@
 </header>
 <body>
 <p>登録していこう！</p>
+
 <div class="tab" id="js-tab">
   <div class="tab-nav">
     <a href="" class="tab-nav-item is-active" data-nav="0">手入力</a>
     <a href="" class="tab-nav-item" data-nav="1">タイマー</a>
+    <a href="" class="tab-nav-item" data-nav="2">ストップウォッチ</a>
   </div>
-
   <div class="tab-contents">
-  <div class="tab-contents-item" data-content="0">
-    タイマー
-  </div>
-  <div class="tab-contents-item" data-content="1">
-    手入力
-  </div>
+    <div class="tab-contents-item" data-content="0">
+      <form th:action="@{/add}" method="post">
+        <label>科目</label>
+        <input name="subject" type="text"/>
+        <label>内容</label>
+        <input name="context" type="text" />
+        <label>時間</label>
+        <input name="totalTime" type="text" />
+        <input type="submit" value="登録" />
+      </form>
+    </div>
+    <div class="tab-contents-item" data-content="1">
+      <form th:action="@{/add}" method="post">
+        <label>科目</label>
+        <input name="subject" type="text"/>
+        <label>内容</label>
+        <input name="context" type="text" />
+        <label>時間</label>
+        <input name="totalTime" type="text" />
+        <input type="submit" value="登録" />
+      </form>
+    </div>
+    <div class="tab-contents-item" data-content="2">
+      <form th:action="@{/add}" method="post">
+        <label>科目</label>
+        <input name="subject" type="text"/>
+        <label>内容</label>
+        <input name="context" type="text" />
+        <label>時間</label>
+        <input name="totalTime" type="text" />
+        <input type="submit" value="登録" />
+      </form>
+    </div>
   </div>
 </div>
-  <form th:action="@{/add}" method="post">
-    <label>科目</label>
-    <input name="subject" type="text"/>
-    <label>内容</label>
-    <input name="context" type="text" />
-    <label>時間</label>
-    <input name="totalTime" type="text" />
-    <input type="submit" value="登録" />
-  </form>
-</div>
+
 
 <table border="1" style="border-collapse:collapse;">
   <thead>
@@ -82,5 +101,6 @@
   </tr>
   </tbody>
 </table>
+  <script th:src="@{/js/tab.js}"></script>
 </body>
 </html>

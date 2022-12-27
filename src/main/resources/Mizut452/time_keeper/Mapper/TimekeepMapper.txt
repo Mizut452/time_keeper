@@ -3,12 +3,12 @@
 <mapper namespace="Mizut452.time_keeper.Mapper.TimekeepMapper">
     <resultMap id="TimekeepMap"
                type="Mizut452.time_keeper.Model.Entity.Timekeep">
-        <result column="timekeepid" jdbcType="INTEGER" property="timekeepid" />
+        <result column="timeKeepId" jdbcType="INTEGER" property="timekeepid" />
         <result column="username" jdbcType="VARCHAR" property="username" />
         <result column="subject" jdbcType="VARCHAR" property="subject" />
         <result column="context" jdbcType="VARCHAR" property="context" />
         <result column="totalTime" jdbcType="VARCHAR" property="totalTime" />
-        <result column="Wdate" jdbcType="VARCHAR" property="Wdate" />
+        <result column="WhatDate" jdbcType="VARCHAR" property="Wdate" />
     </resultMap>
 
     <resultMap id="TimekeepUpdateMap"
@@ -16,7 +16,7 @@
         <result column="subject" jdbcType="VARCHAR" property="subject" />
         <result column="context" jdbcType="VARCHAR" property="context" />
         <result column="totalTime" jdbcType="VARCHAR" property="totalTime" />
-        <result column="Wdate" jdbcType="VARCHAR" property="Wdate" />
+        <result column="WhatDate" jdbcType="VARCHAR" property="Wdate" />
     </resultMap>
 
     <select id="selectAll" resultMap="TimekeepMap">
@@ -32,7 +32,7 @@
     </select>
 
     <insert id="add" parameterType="Mizut452.time_keeper.Model.Entity.Timekeep" useGeneratedKeys="true" keyProperty="timekeepid">
-        INSERT INTO timekeeplist (username, subject, context, totalTime, Wdate)
+        INSERT INTO timeKeepList (username, subject, context, totalTime, Wdate)
             VALUES(#{username}, #{subject}, #{context}, #{totalTime}, CURRENT_TIMESTAMP)
     </insert>
 
@@ -41,12 +41,12 @@
     </select>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="timekeepid">
-        INSERT INTO timekeeplist(subject, context, totalTime, Wdate) VALUES (#{subejct}, #{context}, #{totalTime}, #{Wdate})
+        INSERT INTO timeKeepList(subject, context, totalTime, WhatDate) VALUES (#{subject}, #{context}, #{totalTime}, #{WhatDate})
     </insert>
 
     <update id="update">
         UPDATE
-         timekeeplist
+         timeKeepList
         SET
          subject = #{subject},
          context = #{context},

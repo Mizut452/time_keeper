@@ -1,29 +1,35 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/tab.css">
+    <script type="text/javascript" th:src="@{/js/tab.js}"></script>
+
 </head>
 <body>
-<table border="1" style="border-collapse:collapse;">
-  <thead>
-  テストページ！
-  <tr><th class="hidden">ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th></tr>
-  </thead>
 
-  <tbody>
-
-    <h2>手数料:<span th:text="${UserName}">テスティング</span></span></h2>
-
-    <tr th:each="timelist : ${PrincipalTimeList}">
-        <td th:text="${timelist.id}"></td>
-        <td th:text="${timelist.username}"></td>
-        <td th:text="${timelist.subject}"></td>
-        <td th:text="${timelist.totalTime}"></td>
-        <td th:text="${timelist.WhatDate}"></td>
-    </tr>
-
-  </tbody>
-</table>
+<div class="tab" id="js-tab">
+    <div class="tab-nav">
+        <a href="" class="tab-nav-item is-active" data-nav="0">Tab-0</a>
+        <a href="" class="tab-nav-item" data-nav="1">Tab-1</a>
+        <a href="" class="tab-nav-item" data-nav="2">Tab-2</a>
+        <a href="" class="tab-nav-item" data-nav="3">Tab-3</a>
+    </div>
+    <div class="tab-contents">
+        <div class="tab-contents-item" data-content="0">
+            タブその0
+        </div>
+        <div class="tab-contents-item" data-content="1">
+            タブその1
+        </div>
+        <div class="tab-contents-item" data-content="2">
+            タブその2
+        </div>
+        <div class="tab-contents-item" data-content="3">
+            タブその3
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/tab.js}"></script>
 </body>
 </html>

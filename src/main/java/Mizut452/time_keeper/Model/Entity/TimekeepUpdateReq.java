@@ -8,9 +8,9 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class TimekeepUpdateReq implements Serializable {
-    private int timekeepid;
+    private int timeKeepId;
     private String subject;
     private String context;
     private String totalTime;
-    private String Wdate;
+    private String WhatDate;
 }

@@ -10,8 +10,7 @@ CREATE TABLE IF NOT EXISTS userList (
 	mailAddress VARCHAR(255) NOT NULL,
 	username VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
-	roleName VARCHAR(255),
-	CONSTRAINT FK_roleName FOREIGN (roleName) REFERENCES roles(rolesName)
+	roleName VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS roles (

@@ -44,19 +44,19 @@ public class LoginCreateController {
     }
 
 
-    @RequestMapping("/mypage/{username}/updatePage/{timekeepid}")
+    @RequestMapping("/mypage/{username}/updatePage/{timeKeepId}")
     public Object updateTimeList(ModelAndView mav,
                                  @PathVariable("username") String username,
-                                 @PathVariable("timekeepid") int timekeepid,
+                                 @PathVariable("timeKeepId") int timeKeepId,
                                  Model model) {
         mav = new ModelAndView("UpdateTimeListItem");
-        Timekeep timekeep = addTimekeepservice.findByid(timekeepid);
+        Timekeep timekeep = addTimekeepservice.findById(timeKeepId);
         TimekeepUpdateReq timekeepUpdateReq = new TimekeepUpdateReq();
-        timekeepUpdateReq.setTimekeepid(timekeep.getTimekeepid());
+        timekeepUpdateReq.setTimeKeepId(timekeep.getTimeKeepId());
         timekeepUpdateReq.setSubject(timekeep.getSubject());
         timekeepUpdateReq.setContext(timekeep.getContext());
         timekeepUpdateReq.setTotalTime(timekeep.getTotalTime());
-        timekeepUpdateReq.setWdate(timekeep.getWdate());
+        timekeepUpdateReq.setWhatDate(timekeep.getWhatDate());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principal = (UserDetails) auth.getPrincipal();
         model.addAttribute("timeList", timekeepUpdateReq);
@@ -64,19 +64,19 @@ public class LoginCreateController {
         return mav;
     }
 
-    @RequestMapping("/mypage/{username}/delete/{timekeepid}")
+    @RequestMapping("/mypage/{username}/delete/{timeKeepId}")
     public Object deleteTimeList(ModelAndView mav,
                                  @PathVariable("username") String username,
-                                 @PathVariable("timekeepid") int timekeepid,
+                                 @PathVariable("timeKeepId") int timeKeepId,
                                  Model model) {
         mav = new ModelAndView("deleteTimeListItem");
-        Timekeep timekeep = addTimekeepservice.findByid(timekeepid);
+        Timekeep timekeep = addTimekeepservice.findById(timeKeepId);
         TimekeepUpdateReq timekeepUpdateReq = new TimekeepUpdateReq();
-        timekeepUpdateReq.setTimekeepid(timekeep.getTimekeepid());
+        timekeepUpdateReq.setTimeKeepId(timekeep.getTimeKeepId());
         timekeepUpdateReq.setSubject(timekeep.getSubject());
         timekeepUpdateReq.setContext(timekeep.getContext());
         timekeepUpdateReq.setTotalTime(timekeep.getTotalTime());
-        timekeepUpdateReq.setWdate(timekeep.getWdate());
+        timekeepUpdateReq.setWhatDate(timekeep.getWhatDate());
         //addTimekeepservice.delete(timekeepid);
         model.addAttribute("timeList", timekeepUpdateReq);
         //return "redirect:/mypage/" + username;
@@ -116,9 +116,9 @@ public class LoginCreateController {
         UserDetails principal = (UserDetails) auth.getPrincipal();
         String username = principal.getUsername();
 
-        int timekeepid = timekeepUpdateReq.getTimekeepid();
+        int timeKeepId = timekeepUpdateReq.getTimeKeepId();
 
-        addTimekeepservice.delete(timekeepid);
+        addTimekeepservice.delete(timeKeepId);
         return "redirect:/mypage/" + username;
     }
 

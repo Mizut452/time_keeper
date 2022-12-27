@@ -34,9 +34,9 @@ public class JobHuntingToolController {
                                  Model model) {
         companyList.setCompanyName(companyList.getCompanyName());
         companyList.setIndustry(companyList.getIndustry());
-        companyList.setHeadlocate(companyList.getHeadlocate());
+        companyList.setHeadLocate(companyList.getHeadLocate());
         companyList.setCompanyURL(companyList.getCompanyURL());
-        companyList.setCompanyLother(companyList.getCompanyLother());
+        companyList.setCompanyListOther(companyList.getCompanyListOther());
         companyDetail.setCompanyDetail_Cname(companyList.getCompanyName());
         companyDetail.setCompanyDetail_id(companyList.getId());
 
@@ -107,10 +107,10 @@ public class JobHuntingToolController {
         CompanyListUpdateReq companyListUpdateReq = new CompanyListUpdateReq();
         companyListUpdateReq.setId(companyList.getId());
         companyListUpdateReq.setCompanyName(companyList.getCompanyName());
-        companyListUpdateReq.setHeadlocate(companyList.getHeadlocate());
+        companyListUpdateReq.setHeadlocate(companyList.getHeadLocate());
         companyListUpdateReq.setIndustry(companyList.getIndustry());
         companyListUpdateReq.setCompanyURL(companyList.getCompanyURL());
-        companyListUpdateReq.setCompanyLother(companyList.getCompanyLother());
+        companyListUpdateReq.setCompanyLother(companyList.getCompanyListOther());
         companyListUpdateReq.setAreOsaka(companyList.isAreOsaka());
         model.addAttribute("companyList", companyListUpdateReq);
 

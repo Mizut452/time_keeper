@@ -2,9 +2,7 @@ package Mizut452.time_keeper.Mapper;
 
 import Mizut452.time_keeper.Model.Entity.CompanyDetail;
 import Mizut452.time_keeper.Model.Entity.CompanyDetailUpdateReq;
-import Mizut452.time_keeper.Model.Entity.CompanyList;
 import org.apache.ibatis.annotations.*;
-import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 

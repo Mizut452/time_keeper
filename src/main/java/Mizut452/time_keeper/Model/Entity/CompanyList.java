@@ -7,8 +7,8 @@ public class CompanyList {
     private int id;
     private String companyName;
     private String industry;
-    private String headlocate;
+    private String headLocate;
     private boolean areOsaka;
     private String CompanyURL;
-    private String companyLother;
+    private String companyListOther;
 }

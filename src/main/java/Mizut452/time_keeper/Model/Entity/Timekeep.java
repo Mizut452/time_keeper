@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 @Data
 public class Timekeep implements Serializable {
-    private int timekeepid;
+    private int timeKeepId;
     private String username;
     private String subject;
     private String context;
     private String totalTime;
-    private String Wdate;
+    private String WhatDate;
 }
 

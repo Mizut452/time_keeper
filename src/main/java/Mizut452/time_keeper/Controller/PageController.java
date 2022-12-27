@@ -26,6 +26,11 @@ public class PageController {
         this.loginUserDetailsService = loginUserDetailsService;
     }
 
+    @GetMapping("/test")
+    public String testPage() {
+        return "TestPage";
+    }
+
     @GetMapping("/")
     public Object home(@AuthenticationPrincipal LoginUser loginUser) {
 
