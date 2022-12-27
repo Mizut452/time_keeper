@@ -4,7 +4,7 @@
     <resultMap id="LoginUserMap"
                type="Mizut452.time_keeper.Model.Entity.LoginUser">
         <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="mailaddress" jdbcType="VARCHAR" property="mailaddress" />
+        <result column="mailAddress" jdbcType="VARCHAR" property="mailaddress" />
         <result column="username" jdbcType="VARCHAR" property="username" />
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="rolename" jdbcType="VARCHAR" property="roleName" />
@@ -15,6 +15,6 @@
     </resultMap>
 
     <insert id="create" parameterType="Mizut452.time_keeper.Model.Entity.LoginUser" useGeneratedKeys="true" keyProperty="id">
-	       INSERT INTO userlist (mailaddress, username, password, rolename) VALUES(#{mailaddress}, #{username}, #{password}, 'ROLE_GENERAL')
+	       INSERT INTO userList (mailAddress, username, password, roleName) VALUES(#{mailAddress}, #{username}, #{password}, 'ROLE_GENERAL')
     </insert>
 </mapper>

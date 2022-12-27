@@ -49,12 +49,12 @@
 
     <tbody>
     <tr th:each="timelist : ${TimeList}">
-        <td th:text="${timelist.timekeepid}"></td>
+        <td th:text="${timelist.timeKeepId}"></td>
         <td><a th:href="@{/mypage/{username}/(username=${timelist.username})}" th:text="${timelist.username}"></a></td>
         <td th:text="${timelist.subject}"></td>
         <td th:text="${timelist.context}"></td>
         <td th:text="${timelist.totalTime}"></td>
-        <td th:text="${timelist.Wdate}"></td>
+        <td th:text="${timelist.WhatDate}"></td>
     </tr>
     </tbody>
 </table>

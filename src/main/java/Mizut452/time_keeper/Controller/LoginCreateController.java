@@ -33,7 +33,7 @@ public class LoginCreateController {
 
     @RequestMapping("/create")
     public String addAccount(@ModelAttribute LoginUser loginUser) {
-        loginUser.setMailaddress(loginUser.getMailaddress());
+        loginUser.setMailAddress(loginUser.getMailAddress());
         loginUser.setUsername(loginUser.getUsername());
         loginUser.setPassword(loginUser.getPassword());
         loginUser.setRoleName(loginUser.getRoleName());
