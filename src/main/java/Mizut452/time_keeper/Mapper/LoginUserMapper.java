@@ -10,12 +10,12 @@ import java.util.List;
 
 @Mapper
 public interface LoginUserMapper {
-    @Select("SELECT * FROM userlist")
+    @Select("SELECT * FROM userList")
     List<LoginUser> selectAll();
-    @Select("SELECT username FROM userlist WHERE username = #{username}")
+    @Select("SELECT username FROM userList WHERE username = #{username}")
     LoginUser selectUsername(String username);
 
-    @Select("SELECT * FROM userlist WHERE username = #{username}")
+    @Select("SELECT * FROM userList u JOIN users_role ur ON u.id = ur.user_id JOIN roles r ON ur.role_id = r.roleID WHERE username = #{username}")
     LoginUser findByUsername(@Param("username") String username);
 
 

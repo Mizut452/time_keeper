@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class LoginUser implements UserDetails{
     private int id;
-    private String mailaddress;
+    private String mailAddress;
     private String username;
     private String password;
     private String roleName;
