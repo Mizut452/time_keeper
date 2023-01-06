@@ -44,7 +44,8 @@
         <label>内容：</label>
         <input class="form-control" type="text" th:field="*{context}" /><br>
         <label>時間：</label>
-        <input class="form-control" type="text" th:field="*{totalTime}" /><br>
+        <input class="form-control" type="text" th:field="*{hours}" />時間
+        <input class="form-control" type="text" th:field="*{minutes}" />分<br>
         <label>日付：</label>
         <input class="form-control" type="text" th:field="*{WhatDate}" /><br>
           <input type="submit" value="更新" />

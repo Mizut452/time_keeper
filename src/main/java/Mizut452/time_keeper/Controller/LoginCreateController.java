@@ -13,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Time;
-
 @Controller
 public class LoginCreateController {
 
@@ -53,7 +51,8 @@ public class LoginCreateController {
         timekeepUpdateReq.setTimeKeepId(timekeep.getTimeKeepId());
         timekeepUpdateReq.setSubject(timekeep.getSubject());
         timekeepUpdateReq.setContext(timekeep.getContext());
-        timekeepUpdateReq.setTotalTime(timekeep.getTotalTime());
+        timekeepUpdateReq.setHours(timekeep.getHours());
+        timekeepUpdateReq.setMinutes(timekeep.getMinutes());
         timekeepUpdateReq.setWhatDate(timekeep.getWhatDate());
         model.addAttribute("timeList", timekeepUpdateReq);
         return mav;
@@ -70,7 +69,8 @@ public class LoginCreateController {
         timekeepUpdateReq.setTimeKeepId(timekeep.getTimeKeepId());
         timekeepUpdateReq.setSubject(timekeep.getSubject());
         timekeepUpdateReq.setContext(timekeep.getContext());
-        timekeepUpdateReq.setTotalTime(timekeep.getTotalTime());
+        timekeepUpdateReq.setHours(timekeep.getHours());
+        timekeepUpdateReq.setMinutes(timekeep.getMinutes());
         timekeepUpdateReq.setWhatDate(timekeep.getWhatDate());
 
         model.addAttribute("timeList", timekeepUpdateReq);
@@ -83,7 +83,8 @@ public class LoginCreateController {
                           @ModelAttribute String username) {
         timekeep.setSubject(timekeep.getSubject());
         timekeep.setContext(timekeep.getContext());
-        timekeep.setTotalTime(timekeep.getTotalTime());
+        timekeep.setHours(timekeep.getHours());
+        timekeep.setMinutes(timekeep.getMinutes());
         username = loginUser.getUsername();
 
         addTimekeepservice.addTimekeep(timekeep);

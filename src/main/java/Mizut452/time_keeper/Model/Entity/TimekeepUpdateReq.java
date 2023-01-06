@@ -11,6 +11,7 @@ public class TimekeepUpdateReq implements Serializable {
     private int timeKeepId;
     private String subject;
     private String context;
-    private String totalTime;
+    private String hours;
+    private String minutes;
     private String WhatDate;
 }

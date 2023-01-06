@@ -10,7 +10,8 @@ public class Timekeep implements Serializable {
     private String username;
     private String subject;
     private String context;
-    private String totalTime;
+    private String hours;
+    private String minutes;
     private String WhatDate;
 
     /*public int getTimeKeepId = getTimeKeepId();

@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class CompanyDetailUpdateReq {
     private int companyDetail_id;
-    private String companyDetail_Cname;
+    private String companyDetail_CompanyName;
     private String company_whatJob;
     private String company_strongPoint;
     private String company_weakPoint;

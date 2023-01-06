@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link th:href="@{/css/common.css}" rel="stylesheet">
   <link th:href="@{/css/tab.css}" rel="stylesheet">
-  <script type="text/javascript" th:src="@{/js/tab.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/PrincipalUserPage.css}">
   <title>Title</title>
 </head>
 <header>
@@ -15,71 +15,129 @@
     </li>
     <li class="list">
       <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
-        <a th:href="@{/mypage/{username}/(username =${LoginList})}" class="shadow">マイページ</a>
+        <a th:href="@{/mypage/{username}/(username =${LoginList})}" class="menu-hover">マイページ</a>
       </div>
       <div sec:authorize="isAnonymous()">
-        <a th:href="@{/login}" class="shadow">マイページ</a>
+        <a th:href="@{/login}" class="menu-hover">マイページ</a>
       </div>
     </li>
     <li class="list">
       <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
-        <a th:href="@{/logout}" class="shadow">ログアウト</a>
+        <a th:href="@{/logout}" class="menu-hover">ログアウト</a>
       </div>
       <div sec:authorize="isAnonymous()">
-        <a th:href="@{/login}" class="shadow">ログイン</a>
+        <a th:href="@{/login}" class="menu-hover">ログイン</a>
       </div>
     </li>
     <li sec:authorize="isAnonymous()" class="list">
-      <a th:href="@{/createaccount}" class="shadow">会員登録</a>
+      <a th:href="@{/createaccount}" class="menu-hover">会員登録</a>
     </li>
     <li class="list">
-      <a th:href="@{/jobHuntingTool}" class="shadow">便利機能</a>
+      <a th:href="@{/jobHuntingTool}" class="menu-hover">便利機能</a>
     </li>
   </ul>
 </header>
 <body>
+<br>
 <p>登録していこう！</p>
 
+<div class="main">
+<main class="center">
 <div class="tab" id="js-tab">
   <div class="tab-nav">
     <a href="" class="tab-nav-item is-active" data-nav="0">手入力</a>
-    <a href="" class="tab-nav-item" data-nav="1">タイマー</a>
-    <a href="" class="tab-nav-item" data-nav="2">ストップウォッチ</a>
+    <a href="" class="tab-nav-item" data-nav="1">ストップウォッチ</a>
   </div>
   <div class="tab-contents">
     <div class="tab-contents-item" data-content="0">
       <form th:action="@{/add}" method="post">
+        <!--科目の設定-->
         <label>科目</label>
-        <input name="subject" type="text"/>
+        <input type="text" name="subject"><br>
+
+        <!--内容の設定-->
         <label>内容</label>
-        <input name="context" type="text" />
-        <label>時間</label>
-        <input name="totalTime" type="text" />
-        <input type="submit" value="登録" />
+        <input type="text" name="context"><br>
+
+          <label>時間</label>
+          <input type="text" name="hours" size="5">時間
+          <input type="text" name="minutes" size="5">分
+        <br>
+        <!--送信ボタン-->
+        <input type="submit" value="登録" class="submit-button">
+        <input type="submit" value="リセット" class="submit-button">
       </form>
     </div>
+
+        <!--時間の設定-->
+        <!--ストップウォッチ-->
+        <div class="tab-contents-item" data-content="1">
+          <!--ストップウォッチの設定-->
+          <p id="time">00:00:00</p>
+          <input type="button" id="start" value="スタート"/>
+          <input type="button" id="stop"  value="ストップ"/>
+          <input type="button" id="reset" value="リセット" />
+          <input type="button" id="sub" value="登録">
+
+          <form th:action="@{/add}" method="post">
+            <!--科目の設定-->
+            <label>科目</label>
+            <input type="text" name="subject"><br>
+
+            <!--内容の設定-->
+            <label>内容</label>
+            <input type="text" name="context"><br>
+
+            <!--時間の設定-->
+              <label>時間</label>
+              <input type="text" name="hours" size="5" id="setHour">時間
+              <input type="text" name="minutes" size="5" id="setMin">分
+            <br>
+            <!--送信ボタン-->
+            <input type="submit" value="登録" class="submit-button">
+            <input type="submit" value="リセット" class="submit-button">
+          </form>
+        </div>
+    </div>
   </div>
+</main>
+
+<aside class="side">this is side</aside>
+<div class="sub">サーブ</div>
 </div>
 
-
-<table border="1" style="border-collapse:collapse;">
-  <thead>
-  <tr><th>ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th><th>編集</th></tr>
-  </thead>
+<footer>
+  <table border="1" style="border-collapse:collapse;">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>ユーザー名</th>
+      <th>科目</th>
+      <th>内容</th>
+      <th>時間</th>
+      <th>日付</th>
+      <th>編集</th>
+    </tr>
+    </thead>
 
   <tbody>
-  <tr th:each="timelist : ${PrincipalTimeList}">
-    <td th:text="${timelist.timeKeepId}"></td>
-    <td th:text="${timelist.username}"></td>
-    <td th:text="${timelist.subject}"></td>
-    <td th:text="${timelist.context}"></td>
-    <td th:text="${timelist.totalTime}"></td>
-    <td th:text="${timelist.WhatDate}"></td>
-    <td><a th:href="@{/mypage/{username}/updatePage/{id}/(username=${LoginList}, id = ${timelist.timeKeepId})}">更新</a></td>
-    <td><a th:href="@{/mypage/{username}/delete/{id}/(username=${LoginList}, id= ${timelist.timeKeepId})}">削除</a></td>
-  </tr>
+    <tr th:each="timelist : ${PrincipalTimeList}">
+      <td th:text="${timelist.timeKeepId}"></td>
+      <td th:text="${timelist.username}"></td>
+      <td th:text="${timelist.subject}"></td>
+      <td th:text="${timelist.context}"></td>
+      <td>
+        <span th:text="${timelist.hours}"></span>時間<span th:text="${timelist.minutes}"></span>分
+      </td>
+      <td th:text="${timelist.WhatDate}"></td>
+      <td><a th:href="@{/mypage/{username}/updatePage/{id}/(username=${LoginList}, id = ${timelist.timeKeepId})}">更新</a></td>
+      <td><a th:href="@{/mypage/{username}/delete/{id}/(username=${LoginList}, id= ${timelist.timeKeepId})}">削除</a></td>
+    </tr>
   </tbody>
 </table>
-  <script th:src="@{/js/tab.js}"></script>
-</body>
+</footer>
+
+    <script th:src="@{/js/tab.js}"></script>
+    <script type="text/javascript" th:src="@{/js/PrincipalUserPage.js}"></script>
+  </body>
 </html>

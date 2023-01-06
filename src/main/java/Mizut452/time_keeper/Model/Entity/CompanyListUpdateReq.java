@@ -9,8 +9,8 @@ public class CompanyListUpdateReq {
     private int id;
     private String companyName;
     private String industry;
-    private String headlocate;
+    private String headLocation;
     private boolean areOsaka;
     private String companyURL;
-    private String companyLother;
+    private String companyListOther;
 }

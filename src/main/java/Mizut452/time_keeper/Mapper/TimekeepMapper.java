@@ -12,8 +12,8 @@ public interface TimekeepMapper {
     @Select("SELECT * FROM timeKeepList")
     List<Timekeep> selectAll();
 
-    @Insert("INSERT INTO timeKeepList(username, subject, context, totalTime, WhatDate) " +
-            "VALUES(#{username}, #{subject}, #{context}, #{totalTime}, CURRENT_TIMESTAMP)")
+    @Insert("INSERT INTO timeKeepList(username, subject, context, hours, minutes, WhatDate) " +
+            "VALUES(#{username}, #{subject}, #{context}, #{hours}, #{minutes}, CURRENT_TIMESTAMP)")
     void add(Timekeep timekeep);
 
     @Select("SELECT * FROM timeKeepList WHERE username = #{username}")
@@ -22,7 +22,7 @@ public interface TimekeepMapper {
     @Select("SELECT * FROM timeKeepList WHERE timeKeepId = #{timeKeepId}")
     Timekeep findById(int timeKeepId);
 
-    @Update("UPDATE timeKeepList SET subject = #{subject}, context = #{context}, totalTime = #{totalTime}, WhatDate = #{WhatDate}" +
+    @Update("UPDATE timeKeepList SET subject = #{subject}, context = #{context}, hours = #{hours}, minutes = #{minutes}, WhatDate = #{WhatDate}" +
             " WHERE timeKeepId = #{timeKeepId}")
     void update(TimekeepUpdateReq timekeepUpdateReq);
 

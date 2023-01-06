@@ -19,7 +19,4 @@ public class CompanyList {
     public boolean getAreOsaka = isAreOsaka();
     public String getCompanyURL = getCompanyURL();
     public String getOther = getCompanyListOther();*/
-
-
-
 }

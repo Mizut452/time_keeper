@@ -83,10 +83,10 @@ public class JobHuntingToolController {
         CompanyListUpdateReq companyListUpdateReq = new CompanyListUpdateReq();
         companyListUpdateReq.setId(companyList.getId());
         companyListUpdateReq.setCompanyName(companyList.getCompanyName());
-        companyListUpdateReq.setHeadlocate(companyList.getHeadLocation());
+        companyListUpdateReq.setHeadLocation(companyList.getHeadLocation());
         companyListUpdateReq.setIndustry(companyList.getIndustry());
         companyListUpdateReq.setCompanyURL(companyList.getCompanyURL());
-        companyListUpdateReq.setCompanyLother(companyList.getCompanyListOther());
+        companyListUpdateReq.setCompanyListOther(companyList.getCompanyListOther());
         companyListUpdateReq.setAreOsaka(companyList.isAreOsaka());
         model.addAttribute("companyList", companyListUpdateReq);
 
@@ -98,7 +98,7 @@ public class JobHuntingToolController {
         companyDetailUpdateReq.setCompany_treatment(companyDetail.getCompany_treatment());
         companyDetailUpdateReq.setCompany_welfare(companyDetail.getCompany_welfare());
         companyDetailUpdateReq.setCompany_whatJob(companyDetail.getCompany_whatJob());
-        companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompanyDetail_CompanyName());
+        companyDetailUpdateReq.setCompanyDetail_CompanyName(companyDetail.getCompanyDetail_CompanyName());
         companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
         model.addAttribute("companyDetail", companyDetailUpdateReq);
 
@@ -121,7 +121,7 @@ public class JobHuntingToolController {
     public Object deleteCompany(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq,
                                 Model model,
                                 ModelAndView mav) {
-        String companyName = companyDetailUpdateReq.getCompanyDetail_Cname();
+        String companyName = companyDetailUpdateReq.getCompanyDetail_CompanyName();
         companyListService.deleteCompanyList(companyName);
         companyDetailService.deleteCompanyDetail(companyName);
         return "redirect:/jobHuntingTool";
@@ -136,14 +136,14 @@ public class JobHuntingToolController {
         companyDetailUpdateReq.setCompany_treatment(companyDetail.getCompany_treatment());
         companyDetailUpdateReq.setCompany_welfare(companyDetail.getCompany_welfare());
         companyDetailUpdateReq.setCompany_flow(companyDetail.getCompany_flow());
-        companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompanyDetail_CompanyName());
+        companyDetailUpdateReq.setCompanyDetail_CompanyName(companyDetail.getCompanyDetail_CompanyName());
         companyDetailUpdateReq.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
         companyDetailUpdateReq.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
         companyDetailUpdateReq.setCompany_whatJob(companyDetail.getCompany_whatJob());
         companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
 
         model.addAttribute("companyDetail", companyDetailUpdateReq);
-        model.addAttribute("companyName", companyDetailUpdateReq.getCompanyDetail_Cname());
+        model.addAttribute("companyName", companyDetailUpdateReq.getCompanyDetail_CompanyName());
         return mav;
     }
 

@@ -41,7 +41,14 @@
 <table border="1" style="border-collapse:collapse;">
     ユーザーページです。
     <thead>
-    <tr><th class="hidden">ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th></tr>
+    <tr>
+        <th class="hidden">ID</th>
+        <th>ユーザー名</th>
+        <th>科目</th>
+        <th>内容</th>
+        <th>時間</th>
+        <th>日付</th>
+    </tr>
     </thead>
 
     <tbody>
@@ -50,7 +57,8 @@
         <td th:text="${timelist.username}"></td>
         <td th:text="${timelist.subject}"></td>
         <td th:text="${timelist.context}"></td>
-        <td th:text="${timelist.totalTime}"></td>
+        <td th:text="${timelist.hours}">時間</td>
+        <td th:text="${timelist.minutes}">分</td>
         <td th:text="${timelist.WhatDate}"></td>
     </tr>
     </tbody>

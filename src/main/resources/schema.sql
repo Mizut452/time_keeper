@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS timeKeepList (
 	username VARCHAR(255) NOT NULL,
 	subject VARCHAR(255) NOT NULL,
 	context VARCHAR(255) NOT NULL,
-	totalTime VARCHAR(255) NOT NULL,
+	hours VARCHAR(255) NOT NULL,
+	minutes VARCHAR(255) NOT NULL,
 	whatDate VARCHAR(255) NOT NULL
 );
 
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS companyList (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     companyName VARCHAR(255) UNIQUE NOT NULL,
     industry VARCHAR(255),
-    headLocate VARCHAR(255),
+    headLocation VARCHAR(255),
     areOsaka BOOLEAN,
     companyURL VARCHAR(255),
     companyListOther VARCHAR(255)
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS companyList (
 
 CREATE TABLE IF NOT EXISTS companyDetail (
     companyDetail_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    companyDetail_Cname VARCHAR(255),
+    companyDetail_CompanyName VARCHAR(255),
     company_whatJob VARCHAR(255),
     company_strongPoint VARCHAR(255),
     company_weakPoint VARCHAR(255),

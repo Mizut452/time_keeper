@@ -47,7 +47,7 @@
     <label>　　　　　業界：</label>
     <input type="text" th:field="*{industry}" />
     <label>　　　本社所在地：</label>
-    <input type="text" th:field="*{headLocate}" />
+    <input type="text" th:field="*{headLocation}" />
     <label>大阪事業所の有無：</label>
     <input type="checkbox" th:field="*{areOsaka}" />
     <label>　　　企業のURL：</label>
@@ -59,7 +59,7 @@
 
 <p>企業詳細登録・編集</p>
    <form th:action="@{/addComDetail}" method="post" th:object="${companyDetail}">
-     <input type="hidden" th:field="*{companyDetail_Cname}">
+     <input type="hidden" th:field="*{companyDetail_CompanyName}">
      <input type="hidden" th:field="*{companyDetail_id}">
      <label>　　　職　　　種：</label>
      <input tyoe="text" th:field="*{company_whatJob}" /><br>

@@ -46,7 +46,7 @@
     <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
         <form th:action="@{/JobHuntingTool/deleteCompanyList}" th:method="post" th:object="${companyDetail}">
             <label>企業名：</label>
-            <input type="hidden" th:field="*{companyDetail_Cname}" /><br>
+            <input type="hidden" th:field="*{companyDetail_CompanyName}" /><br>
             <a th:text="${companyName}"></a>
             <input type="submit" value="削除" />
         </form>

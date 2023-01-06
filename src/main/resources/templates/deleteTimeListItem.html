@@ -46,8 +46,9 @@
     <input class="form-control" type="hidden" th:field="*{subject}" /><br>
     <label>内容：</label><a th:text="${timeList.context}"></a>
     <input class="form-control" type="hidden" th:field="*{context}" /><br>
-    <label>時間：</label><a th:text="${timeList.totalTime}"></a>
-    <input class="form-control" type="hidden" th:field="*{totalTime}" /><br>
+    <label>時間：</label><a th:text="${timeList.minutes}"></a>
+    <input class="form-control" type="hidden" th:field="*{hours}" />時間
+    <input class="form-control" type="hidden" th:field="*{minutes}" />分<br>
     <label>日付：</label><a th:text="${timeList.WhatDate}"></a>
     <input class="form-control" type="hidden" th:field="*{WhatDate}" /><br>
     <input type="submit" value="削除" />

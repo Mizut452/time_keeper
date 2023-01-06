@@ -5,10 +5,8 @@
     <link th:href="@{/css/common.css}" rel="stylesheet">
     <title>Title</title>
 </head>
-<footer>
-    <h2>Time Keeper</h2>
-</footer>
 <header>
+    <span id="time_keeper">Time Keeper</span>
     <ul id="nav">
         <li>
             <a th:href="@{/}">ホーム</a>
@@ -42,6 +40,7 @@
     <p><a th:href="@{/userlist}">ユーザーリスト</a></p>
 </div>
 <br>
+<div id="main-table">
 <table border="1" style="border-collapse:collapse;">
     <thead>
     <tr><th>ID</th><th>ユーザー名</th><th>科目</th><th>内容</th><th>時間</th><th>日付</th></tr>
@@ -49,14 +48,17 @@
 
     <tbody>
     <tr th:each="timelist : ${TimeList}">
-        <td th:text="${timelist.timeKeepId}"></td>
-        <td><a th:href="@{/mypage/{username}/(username=${timelist.username})}" th:text="${timelist.username}"></a></td>
-        <td th:text="${timelist.subject}"></td>
-        <td th:text="${timelist.context}"></td>
-        <td th:text="${timelist.totalTime}"></td>
+        <td th:text="${timelist.timeKeepId}" height="50"></td>
+        <td height="50"><a th:href="@{/mypage/{username}/(username=${timelist.username})}" th:text="${timelist.username}"></a></td>
+        <td th:text="${timelist.subject}" height="50"></td>
+        <td th:text="${timelist.context}" height="50"></td>
+        <td>
+            <span th:text="${timelist.hours}"></span>時間<span th:text="${timelist.minutes}"></span>分
+        </td>
         <td th:text="${timelist.WhatDate}"></td>
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>
