@@ -65,7 +65,7 @@
         <br>
         <!--送信ボタン-->
         <input type="submit" value="登録" class="submit-button">
-        <input type="submit" value="リセット" class="submit-button">
+        <input type="button" th:attr="onClick='location.href=\''+@{/mypage/{username}/(username=${LoginList})}+'\''" value="リセット" class="submit-button">
       </form>
     </div>
 
@@ -95,7 +95,7 @@
             <br>
             <!--送信ボタン-->
             <input type="submit" value="登録" class="submit-button">
-            <input type="submit" value="リセット" class="submit-button">
+            <input type="button" th:attr="onClick='location.href=\''+@{/mypage/{username}/(username=${LoginList})}+'\''" value="リセット" class="submit-button">
           </form>
         </div>
     </div>

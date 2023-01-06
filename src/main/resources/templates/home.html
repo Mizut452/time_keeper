@@ -51,11 +51,11 @@
         <td th:text="${timelist.timeKeepId}" height="50"></td>
         <td height="50"><a th:href="@{/mypage/{username}/(username=${timelist.username})}" th:text="${timelist.username}"></a></td>
         <td th:text="${timelist.subject}" height="50"></td>
-        <td th:text="${timelist.context}" height="50"></td>
-        <td>
+        <td  th:text="${timelist.context}" height="50"></td>
+        <td width="140">
             <span th:text="${timelist.hours}"></span>時間<span th:text="${timelist.minutes}"></span>分
         </td>
-        <td th:text="${timelist.WhatDate}"></td>
+        <td width="300" th:text="${timelist.WhatDate}"></td>
     </tr>
     </tbody>
 </table>

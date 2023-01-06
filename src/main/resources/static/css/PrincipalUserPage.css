@@ -43,6 +43,7 @@
   background    : white;
   color         : black;
   line-height   : 1em;
+  text-decoration: none;
 }
 
 .submit-button:hover {
