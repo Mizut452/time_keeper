@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.naming.Context;
+import java.util.List;
 
 @Controller
 public class PageController {
+
     public PageController(LoginUserDetailsService loginUserDetailsService) {
         this.loginUserDetailsService = loginUserDetailsService;
     }
@@ -36,13 +38,13 @@ public class PageController {
 
         if (loginUser == null) {
             ModelAndView mav = new ModelAndView("home");
-            mav.addObject("TimeList", timekeepMapper.selectAll());
+            mav.addObject("TimeList", timekeepMapper_selectAll);
             return mav;
         } else {
-            String PU = loginUser.getUsername();
+            String PrincipalUserName = loginUser.getUsername();
             ModelAndView mav = new ModelAndView("home");
-            mav.addObject("TimeList", timekeepMapper.selectAll());
-            mav.addObject("LoginList", PU);
+            mav.addObject("TimeList", timekeepMapper_selectAll);
+            mav.addObject("LoginList", PrincipalUserName);
             return mav;
         }
     }
@@ -79,12 +81,10 @@ public class PageController {
     }
 
     @GetMapping("/userlist")
-    public ModelAndView userlistPage() {
+    public ModelAndView userlistPage(@AuthenticationPrincipal LoginUser loginUser) {
         ModelAndView mav = new ModelAndView("UserList");
         mav.addObject("UserList", loginUserMapper.selectAll());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-        String PrincipalUserName = principal.getUsername();
+        String PrincipalUserName = loginUser.getUsername();
         mav.addObject("TimeList", PrincipalUserName);
         return mav;
     }
@@ -96,5 +96,7 @@ public class PageController {
     private TimekeepMapper timekeepMapper;
 
     private final LoginUserDetailsService loginUserDetailsService;
+
+    List timekeepMapper_selectAll = timekeepMapper.selectAll();
 
 }
