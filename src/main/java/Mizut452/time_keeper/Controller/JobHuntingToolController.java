@@ -24,30 +24,6 @@ import java.util.List;
 
 @Controller
 public class JobHuntingToolController {
-    CompanyList companyList;
-    CompanyDetail companyDetail;
-
-    //companyListのgetter
-    int getCompanyListId = companyList.getId();
-    String  getCompanyName = companyList.getCompanyName();
-    String getIndustry = companyList.getIndustry();
-    String getHeadLocate = companyList.getHeadLocate();
-    boolean getAreOsaka = companyList.isAreOsaka();
-    String getCompanyURL = companyList.getCompanyURL();
-    String getCompanyListOther = companyList.getCompanyListOther();
-
-    //companyDetailのgetter
-    int getCompanyDetail_id = companyDetail.getCompanyDetail_id();
-    String getCompanyDetail_CompanyName =companyDetail.getCompanyDetail_CompanyName();
-    String getCompany_whatJob = companyDetail.getCompany_whatJob();
-    String getCompany_strongPoint = companyDetail.getCompany_strongPoint();
-    String getCompany_weakPoint = companyDetail.getCompany_weakPoint();
-    String getCompany_treatment = companyDetail.getCompany_treatment();
-    String getCompany_welfare = companyDetail.getCompany_welfare();
-    String getCompany_flow = companyDetail.getCompany_flow();
-    String getCompany_another = companyDetail.getCompany_another();
-
-
     @RequestMapping("/company_add")
     public String addCompanyItem(@AuthenticationPrincipal LoginUser loginUser,
                                  CompanyList companyList,
@@ -66,10 +42,10 @@ public class JobHuntingToolController {
         companyDetailService.addCompanyDetail(companyDetail);
 
         companyName = companyList.getCompanyName();
-        model.addAttribute("CompanyList", companyListMapper.selectAll());
+        model.addAttribute("CompanyList", companyListMapper_selectAll);
         String PrincipalUserName = loginUser.getUsername();
         model.addAttribute("TimeList", PrincipalUserName);
-        model.addAttribute("CompanyDetail", companyDetailMapper.selectAll());
+        model.addAttribute("CompanyDetail", companyDetailMapper_selectAll);
 
 
         return "JobHuntingTool";
@@ -78,10 +54,10 @@ public class JobHuntingToolController {
     @GetMapping("/jobHuntingTool")
     public ModelAndView JobHuntPage(@AuthenticationPrincipal LoginUser loginUser) {
         ModelAndView mav = new ModelAndView("JobHuntingTool");
-        mav.addObject("CompanyList", companyListMapper.selectAll());
+        mav.addObject("CompanyList", companyListMapper_selectAll);
         String PrincipalUserName = loginUser.getUsername();
         mav.addObject("TimeList", PrincipalUserName);
-        mav.addObject("CompanyDetail", companyDetailMapper.selectAll());
+        mav.addObject("CompanyDetail", companyDetailMapper_selectAll);
         return mav;
     }
 
@@ -101,7 +77,7 @@ public class JobHuntingToolController {
             mav = new ModelAndView("JobHuntingCompany");
             companyDetail = companyDetailMapper.findById(companyName);
             CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
-            companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
+            companyDetailUpdateReq.setCompanyDetail_id(getCompanyDetail_id);
             int id = companyDetailUpdateReq.getCompanyDetail_id();
             mav.addObject("id", id);
             mav.addObject("TimeList", PrincipalUserName);
@@ -159,9 +135,9 @@ public class JobHuntingToolController {
     public Object deleteCompany(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq,
                                 Model model,
                                 ModelAndView mav) {
-        String cn = companyDetailUpdateReq.getCompanyDetail_Cname();
-        companyListService.deleteCompanyList(cn);
-        companyDetailService.deleteCompanyDetail(cn);
+        String companyName = companyDetailUpdateReq.getCompanyDetail_Cname();
+        companyListService.deleteCompanyList(companyName);
+        companyDetailService.deleteCompanyDetail(companyName);
         return "redirect:/jobHuntingTool";
     }
 
@@ -198,5 +174,33 @@ public class JobHuntingToolController {
 
     @Autowired
     private CompanyDetailService companyDetailService;
+
+    CompanyList companyList;
+    CompanyDetail companyDetail;
+
+    //companyListのgetter
+    int getCompanyListId = companyList.getId();
+    String  getCompanyName = companyList.getCompanyName();
+    String getIndustry = companyList.getIndustry();
+    String getHeadLocate = companyList.getHeadLocate();
+    boolean getAreOsaka = companyList.isAreOsaka();
+    String getCompanyURL = companyList.getCompanyURL();
+    String getCompanyListOther = companyList.getCompanyListOther();
+
+    //companyDetailのgetter
+    int getCompanyDetail_id = companyDetail.getCompanyDetail_id();
+    String getCompanyDetail_CompanyName =companyDetail.getCompanyDetail_CompanyName();
+    String getCompany_whatJob = companyDetail.getCompany_whatJob();
+    String getCompany_strongPoint = companyDetail.getCompany_strongPoint();
+    String getCompany_weakPoint = companyDetail.getCompany_weakPoint();
+    String getCompany_treatment = companyDetail.getCompany_treatment();
+    String getCompany_welfare = companyDetail.getCompany_welfare();
+    String getCompany_flow = companyDetail.getCompany_flow();
+    String getCompany_another = companyDetail.getCompany_another();
+
+    //Mapper
+    List<CompanyList> companyListMapper_selectAll = companyListMapper.selectAll();
+    List<CompanyDetail> companyDetailMapper_selectAll = companyDetailMapper.selectAll();
+
 
 }
