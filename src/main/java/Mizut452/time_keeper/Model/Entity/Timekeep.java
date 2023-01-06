@@ -12,5 +12,12 @@ public class Timekeep implements Serializable {
     private String context;
     private String totalTime;
     private String WhatDate;
+
+    /*public int getTimeKeepId = getTimeKeepId();
+    public String getUserName = getUsername();
+    public String getSubject = getSubject();
+    public String getContext = getContext();
+    public String getTotalTime = getTotalTime();
+    public String getWhatDate = getWhatDate();*/
 }
 

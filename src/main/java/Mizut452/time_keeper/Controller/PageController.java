@@ -5,20 +5,13 @@ import Mizut452.time_keeper.Mapper.LoginUserMapper;
 import Mizut452.time_keeper.Mapper.TimekeepMapper;
 import Mizut452.time_keeper.Model.Entity.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.Context;
 import java.util.List;
 
 @Controller
@@ -38,12 +31,12 @@ public class PageController {
 
         if (loginUser == null) {
             ModelAndView mav = new ModelAndView("home");
-            mav.addObject("TimeList", timekeepMapper_selectAll);
+            mav.addObject("TimeList", timekeepMapper.selectAll());
             return mav;
         } else {
             String PrincipalUserName = loginUser.getUsername();
             ModelAndView mav = new ModelAndView("home");
-            mav.addObject("TimeList", timekeepMapper_selectAll);
+            mav.addObject("TimeList", timekeepMapper.selectAll());
             mav.addObject("LoginList", PrincipalUserName);
             return mav;
         }
@@ -96,7 +89,4 @@ public class PageController {
     private TimekeepMapper timekeepMapper;
 
     private final LoginUserDetailsService loginUserDetailsService;
-
-    List timekeepMapper_selectAll = timekeepMapper.selectAll();
-
 }

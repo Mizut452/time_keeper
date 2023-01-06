@@ -13,4 +13,14 @@ public class CompanyDetail {
     private String company_welfare;
     private String company_flow;
     private String company_another;
+
+    /*public int getId = getCompanyDetail_id();
+    public String getDetail_CompanyName = getCompanyDetail_CompanyName();
+    public String getWhatJob = getCompany_whatJob();
+    public String getStrongPoint = getCompany_strongPoint();
+    public String getWeakPoint = getCompany_weakPoint();
+    public String getTreatment = getCompany_treatment();
+    public String getWelfare = getCompany_welfare();
+    public String getFlow = getCompany_flow();
+    public String getAnother = getCompany_another();*/
 }

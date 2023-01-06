@@ -29,7 +29,7 @@ public class LoginUserMapperTest {
     @Test
     void createAccountTest() {
         LoginUser loginUser = new LoginUser();
-        loginUser.setMailaddress("testMan@example.com");
+        loginUser.setMailAddress("testMan@example.com");
         loginUser.setUsername("testMan");
         loginUser.setPassword("testMan");
         loginUserMapper.create(loginUser);

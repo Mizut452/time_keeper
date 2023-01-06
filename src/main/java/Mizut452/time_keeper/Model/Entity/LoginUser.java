@@ -1,15 +1,11 @@
 package Mizut452.time_keeper.Model.Entity;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.extern.java.Log;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 @Data
 public class LoginUser implements UserDetails{
@@ -18,6 +14,11 @@ public class LoginUser implements UserDetails{
     private String username;
     private String password;
     private String roleName;
+
+    public String getMailAddress = getMailAddress();
+    public String getUserName = getUsername();
+    public String getPassWord = getPassword();
+    public String getRoleName = getRoleName();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

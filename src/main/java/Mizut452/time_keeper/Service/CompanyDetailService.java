@@ -4,7 +4,6 @@ import Mizut452.time_keeper.Mapper.CompanyDetailMapper;
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.CompanyDetail;
 import Mizut452.time_keeper.Model.Entity.CompanyDetailUpdateReq;
-import Mizut452.time_keeper.Model.Entity.CompanyList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

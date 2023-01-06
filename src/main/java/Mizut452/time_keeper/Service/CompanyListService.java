@@ -3,7 +3,6 @@ package Mizut452.time_keeper.Service;
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.CompanyList;
 import Mizut452.time_keeper.Model.Entity.CompanyListUpdateReq;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
