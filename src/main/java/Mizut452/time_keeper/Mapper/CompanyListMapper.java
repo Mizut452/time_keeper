@@ -14,9 +14,6 @@ public interface CompanyListMapper {
     @Insert("INSERT INTO companyList(companyName, industry, headLocate, areOsaka, CompanyURL, companyListOther) VALUES(#{companyName}, #{industry}, #{headLocate}, #{areOsaka}, #{CompanyURL}, #{companyListOther})")
     void add(CompanyList companyList);
 
-    @Select("SELECT companyName FROM companyList WHERE companyName = #{companyName}")
-    List<CompanyList> selectCompanyName(String companyName);
-
     @Select("SELECT * FROM companyList WHERE companyName = #{companyName}")
     CompanyList findByCompanyName(@Param("companyName") String companyName);
 

@@ -20,7 +20,4 @@ public interface LoginUserMapper {
 
     @Insert("INSERT INTO userList (mailAddress, username, password, roleName) VALUES(#{mailAddress}, #{username}, #{password}, 'ROLE_GENERAL')")
     void create(LoginUser loginUser);
-
-    //@Insert("INSERT INTO users_role(user_id, role_id) SELECT id FROM userList WHERE username = #{username}, VALUES(2)")
-    //void createUsersRole(LoginUser loginUser);
 }

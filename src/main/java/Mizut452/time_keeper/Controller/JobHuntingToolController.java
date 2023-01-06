@@ -2,16 +2,14 @@ package Mizut452.time_keeper.Controller;
 
 import Mizut452.time_keeper.Mapper.CompanyDetailMapper;
 import Mizut452.time_keeper.Mapper.CompanyListMapper;
-import Mizut452.time_keeper.Model.Entity.CompanyDetail;
-import Mizut452.time_keeper.Model.Entity.CompanyDetailUpdateReq;
-import Mizut452.time_keeper.Model.Entity.CompanyList;
-import Mizut452.time_keeper.Model.Entity.CompanyListUpdateReq;
+import Mizut452.time_keeper.Model.Entity.*;
 import Mizut452.time_keeper.Service.CompanyDetailService;
 import Mizut452.time_keeper.Service.CompanyListService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -26,28 +24,50 @@ import java.util.List;
 
 @Controller
 public class JobHuntingToolController {
+    CompanyList companyList;
+    CompanyDetail companyDetail;
+
+    //companyListのgetter
+    int getCompanyListId = companyList.getId();
+    String  getCompanyName = companyList.getCompanyName();
+    String getIndustry = companyList.getIndustry();
+    String getHeadLocate = companyList.getHeadLocate();
+    boolean getAreOsaka = companyList.isAreOsaka();
+    String getCompanyURL = companyList.getCompanyURL();
+    String getCompanyListOther = companyList.getCompanyListOther();
+
+    //companyDetailのgetter
+    int getCompanyDetail_id = companyDetail.getCompanyDetail_id();
+    String getCompanyDetail_CompanyName =companyDetail.getCompanyDetail_CompanyName();
+    String getCompany_whatJob = companyDetail.getCompany_whatJob();
+    String getCompany_strongPoint = companyDetail.getCompany_strongPoint();
+    String getCompany_weakPoint = companyDetail.getCompany_weakPoint();
+    String getCompany_treatment = companyDetail.getCompany_treatment();
+    String getCompany_welfare = companyDetail.getCompany_welfare();
+    String getCompany_flow = companyDetail.getCompany_flow();
+    String getCompany_another = companyDetail.getCompany_another();
+
 
     @RequestMapping("/company_add")
-    public String addCompanyItem(CompanyList companyList,
+    public String addCompanyItem(@AuthenticationPrincipal LoginUser loginUser,
+                                 CompanyList companyList,
                                  CompanyDetail companyDetail,
                                  String companyName,
                                  Model model) {
-        companyList.setCompanyName(companyList.getCompanyName());
-        companyList.setIndustry(companyList.getIndustry());
-        companyList.setHeadLocate(companyList.getHeadLocate());
-        companyList.setCompanyURL(companyList.getCompanyURL());
-        companyList.setCompanyListOther(companyList.getCompanyListOther());
-        companyDetail.setCompanyDetail_Cname(companyList.getCompanyName());
-        companyDetail.setCompanyDetail_id(companyList.getId());
+        companyList.setCompanyName(getCompanyName);
+        companyList.setIndustry(getIndustry);
+        companyList.setHeadLocate(getHeadLocate);
+        companyList.setCompanyURL(getCompanyURL);
+        companyList.setCompanyListOther(getCompanyListOther);
+        companyDetail.setCompanyDetail_CompanyName(getCompanyName);
+        companyDetail.setCompanyDetail_id(getCompanyListId);
 
         companyListService.addCompanyList(companyList);
         companyDetailService.addCompanyDetail(companyDetail);
 
         companyName = companyList.getCompanyName();
         model.addAttribute("CompanyList", companyListMapper.selectAll());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-        String PrincipalUserName = principal.getUsername();
+        String PrincipalUserName = loginUser.getUsername();
         model.addAttribute("TimeList", PrincipalUserName);
         model.addAttribute("CompanyDetail", companyDetailMapper.selectAll());
 
@@ -56,12 +76,10 @@ public class JobHuntingToolController {
     }
 
     @GetMapping("/jobHuntingTool")
-    public ModelAndView JobHuntPage() {
+    public ModelAndView JobHuntPage(@AuthenticationPrincipal LoginUser loginUser) {
         ModelAndView mav = new ModelAndView("JobHuntingTool");
         mav.addObject("CompanyList", companyListMapper.selectAll());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-        String PrincipalUserName = principal.getUsername();
+        String PrincipalUserName = loginUser.getUsername();
         mav.addObject("TimeList", PrincipalUserName);
         mav.addObject("CompanyDetail", companyDetailMapper.selectAll());
         return mav;
@@ -70,22 +88,17 @@ public class JobHuntingToolController {
     @GetMapping("/jobHuntingTool/{companyName}")
     public Object JobCompanyPage(@ModelAttribute CompanyList companyList,
                                  @PathVariable String companyName,
+                                 @AuthenticationPrincipal LoginUser loginUser,
                                  CompanyDetail companyDetail,
                                  ModelAndView mav) {
+        String PrincipalUserName = loginUser.getUsername();
         CompanyList record = companyListMapper.findByCompanyName(companyName);
 
         if(record == null) {
-
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            UserDetails principal = (UserDetails) authentication.getPrincipal();
-            String PrincipalUserName = principal.getUsername();
             mav.addObject("TimeList", PrincipalUserName);
             return "NullCompany";
         } else {
             mav = new ModelAndView("JobHuntingCompany");
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            UserDetails principal = (UserDetails) authentication.getPrincipal();
-            String PrincipalUserName = principal.getUsername();
             companyDetail = companyDetailMapper.findById(companyName);
             CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
             companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
@@ -105,26 +118,26 @@ public class JobHuntingToolController {
         mav = new ModelAndView("companyEditPage");
         CompanyList companyList = companyListService.findByCompanyName(companyName);
         CompanyListUpdateReq companyListUpdateReq = new CompanyListUpdateReq();
-        companyListUpdateReq.setId(companyList.getId());
-        companyListUpdateReq.setCompanyName(companyList.getCompanyName());
-        companyListUpdateReq.setHeadlocate(companyList.getHeadLocate());
-        companyListUpdateReq.setIndustry(companyList.getIndustry());
-        companyListUpdateReq.setCompanyURL(companyList.getCompanyURL());
-        companyListUpdateReq.setCompanyLother(companyList.getCompanyListOther());
-        companyListUpdateReq.setAreOsaka(companyList.isAreOsaka());
+        companyListUpdateReq.setId(getCompanyListId);
+        companyListUpdateReq.setCompanyName(getCompanyName);
+        companyListUpdateReq.setHeadlocate(getHeadLocate);
+        companyListUpdateReq.setIndustry(getIndustry);
+        companyListUpdateReq.setCompanyURL(getCompanyURL);
+        companyListUpdateReq.setCompanyLother(getCompanyListOther);
+        companyListUpdateReq.setAreOsaka(getAreOsaka);
         model.addAttribute("companyList", companyListUpdateReq);
 
         CompanyDetail companyDetail = companyDetailService.findByCompanyName(companyName);
         CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
-        companyDetailUpdateReq.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
-        companyDetailUpdateReq.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
-        companyDetailUpdateReq.setCompany_another(companyDetail.getCompany_another());
-        companyDetailUpdateReq.setCompany_flow(companyDetail.getCompany_flow());
-        companyDetailUpdateReq.setCompany_treatment(companyDetail.getCompany_treatment());
-        companyDetailUpdateReq.setCompany_welfare(companyDetail.getCompany_welfare());
-        companyDetailUpdateReq.setCompany_whatJob(companyDetail.getCompany_whatJob());
-        companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompanyDetail_Cname());
-        companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
+        companyDetailUpdateReq.setCompany_weakPoint(getCompany_weakPoint);
+        companyDetailUpdateReq.setCompany_strongPoint(getCompany_strongPoint);
+        companyDetailUpdateReq.setCompany_another(getCompany_another);
+        companyDetailUpdateReq.setCompany_flow(getCompany_flow);
+        companyDetailUpdateReq.setCompany_treatment(getCompany_treatment);
+        companyDetailUpdateReq.setCompany_welfare(getCompany_welfare);
+        companyDetailUpdateReq.setCompany_whatJob(getCompany_whatJob);
+        companyDetailUpdateReq.setCompanyDetail_Cname(getCompanyDetail_CompanyName);
+        companyDetailUpdateReq.setCompanyDetail_id(getCompanyDetail_id);
         model.addAttribute("companyDetail", companyDetailUpdateReq);
 
         return mav;
@@ -160,15 +173,15 @@ public class JobHuntingToolController {
         mav = new ModelAndView("Confirm");
         CompanyDetail companyDetail = companyDetailService.findById(id);
         companyDetailUpdateReq = new CompanyDetailUpdateReq();
-        companyDetailUpdateReq.setCompany_another(companyDetail.getCompany_another());
-        companyDetailUpdateReq.setCompany_treatment(companyDetail.getCompany_treatment());
-        companyDetailUpdateReq.setCompany_welfare(companyDetail.getCompany_welfare());
-        companyDetailUpdateReq.setCompany_flow(companyDetail.getCompany_flow());
-        companyDetailUpdateReq.setCompanyDetail_Cname(companyDetail.getCompanyDetail_Cname());
-        companyDetailUpdateReq.setCompany_strongPoint(companyDetail.getCompany_strongPoint());
-        companyDetailUpdateReq.setCompany_weakPoint(companyDetail.getCompany_weakPoint());
-        companyDetailUpdateReq.setCompany_whatJob(companyDetail.getCompany_whatJob());
-        companyDetailUpdateReq.setCompanyDetail_id(companyDetail.getCompanyDetail_id());
+        companyDetailUpdateReq.setCompany_another(getCompany_another);
+        companyDetailUpdateReq.setCompany_treatment(getCompany_treatment);
+        companyDetailUpdateReq.setCompany_welfare(getCompany_welfare);
+        companyDetailUpdateReq.setCompany_flow(getCompany_flow);
+        companyDetailUpdateReq.setCompanyDetail_Cname(getCompanyDetail_CompanyName);
+        companyDetailUpdateReq.setCompany_strongPoint(getCompany_strongPoint);
+        companyDetailUpdateReq.setCompany_weakPoint(getCompany_weakPoint);
+        companyDetailUpdateReq.setCompany_whatJob(getCompany_whatJob);
+        companyDetailUpdateReq.setCompanyDetail_id(getCompanyDetail_id);
         model.addAttribute("companyDetail", companyDetailUpdateReq);
         model.addAttribute("companyName", companyDetailUpdateReq.getCompanyDetail_Cname());
         return mav;

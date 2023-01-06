@@ -9,30 +9,31 @@
 </head>
 <header>
   <ul id="nav">
+
     <li>
       <a th:href="@{/}">ホーム</a>
     </li>
-    <li>
+    <li class="list">
       <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
-        <a th:href="@{/mypage/{username}/(username =${LoginList})}">マイページ</a>
+        <a th:href="@{/mypage/{username}/(username =${LoginList})}" class="shadow">マイページ</a>
       </div>
       <div sec:authorize="isAnonymous()">
-        <a th:href="@{/login}">マイページ</a>
+        <a th:href="@{/login}" class="shadow">マイページ</a>
       </div>
     </li>
-    <li>
+    <li class="list">
       <div sec:authorize="hasRole('ADMIN') or hasRole('GENERAL')">
-        <a th:href="@{/logout}">ログアウト</a>
+        <a th:href="@{/logout}" class="shadow">ログアウト</a>
       </div>
       <div sec:authorize="isAnonymous()">
-        <a th:href="@{/login}">ログイン</a>
+        <a th:href="@{/login}" class="shadow">ログイン</a>
       </div>
     </li>
-    <li sec:authorize="isAnonymous()">
-      <a th:href="@{/createaccount}">会員登録</a>
+    <li sec:authorize="isAnonymous()" class="list">
+      <a th:href="@{/createaccount}" class="shadow">会員登録</a>
     </li>
-    <li>
-      <a th:href="@{/jobHuntingTool}">便利機能</a>
+    <li class="list">
+      <a th:href="@{/jobHuntingTool}" class="shadow">便利機能</a>
     </li>
   </ul>
 </header>
@@ -64,7 +65,16 @@
         <label>内容</label>
         <input name="context" type="text" />
         <label>時間</label>
-        <input name="totalTime" type="text" />
+        <input name="totalTime-minute" type="text" />分
+        <input name="totalTime-second" type="text">秒<br>
+
+        <div class="toggle">
+          <input type="checkbox" class="checkbox" />
+          <label class="switch">スタート</label>
+          <label class="switch">ストップ</label>
+        </div>
+
+        <input type="button" value="リセット">
         <input type="submit" value="登録" />
       </form>
     </div>

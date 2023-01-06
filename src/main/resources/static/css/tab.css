@@ -20,6 +20,23 @@
   border: 1px solid #ccc;
   padding: 20px;
 }
+
 .tab-contents-item {
   display: none;
 }
+
+.toggle {
+    user-select: none;
+}
+
+.checkbox {
+
+}
+
+.toggle .switch:before, .toggle .switch:after {
+    content: "";
+    vertical-align: middle;
+    display: inline-block;
+}
+
+
