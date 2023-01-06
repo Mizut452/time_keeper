@@ -5,13 +5,8 @@ import Mizut452.time_keeper.Mapper.CompanyListMapper;
 import Mizut452.time_keeper.Model.Entity.*;
 import Mizut452.time_keeper.Service.CompanyDetailService;
 import Mizut452.time_keeper.Service.CompanyListService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +23,6 @@ public class JobHuntingToolController {
     public String addCompanyItem(@AuthenticationPrincipal LoginUser loginUser,
                                  CompanyList companyList,
                                  CompanyDetail companyDetail,
-                                 String companyName,
                                  Model model) {
         companyList.setCompanyName(getCompanyName);
         companyList.setIndustry(getIndustry);
@@ -41,7 +35,6 @@ public class JobHuntingToolController {
         companyListService.addCompanyList(companyList);
         companyDetailService.addCompanyDetail(companyDetail);
 
-        companyName = companyList.getCompanyName();
         model.addAttribute("CompanyList", companyListMapper_selectAll);
         String PrincipalUserName = loginUser.getUsername();
         model.addAttribute("TimeList", PrincipalUserName);
@@ -65,7 +58,6 @@ public class JobHuntingToolController {
     public Object JobCompanyPage(@ModelAttribute CompanyList companyList,
                                  @PathVariable String companyName,
                                  @AuthenticationPrincipal LoginUser loginUser,
-                                 CompanyDetail companyDetail,
                                  ModelAndView mav) {
         String PrincipalUserName = loginUser.getUsername();
         CompanyList record = companyListMapper.findByCompanyName(companyName);
@@ -75,7 +67,6 @@ public class JobHuntingToolController {
             return "NullCompany";
         } else {
             mav = new ModelAndView("JobHuntingCompany");
-            companyDetail = companyDetailMapper.findById(companyName);
             CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
             companyDetailUpdateReq.setCompanyDetail_id(getCompanyDetail_id);
             int id = companyDetailUpdateReq.getCompanyDetail_id();
@@ -89,10 +80,8 @@ public class JobHuntingToolController {
 
     @GetMapping("/jobHuntingTool/{companyName}/edit")
     public Object companyEditPage(@PathVariable("companyName") String companyName,
-                                  ModelAndView mav,
                                   Model model) {
-        mav = new ModelAndView("companyEditPage");
-        CompanyList companyList = companyListService.findByCompanyName(companyName);
+        ModelAndView mav = new ModelAndView("companyEditPage");
         CompanyListUpdateReq companyListUpdateReq = new CompanyListUpdateReq();
         companyListUpdateReq.setId(getCompanyListId);
         companyListUpdateReq.setCompanyName(getCompanyName);
@@ -103,7 +92,6 @@ public class JobHuntingToolController {
         companyListUpdateReq.setAreOsaka(getAreOsaka);
         model.addAttribute("companyList", companyListUpdateReq);
 
-        CompanyDetail companyDetail = companyDetailService.findByCompanyName(companyName);
         CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
         companyDetailUpdateReq.setCompany_weakPoint(getCompany_weakPoint);
         companyDetailUpdateReq.setCompany_strongPoint(getCompany_strongPoint);
@@ -142,13 +130,10 @@ public class JobHuntingToolController {
     }
 
     @RequestMapping("JobHuntingTool/deleteCompanyList/{id}/confirm")
-    public Object deleteCompanyConfirm(@ModelAttribute CompanyDetailUpdateReq companyDetailUpdateReq,
-                                       @PathVariable("id") int id,
-                                       Model model,
-                                       ModelAndView mav) {
-        mav = new ModelAndView("Confirm");
-        CompanyDetail companyDetail = companyDetailService.findById(id);
-        companyDetailUpdateReq = new CompanyDetailUpdateReq();
+    public Object deleteCompanyConfirm(@PathVariable("id") int id,
+                                       Model model) {
+        ModelAndView mav = new ModelAndView("Confirm");
+        CompanyDetailUpdateReq companyDetailUpdateReq = new CompanyDetailUpdateReq();
         companyDetailUpdateReq.setCompany_another(getCompany_another);
         companyDetailUpdateReq.setCompany_treatment(getCompany_treatment);
         companyDetailUpdateReq.setCompany_welfare(getCompany_welfare);
@@ -158,6 +143,7 @@ public class JobHuntingToolController {
         companyDetailUpdateReq.setCompany_weakPoint(getCompany_weakPoint);
         companyDetailUpdateReq.setCompany_whatJob(getCompany_whatJob);
         companyDetailUpdateReq.setCompanyDetail_id(getCompanyDetail_id);
+
         model.addAttribute("companyDetail", companyDetailUpdateReq);
         model.addAttribute("companyName", companyDetailUpdateReq.getCompanyDetail_Cname());
         return mav;

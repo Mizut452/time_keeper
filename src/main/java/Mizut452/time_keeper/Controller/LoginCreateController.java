@@ -7,9 +7,7 @@ import Mizut452.time_keeper.Model.Entity.TimekeepUpdateReq;
 import Mizut452.time_keeper.Service.AddTimeKeepService;
 import Mizut452.time_keeper.Service.CreateAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +31,10 @@ public class LoginCreateController {
 
     @RequestMapping("/create")
     public String addAccount(@ModelAttribute LoginUser loginUser) {
-        loginUser.setMailAddress(loginUser.getMailAddress());
-        loginUser.setUsername(loginUser.getUsername());
-        loginUser.setPassword(loginUser.getPassword());
-        loginUser.setRoleName(loginUser.getRoleName());
+        loginUser.setMailAddress(getMailAddress);
+        loginUser.setUsername(getUserName);
+        loginUser.setPassword(getPassWord);
+        loginUser.setRoleName(getRoleName);
 
         createAccountservice.createAccount(loginUser);
 
@@ -52,15 +50,12 @@ public class LoginCreateController {
         mav = new ModelAndView("UpdateTimeListItem");
         Timekeep timekeep = addTimekeepservice.findById(timeKeepId);
         TimekeepUpdateReq timekeepUpdateReq = new TimekeepUpdateReq();
-        timekeepUpdateReq.setTimeKeepId(timekeep.getTimeKeepId());
-        timekeepUpdateReq.setSubject(timekeep.getSubject());
-        timekeepUpdateReq.setContext(timekeep.getContext());
-        timekeepUpdateReq.setTotalTime(timekeep.getTotalTime());
-        timekeepUpdateReq.setWhatDate(timekeep.getWhatDate());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth.getPrincipal();
+        timekeepUpdateReq.setTimeKeepId(getTimeKeepId);
+        timekeepUpdateReq.setSubject(getSubject);
+        timekeepUpdateReq.setContext(getContext);
+        timekeepUpdateReq.setTotalTime(getTotalTime);
+        timekeepUpdateReq.setWhatDate(getWhatDate);
         model.addAttribute("timeList", timekeepUpdateReq);
-        //mav.addObject("timeList", timekeepMapper.selectUpdateItem(timekeepid));
         return mav;
     }
 
@@ -72,26 +67,24 @@ public class LoginCreateController {
         mav = new ModelAndView("deleteTimeListItem");
         Timekeep timekeep = addTimekeepservice.findById(timeKeepId);
         TimekeepUpdateReq timekeepUpdateReq = new TimekeepUpdateReq();
-        timekeepUpdateReq.setTimeKeepId(timekeep.getTimeKeepId());
-        timekeepUpdateReq.setSubject(timekeep.getSubject());
-        timekeepUpdateReq.setContext(timekeep.getContext());
-        timekeepUpdateReq.setTotalTime(timekeep.getTotalTime());
-        timekeepUpdateReq.setWhatDate(timekeep.getWhatDate());
-        //addTimekeepservice.delete(timekeepid);
+        timekeepUpdateReq.setTimeKeepId(getTimeKeepId);
+        timekeepUpdateReq.setSubject(getSubject);
+        timekeepUpdateReq.setContext(getContext);
+        timekeepUpdateReq.setTotalTime(getTotalTime);
+        timekeepUpdateReq.setWhatDate(getWhatDate);
+
         model.addAttribute("timeList", timekeepUpdateReq);
-        //return "redirect:/mypage/" + username;
         return mav;
     }
 
     @RequestMapping("/add")
-    public String addItem(@ModelAttribute Timekeep timekeep,
+    public String addItem(@AuthenticationPrincipal LoginUser loginUser,
+                          @ModelAttribute Timekeep timekeep,
                           @ModelAttribute String username) {
-        timekeep.setSubject(timekeep.getSubject());
-        timekeep.setContext(timekeep.getContext());
-        timekeep.setTotalTime(timekeep.getTotalTime());
-        Authentication auth1 = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth1.getPrincipal();
-        username = principal.getUsername();
+        timekeep.setSubject(getSubject);
+        timekeep.setContext(getContext);
+        timekeep.setTotalTime(getTotalTime);
+        username = loginUser.getUsername();
 
         addTimekeepservice.addTimekeep(timekeep);
         return "redirect:/mypage/" + username;
@@ -100,10 +93,9 @@ public class LoginCreateController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateItems(@ModelAttribute String username,
+                             @AuthenticationPrincipal LoginUser loginUser,
                              @ModelAttribute TimekeepUpdateReq timekeepUpdateReq) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth.getPrincipal();
-        username = principal.getUsername();
+        username = loginUser.getUsername();
 
         addTimekeepservice.update(timekeepUpdateReq);
 
@@ -111,10 +103,9 @@ public class LoginCreateController {
     }
 
     @RequestMapping("/delete")
-    public String deleteItem(@ModelAttribute TimekeepUpdateReq timekeepUpdateReq) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) auth.getPrincipal();
-        String username = principal.getUsername();
+    public String deleteItem(@ModelAttribute TimekeepUpdateReq timekeepUpdateReq,
+                             @AuthenticationPrincipal LoginUser loginUser) {
+        String username = loginUser.getUsername();
 
         int timeKeepId = timekeepUpdateReq.getTimeKeepId();
 
@@ -130,4 +121,21 @@ public class LoginCreateController {
 
     @Autowired
     TimekeepMapper timekeepMapper;
+
+    Timekeep timekeep;
+    LoginUser loginUser;
+
+    //LoginUserのgetter
+    String getMailAddress = loginUser.getMailAddress();
+    String getUserName = loginUser.getUsername();
+    String getPassWord = loginUser.getPassword();
+    String getRoleName = loginUser.getRoleName();
+
+    //Timekeepのgetter
+    int getTimeKeepId = timekeep.getTimeKeepId();
+    String getTimekeep_userName = timekeep.getUsername();
+    String getSubject = timekeep.getSubject();
+    String getContext = timekeep.getContext();
+    String getTotalTime = timekeep.getTotalTime();
+    String getWhatDate = timekeep.getWhatDate();
 }
